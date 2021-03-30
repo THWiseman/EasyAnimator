@@ -78,6 +78,12 @@ public interface Canvas {
   List<Shape> getAllShapes();
 
   /**
+   * Gets all the shapeID strings.
+   * @return List of strings that contains all shape IDs.
+   */
+  List<String> getAllShapeIDs();
+
+  /**
    * Will call the update(time) method on every shape in the list of shapes that the canvas has.
    * @param time Time that you wish to update the shapes to. In the standard program loop, this
    *             will usually equal incrementTime().

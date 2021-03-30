@@ -1,5 +1,6 @@
 package model;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -70,9 +71,9 @@ public class CanvasImpl implements Canvas {
 
   @Override
   public void setTime(int time) {
-    if (time < 0 || time > this.endTime) {
-      throw new IllegalArgumentException("Time must be 0 or greater" +
-              " and less than or equal to the end time.");
+    if (time < this.startTime || time > this.endTime) {
+      throw new IllegalArgumentException("Time must be >= start time (default 0)" +
+              " and <= or equal to the end time.");
     }
     this.currentTime = time;
   }
@@ -139,6 +140,15 @@ public class CanvasImpl implements Canvas {
   }
 
   @Override
+  public List<String> getAllShapeIDs() {
+    List<String> temp = new ArrayList<>();
+    for (String s : this.shapeIDs) {
+      temp.add(s);
+    }
+    return temp;
+  }
+
+  @Override
   public void updateShapes(int time) {
     for (Shape s : this.shapes) {
       s.update(this.currentTime);
@@ -164,7 +174,7 @@ public class CanvasImpl implements Canvas {
 
   @Override
   public boolean removeShape(String ID) {
-    if (ID.isEmpty() || ID == null) {
+    if (ID.isEmpty() || ID.equals(null)) {
       throw new IllegalArgumentException("ID cannot be empty or null");
     }
     for (String sample : this.shapeIDs) {
@@ -202,7 +212,7 @@ public class CanvasImpl implements Canvas {
     return (this.length == canvas.length && this.width == canvas.width && this.currentTime ==
             canvas.currentTime && this.startTime
             == canvas.startTime && this.endTime == canvas.endTime
-            && this.backgroundColor.equals(canvas.backgroundColor));
+            && Arrays.equals(this.backgroundColor,canvas.backgroundColor));
   }
 
   @Override
