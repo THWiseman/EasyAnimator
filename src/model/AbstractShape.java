@@ -7,7 +7,7 @@ package model;
  */
 public abstract class AbstractShape implements Shape {
 
-MasterPattern master;
+  MasterPattern master;
 
   @Override
   public int[] getPosition(int time) {
@@ -26,7 +26,7 @@ MasterPattern master;
 
   @Override
   public boolean getVisibility(int time) {
-    return master.getVisiblity(time);
+    return master.getVisibility(time);
   }
 
   @Override

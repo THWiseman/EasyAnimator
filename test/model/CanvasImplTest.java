@@ -4,9 +4,16 @@ import static org.junit.Assert.*;
 
 
 public class CanvasImplTest {
+  Canvas defaultCanvas;
+  Canvas small;
+  Canvas big;
 
   @org.junit.Before
   public void setUp(){
+    defaultCanvas = new CanvasImpl();
+    small = new CanvasImpl(1,1,5);
+    small.addShape(new Rectangle(5,5,new MasterPatternImpl()), "1");
+    big = new CanvasImpl(100,150,200);
   }
 
   @Test

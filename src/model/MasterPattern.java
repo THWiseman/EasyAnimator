@@ -8,7 +8,7 @@ public interface MasterPattern {
 
   int[] getSize(int time);
 
-  boolean getVisiblity(int time);
+  boolean getVisibility(int time);
 
   int getAppearTime();
 
