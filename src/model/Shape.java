@@ -57,5 +57,17 @@ public interface Shape {
    * @param master Pattern
    */
   void setMasterPattern(MasterPattern master);
+
+  /**
+   * Returns a copy of the MasterPattern that the shape is currently using.
+   * @return MasterPattern object that is a copy of the one the shape is using.
+   */
+  MasterPattern getMasterPatternCopy();
+
+  /**
+   * Returns a copy of the current Shape object.
+   * @return Shape that is a copy of the current shape object.
+   */
+  Shape copy();
 }
   
