@@ -3,26 +3,43 @@ package model;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.*;
-
 
 public class CanvasImplTest {
   Canvas defaultCanvas;
   Canvas small;
   Canvas big;
 
+  Shape rec1;
+  Shape rec2;
+  Shape ov1;
+  Shape ov2;
+  ColorPattern c1;
+  MovementPattern m1;
+  SizeChangePattern s1;
+  VisibilityPattern v1;
+
   @org.junit.Before
   public void setUp() {
+    c1 = new ColorPattern();
+    m1 = new MovementPattern();
+    s1 = new SizeChangePattern();
+    v1 = new VisibilityPattern();
+
+    rec1 = new Rectangle();
+    rec2 = new Rectangle(c1, m1, s1, v1);
+    ov1 = new Oval();
+    ov2 = new Oval(c1, m1, s1, v1);
+
     defaultCanvas = new CanvasImpl();
     small = new CanvasImpl(5);
-    small.addShape(new Rectangle(5, 5, new MasterPatternImpl()), "1");
+    small.addShape(rec1, "1");
     big = new CanvasImpl(200);
-    big.addShape(new Rectangle(5, 5, new MasterPatternImpl()), "1");
-    big.addShape(new Rectangle(5, 5, new MasterPatternImpl()), "2");
-    big.addShape(new Rectangle(5, 5, new MasterPatternImpl()), "3");
+    big.addShape(rec1, "1");
+    big.addShape(rec2, "2");
+    big.addShape(ov1, "3");
   }
 
   //need to test invalid start and end times
@@ -49,11 +66,6 @@ public class CanvasImplTest {
     assertEquals(true, emptyShapes.equals(defaultCanvas.getAllShapes()));
     assertEquals(true, emptyStrings.equals(defaultCanvas.getAllShapeIDs()));
 
-    //make shapes
-    Shape rec1 = new Rectangle(5, 6, new MasterPatternImpl());
-    Shape rec2 = new Rectangle(5, 6, new MasterPatternImpl());
-    Shape ov1 = new Oval(5, 6, new MasterPatternImpl());
-    Shape ov2 = new Oval(5, 6, new MasterPatternImpl());
 
     //add one shape and test
     defaultCanvas.addShape(rec1, "1");
@@ -91,10 +103,7 @@ public class CanvasImplTest {
   public void testAddAndRemoveShape() {
     List<Shape> emptyShapes = new ArrayList<>();
     List<String> emptyStrings = new ArrayList<>();
-    Shape rec1 = new Rectangle(5, 6, new MasterPatternImpl());
-    Shape rec2 = new Rectangle(5, 6, new MasterPatternImpl());
-    Shape ov1 = new Oval(5, 6, new MasterPatternImpl());
-    Shape ov2 = new Oval(5, 6, new MasterPatternImpl());
+
 
     //add one shape and test
     defaultCanvas.addShape(rec1, "1");
@@ -155,19 +164,18 @@ public class CanvasImplTest {
     //remove shape from empty list
     assertEquals(false, defaultCanvas.removeShape("1"));
 
-    //add shape with argument other than String and shape
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testRedundantID() {
     //add shape with  stringID that's already taken
-    small.addShape(new Rectangle(4, 4, new MasterPatternImpl()), "1");
+    small.addShape(rec1, "1");
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testNullID() {
     //add shape with null stringID
-    small.addShape(new Rectangle(4, 4, new MasterPatternImpl()), null);
+    small.addShape(rec2, null);
   }
 
   @Test(expected = NullPointerException.class)
@@ -184,7 +192,7 @@ public class CanvasImplTest {
     Canvas test2 = new CanvasImpl(100);
     Canvas test3 = new CanvasImpl(100);
     assertTrue(test1.equals(test2));
-    assertFalse(test1.equals(test3));
+    assertTrue(test1.equals(test3));
   }
 
 

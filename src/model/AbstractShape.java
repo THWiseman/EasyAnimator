@@ -1,9 +1,9 @@
 package model;
 
 /**
- * All shapes extend Abstract shape. By default, all shapes will simply query their patterns
- * for information about their position/size/color/visibility/timing, so those methods are
- * implemented here.
+ * All shapes extend Abstract shape. By default, all shapes will simply query their patterns for
+ * information about their position/size/color/visibility/timing, so those methods are implemented
+ * here.
  */
 public abstract class AbstractShape implements Shape {
 
@@ -47,7 +47,7 @@ public abstract class AbstractShape implements Shape {
 
   @Override
   public void setColorPattern(ColorPattern color) {
-    if(color==null) {
+    if (color == null) {
       throw new IllegalArgumentException("Pattern cannot be null.");
     }
     this.color = color;
@@ -60,7 +60,7 @@ public abstract class AbstractShape implements Shape {
 
   @Override
   public void setVisibilityPattern(VisibilityPattern visibility) {
-    if(visibility==null) {
+    if (visibility == null) {
       throw new IllegalArgumentException("Pattern cannot be null.");
     }
     this.visibility = visibility;
@@ -73,7 +73,7 @@ public abstract class AbstractShape implements Shape {
 
   @Override
   public void setSizeChangePattern(SizeChangePattern size) {
-    if(size==null) {
+    if (size == null) {
       throw new IllegalArgumentException("Pattern cannot be null.");
     }
     this.size = size;
@@ -86,7 +86,7 @@ public abstract class AbstractShape implements Shape {
 
   @Override
   public void setMovementPattern(MovementPattern move) {
-    if(move==null) {
+    if (move == null) {
       throw new IllegalArgumentException("Pattern cannot be null.");
     }
     this.move = move;
@@ -95,5 +95,15 @@ public abstract class AbstractShape implements Shape {
   @Override
   public MovementPattern getMovementPattern() {
     return this.move;
+  }
+
+  @Override
+  public String toString() {
+    String returnString = "Shape Object:\n";
+    returnString += this.getColorPattern().toString() + "\n";
+    returnString += this.getMovementPattern().toString() + "\n";
+    returnString += this.getSizeChangePattern().toString() + "\n";
+    returnString += this.getVisibilityPattern().toString() + "\n";
+    return returnString;
   }
 }

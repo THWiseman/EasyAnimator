@@ -5,6 +5,9 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+/**
+ * Test class for the Shape objects. Currently testing Rectangles and Ovals.
+ */
 public class ShapeTest {
   Shape rec1;
   Shape rec2;

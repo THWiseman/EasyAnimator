@@ -1,6 +1,6 @@
 package model;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -25,7 +25,7 @@ public class CanvasImpl implements Canvas {
   }
 
   /**
-   * Constructor for a default canvas. Sets length and width to 100, and sets the end time to 100.
+   * Constructor for a default canvas. Sets the end time to 100.
    */
   public CanvasImpl() {
     this.shapes = new ArrayList<>();
@@ -33,7 +33,6 @@ public class CanvasImpl implements Canvas {
     this.startTime = 0;
     this.endTime = 100;
   }
-
 
   @Override
   public int getStartTime() {
@@ -91,7 +90,6 @@ public class CanvasImpl implements Canvas {
     return temp;
   }
 
-
   @Override
   public void addShape(Shape s, String ID) {
     if (s == null || ID == null) {
@@ -128,7 +126,7 @@ public class CanvasImpl implements Canvas {
   @Override
   public Shape getShape(String ID) throws IllegalArgumentException {
     int index = this.shapeIDs.indexOf(ID);
-    if(index==-1) {
+    if (index == -1) {
       throw new IllegalArgumentException("Shape not found.");
     }
     return this.shapes.get(index);
@@ -139,6 +137,9 @@ public class CanvasImpl implements Canvas {
     String hashString = "";
     for (String s : this.shapeIDs) {
       hashString = hashString + s;
+    }
+    for (Shape s : this.shapes) {
+      hashString = hashString + s.toString();
     }
     return hashString.hashCode();
   }
@@ -158,19 +159,19 @@ public class CanvasImpl implements Canvas {
     if (!canvas.shapeIDs.equals(this.shapeIDs)) {
       return false;
     }
-    return ( this.startTime == canvas.startTime && this.endTime == canvas.endTime);
+    return (this.startTime == canvas.startTime && this.endTime == canvas.endTime);
   }
 
   @Override
   public String toString() {
-    String returnString = "";
+    String returnString = "Canvas object:\n";
     returnString = returnString
             + String.format("Start time: %d, end time: %d\n",
             this.startTime, this.endTime);
     returnString = returnString
             + String.format("There are %d shapes currently in the shape list:\n", this.shapes.size());
-    for(Shape s : this.shapes) {
-      returnString = returnString + s.toString() +"\n";
+    for (Shape s : this.shapes) {
+      returnString = returnString + s.toString() + "\n";
     }
     return returnString;
   }

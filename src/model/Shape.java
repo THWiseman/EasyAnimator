@@ -51,20 +51,60 @@ public interface Shape {
    */
   int getDisappearTime();
 
+  /**
+   * Changes the color pattern of the shape to the one provided.
+   *
+   * @param color ColorPattern object that you wish to replace the existing one with.
+   */
   void setColorPattern(ColorPattern color);
 
+  /**
+   * Returns the ColorPattern object that the current shape is using.
+   *
+   * @return ColorPattern object that the current shape is using.
+   */
   ColorPattern getColorPattern();
 
+  /**
+   * Changes the visibility pattern of the shape to the one provided.
+   *
+   * @param visibility VisibilityPattern Object that you wish to replace the existing one with.
+   */
   void setVisibilityPattern(VisibilityPattern visibility);
 
+  /**
+   * Getter for the shape's current visibility pattern.
+   *
+   * @return VisibilityPattern object that the current shape is using.
+   */
   VisibilityPattern getVisibilityPattern();
 
+  /**
+   * Sets the SizeChange pattern of the shape to the one provided.
+   *
+   * @param size SizePattern object that you wish to replace the existing one with.
+   */
   void setSizeChangePattern(SizeChangePattern size);
 
+  /**
+   * Getter for the shape's current sizeChange pattern.
+   *
+   * @return SizeChangePattern object that the current shape is using.
+   */
   SizeChangePattern getSizeChangePattern();
 
+  /**
+   * Sets the movement pattern of the shape to the one provided.
+   *
+   * @param move MovementPattern object that you wish to replace the existing one with.
+   */
   void setMovementPattern(MovementPattern move);
 
+  /**
+   * Getter for the shape's current movement pattern.
+   *
+   * @return MovementPatternObject that the current shape is using.
+   */
   MovementPattern getMovementPattern();
 
   /**

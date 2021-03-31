@@ -9,7 +9,6 @@ public class Rectangle extends AbstractShape {
   private SizeChangePattern size;
   private VisibilityPattern visibility;
 
-
   /**
    * No argument constructor for a Rectangle object. Creates a rectangle with default patterns.
    * Refer to pattern documentation to see how each default pattern is created.
@@ -22,7 +21,7 @@ public class Rectangle extends AbstractShape {
   }
 
   /**
-   * Constructor for a rectangle where each pattern is provided as an argument. Overwrites the
+   * Constructor for a rectangle where each pattern is provided as an argument, rather than using
    * default patterns.
    *
    * @param move       MovementPattern that will replace the default one.
@@ -30,7 +29,7 @@ public class Rectangle extends AbstractShape {
    * @param visibility VisiblityPattern that will replace the default one.
    * @param color      ColorPattern that will replace the default one.
    */
-  public Rectangle( ColorPattern color, MovementPattern move, SizeChangePattern size,
+  public Rectangle(ColorPattern color, MovementPattern move, SizeChangePattern size,
                    VisibilityPattern visibility) {
     this.color = color;
     this.move = move;
@@ -41,7 +40,7 @@ public class Rectangle extends AbstractShape {
 
   @Override
   public Rectangle copy() {
-    return new Rectangle(this.color,this.move, this.size, this.visibility);
+    return new Rectangle(this.color, this.move, this.size, this.visibility);
   }
 
 }
