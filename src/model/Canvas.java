@@ -9,45 +9,14 @@ import java.util.List;
 public interface Canvas {
 
   /**
-   * Sets the color of the background. RGB is an array with 3 elements where each element
-   * is a value from 0 to 255 representing red, green, or blue values.
-   * @param RGB Int array with red, green, and blue values.
-   */
-  void setBackgroundColor(int[] RGB);
-
-  /**
-   * Returns a 3 element array that corresponds to the RGB value of the background color.
-   * @return Background RGB values in a 3 element array.
-   */
-  int[] getBackgroundColor();
-
-  /**
-   * Sets the current time in the canvas.
-   * @param time Integer value that represents the current time. Must be greater than zero
-   *             and less than the end time of the canvas.
-   */
-  void setTime(int time);
-
-  /**
-   * Increments the time by one.
-   * @return Integer of the current time (after it was incremented).
-   */
-  int incrementTime();
-
-  /**
-   * Returns the current time of the canvas.
-   * @return Integer of the current time.
-   */
-  int getTime();
-
-  /**
    * Returns the start time of the animation. By default, this value will be zero.
    * @return the start time of the animation.
    */
   int getStartTime();
 
   /**
-   * Sets the start time of the animation.
+   * Sets the start time of the animation. When a Canvas is first created, it will have a default
+   * start time of zero.
    * @param time Integer of the time that you wish the animation to begin.
    */
   void setStartTime(int time);
@@ -72,7 +41,7 @@ public interface Canvas {
   List<Shape> getShapesAtTime(int time);
 
   /**
-   * Returns a copy of the list of every shape present in the current canvas.
+   * Returns a copy of the list of every shape present in the current canvas, independent of time.
    * @return A list of every shape in the current animation.
    */
   List<Shape> getAllShapes();
@@ -82,13 +51,6 @@ public interface Canvas {
    * @return List of strings that contains all shape IDs.
    */
   List<String> getAllShapeIDs();
-
-  /**
-   * Will call the update(time) method on every shape in the list of shapes that the canvas has.
-   * @param time Time that you wish to update the shapes to. In the standard program loop, this
-   *             will usually equal incrementTime().
-   */
-  void updateShapes(int time);
 
   /**
    * Adds a shape to the list of shapes that the canvas has.
@@ -103,4 +65,11 @@ public interface Canvas {
    * @return Tue if a shape was successfully removed, false otherwise.
    */
   boolean removeShape(String ID);
+
+  /**
+   * Returns the shape that matches the string provided. NOT a copy.
+   * @param ID String of the stringID that was used in the addShape method.
+   * @return Shape object that matches the ID.
+   */
+  Shape getShape(String ID);
 }

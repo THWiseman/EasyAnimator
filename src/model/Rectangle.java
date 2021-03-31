@@ -4,53 +4,44 @@ package model;
  * A rectangle is a 2D shape that has a length and width.
  */
 public class Rectangle extends AbstractShape {
-  private int length;
-  private int width;
-  private int[] bottomLeft;
-  private int[] color;
-  private MasterPattern master;
-  private boolean isVisible;
+  private ColorPattern color;
+  private MovementPattern move;
+  private SizeChangePattern size;
+  private VisibilityPattern visibility;
+
 
   /**
-   * Constructor for a Rectangle object. Sets the rectangle to default values which wont be changed
-   * until the update() method is called on this object. By default, the bottom left corner is at
-   * {0,0}, it is not visible, and the color is black {0,0,0}.
-   *
-   * @param length integer of the length of the rectangle.
-   * @param width  integer of the width of the rectangle.
-   * @param master MasterPattern that contains the various attribute modifiers for the rectangle.
+   * No argument constructor for a Rectangle object. Creates a rectangle with default patterns.
+   * Refer to pattern documentation to see how each default pattern is created.
    */
-  public Rectangle(int length, int width, MasterPattern master) {
-    if (length < 1 || width < 1) {
-      throw new IllegalArgumentException("Length and Width must be one or greater.");
-    }
-    if (master == null) {
-      throw new IllegalArgumentException("MasterPattern cannot be null");
-    }
-    this.master = master;
-    this.length = length;
-    this.width = width;
-    this.bottomLeft = new int[]{0, 0};
-    this.isVisible = false;
-    this.color = new int[]{0, 0, 0};
+  public Rectangle() {
+    this.move = new MovementPattern();
+    this.size = new SizeChangePattern();
+    this.visibility = new VisibilityPattern();
+    this.color = new ColorPattern();
   }
 
-  @Override
-  public void update(int time) {
-    this.length = master.getSize(time)[0];
-    this.width = master.getSize(time)[1];
-    this.bottomLeft = master.getPosition(time);
-    this.color = master.getColor(time);
-    this.isVisible = master.getVisibility(time);
+  /**
+   * Constructor for a rectangle where each pattern is provided as an argument. Overwrites the
+   * default patterns.
+   *
+   * @param move       MovementPattern that will replace the default one.
+   * @param size       SizeChangePattern that will replace the default one.
+   * @param visibility VisiblityPattern that will replace the default one.
+   * @param color      ColorPattern that will replace the default one.
+   */
+  public Rectangle( ColorPattern color, MovementPattern move, SizeChangePattern size,
+                   VisibilityPattern visibility) {
+    this.color = color;
+    this.move = move;
+    this.size = size;
+    this.visibility = visibility;
   }
+
 
   @Override
   public Rectangle copy() {
-    Rectangle copy = new Rectangle(this.length, this.width, this.master);
-    copy.bottomLeft = this.bottomLeft;
-    copy.color = this.color;
-    copy.isVisible = this.isVisible;
-    return copy;
+    return new Rectangle(this.color,this.move, this.size, this.visibility);
   }
 
 }

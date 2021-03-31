@@ -38,13 +38,6 @@ public interface Shape {
   boolean getVisibility(int time);
 
   /**
-   * Mutates the shapes internal attributes to match the correct state given the provided time.
-   *
-   * @param time Integer of the time you wish to change the state of the shape to.
-   */
-  void update(int time);
-
-  /**
    * Returns the time that the shape will become visible.
    *
    * @return Integer of the time the shape will become visible.
@@ -58,19 +51,21 @@ public interface Shape {
    */
   int getDisappearTime();
 
-  /**
-   * Changes the default MasterPattern of the shape to the provided one.
-   *
-   * @param master Pattern
-   */
-  void setMasterPattern(MasterPattern master);
+  void setColorPattern(ColorPattern color);
 
-  /**
-   * Returns a copy of the MasterPattern that the shape is currently using.
-   *
-   * @return MasterPattern object that is a copy of the one the shape is using.
-   */
-  MasterPattern getMasterPatternCopy();
+  ColorPattern getColorPattern();
+
+  void setVisibilityPattern(VisibilityPattern visibility);
+
+  VisibilityPattern getVisibilityPattern();
+
+  void setSizeChangePattern(SizeChangePattern size);
+
+  SizeChangePattern getSizeChangePattern();
+
+  void setMovementPattern(MovementPattern move);
+
+  MovementPattern getMovementPattern();
 
   /**
    * Returns a copy of the current Shape object.
