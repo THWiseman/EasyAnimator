@@ -1,11 +1,13 @@
 package model;
 
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
 
 public class CanvasImplTest {
   Canvas defaultCanvas;
@@ -21,7 +23,7 @@ public class CanvasImplTest {
   SizeChangePattern s1;
   VisibilityPattern v1;
 
-  @org.junit.Before
+  @Before
   public void setUp() {
     c1 = new ColorPattern();
     m1 = new MovementPattern();

@@ -1,3 +1,4 @@
+
 package model;
 
 /**
@@ -114,4 +115,3 @@ public interface Shape {
    */
   Shape copy();
 }
-  

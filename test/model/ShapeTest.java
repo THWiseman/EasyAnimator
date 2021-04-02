@@ -3,15 +3,13 @@ package model;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 /**
  * Test class for the Shape objects. Currently testing Rectangles and Ovals.
  */
 public class ShapeTest {
   Shape rec1;
   Shape rec2;
-  Shape ov1;
+  Oval ov1;
   Shape ov2;
 
   ColorPattern c1 = new ColorPattern();
