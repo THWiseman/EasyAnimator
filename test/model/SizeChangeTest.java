@@ -38,4 +38,27 @@ public class SizeChangeTest {
     assertEquals(60, pattern1.getSize(75)[1]);
   }
 
+  @Test
+  public void testSecondChange() {
+    pattern1.change(10,20,40,60);
+    pattern1.change(50,70,20,30);
+
+    assertEquals(40, pattern1.getSize(20)[0]);
+    assertEquals(20, pattern1.getSize(10)[0]);
+    assertEquals(30, pattern1.getSize(10)[1]);
+    assertEquals(60, pattern1.getSize(20)[1]);
+
+    assertEquals(30, pattern1.getSize(15)[0]);
+    assertEquals(45, pattern1.getSize(15)[1]);
+
+    assertEquals(20, pattern1.getSize(70)[0]);
+    assertEquals(40, pattern1.getSize(50)[0]);
+    assertEquals(30, pattern1.getSize(70)[1]);
+    assertEquals(60, pattern1.getSize(50)[1]);
+
+    assertEquals(30, pattern1.getSize(60)[0]);
+    assertEquals(45, pattern1.getSize(60)[1]);
+
+  }
+
 }

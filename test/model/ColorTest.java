@@ -43,4 +43,32 @@ public class ColorTest {
     assertEquals(80, pattern1.getColor(75)[2]);
   }
 
+  @Test
+  public void testSecondChange() {
+    pattern1.change(10,20,40,60, 80);
+    pattern1.change(50,70,20,20, 20);
+
+    assertEquals(40, pattern1.getColor(20)[0]);
+    assertEquals(20, pattern1.getColor(10)[0]);
+    assertEquals(20, pattern1.getColor(10)[1]);
+    assertEquals(60, pattern1.getColor(20)[1]);
+    assertEquals(20, pattern1.getColor(10)[2]);
+    assertEquals(80, pattern1.getColor(20)[2]);
+
+
+    assertEquals(30, pattern1.getColor(15)[0]);
+    assertEquals(40, pattern1.getColor(15)[1]);
+    assertEquals(50, pattern1.getColor(15)[2]);
+
+    assertEquals(40, pattern1.getColor(50)[0]);
+    assertEquals(20, pattern1.getColor(70)[0]);
+    assertEquals(60, pattern1.getColor(50)[1]);
+    assertEquals(20, pattern1.getColor(70)[1]);
+    assertEquals(80, pattern1.getColor(50)[2]);
+    assertEquals(20, pattern1.getColor(70)[2]);
+
+    assertEquals(30, pattern1.getColor(60)[0]);
+    assertEquals(40, pattern1.getColor(60)[1]);
+    assertEquals(50, pattern1.getColor(60)[2]);
+  }
 }

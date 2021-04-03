@@ -29,8 +29,8 @@ public class SizeChangePattern {
 
   public void change(Integer frame1, Integer frame2, Integer newLength, Integer newWidth) {
     int time = frame2 - frame1;
-    double changeDifferenceL = newLength - originalLength;
-    double changeDifferenceW = newWidth - originalWidth;
+    double changeDifferenceL = newLength - this.pattern.get(frame1)[0];
+    double changeDifferenceW = newWidth - this.pattern.get(frame1)[1];
 
     double incrementL = changeDifferenceL / time;
     double incrementW = changeDifferenceW / time;

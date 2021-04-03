@@ -35,4 +35,13 @@ public class VisibilityTest {
     assertFalse(pattern2.getVisibility(55));
   }
 
+  @Test
+  public void testSecondChange() {
+    pattern1.change(20, true);
+    pattern1.change(50,false);
+    assertFalse(pattern1.getVisibility(10));
+    assertTrue(pattern1.getVisibility(25));
+    assertFalse(pattern1.getVisibility(60));
+  }
+
 }

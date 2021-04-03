@@ -30,8 +30,8 @@ public class MovementPattern {
 
   public void change(Integer frame1, Integer frame2, Integer newX, Integer newY) {
     int time = frame2 - frame1;
-    double changeDifferenceX = newX - originalX;
-    double changeDifferenceY = newY - originalY;
+    double changeDifferenceX = newX - this.pattern.get(frame1)[0];
+    double changeDifferenceY = newY - this.pattern.get(frame1)[1];
 
     double incrementX = changeDifferenceX / time;
     double incrementY = changeDifferenceY / time;

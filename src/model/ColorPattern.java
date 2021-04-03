@@ -32,9 +32,9 @@ public class ColorPattern {
 
   public void change(Integer frame1, Integer frame2, Integer newR, Integer newG, Integer newB) {
     int time = frame2 - frame1;
-    double changeDifferenceR = newR - originalR;
-    double changeDifferenceG = newG - originalG;
-    double changeDifferenceB = newB - originalB;
+    double changeDifferenceR = newR - this.pattern.get(frame1)[0];
+    double changeDifferenceG = newG - this.pattern.get(frame1)[1];
+    double changeDifferenceB = newB - this.pattern.get(frame1)[2];
 
     double incrementR = changeDifferenceR / time;
     double incrementG = changeDifferenceG / time;
@@ -48,7 +48,7 @@ public class ColorPattern {
 
       Integer[] updatedFrame = new Integer[] {
           (int) (pattern.get(i)[0] + changeFactorR), (int) (pattern.get(i)[1] + changeFactorG),
-          (int) (pattern.get(i)[1] + changeFactorB) };
+          (int) (pattern.get(i)[2] + changeFactorB) };
       this.pattern.replace(i, updatedFrame);
     }
 
