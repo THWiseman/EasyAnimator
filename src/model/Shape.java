@@ -43,20 +43,7 @@ public interface Shape {
    *
    * @return Integer of the time the shape will become visible.
    */
-  int getAppearTime();
 
-  /**
-   * Returns the time that the shape will become invisible.
-   *
-   * @return Integer of the time the shape will become invisible.
-   */
-  int getDisappearTime();
-
-  /**
-   * Changes the color pattern of the shape to the one provided.
-   *
-   * @param color ColorPattern object that you wish to replace the existing one with.
-   */
   void setColorPattern(ColorPattern color);
 
   /**

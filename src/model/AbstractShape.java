@@ -32,15 +32,6 @@ public abstract class AbstractShape implements Shape {
     return visibility.getVisibility(time);
   }
 
-  @Override
-  public int getAppearTime() {
-    return visibility.getAppearTime();
-  }
-
-  @Override
-  public int getDisappearTime() {
-    return visibility.getDisappearTime();
-  }
 
   @Override
   public abstract Shape copy();
