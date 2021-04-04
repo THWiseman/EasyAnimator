@@ -8,6 +8,8 @@ import java.util.Map;
  */
 public class VisibilityPattern {
   private Map<Integer, Boolean> pattern = new HashMap<>();
+  //Visibility is most simply stored as a Boolean. A shape is either visible, or not. If necessary,
+  //opacity could be handled by the view or by the Color pattern.
   private int endTime;
   /**
    * Constructs a new visibility pattern.

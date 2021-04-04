@@ -8,6 +8,9 @@ import java.util.Map;
  */
 public class SizeChangePattern {
   private Map<Integer, Integer[]> pattern = new HashMap<>();
+  //since we're only using ovals and rectangles, an array of length and width values mapped to time
+  //is sufficient to calculate everything else about them. More complex shapes would require
+  //different types of SizeChangePatterns.
   private int endTime;
 
   /**

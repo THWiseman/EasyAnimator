@@ -8,9 +8,10 @@ import java.util.List;
  * This is the standard implementation of the Canvas interface.
  */
 public class CanvasImpl implements Canvas {
-  private List<Shape> shapes;
+  private List<Shape> shapes; //List of Shape and Strings provide fast access
+  // to the shapes as needed.
   private List<String> shapeIDs;
-  private int startTime;
+  private int startTime; //time is best stored as an integer for simplicity.
   private int endTime;
 
   /**

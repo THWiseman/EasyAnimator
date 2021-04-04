@@ -7,7 +7,8 @@ package model;
  */
 public abstract class AbstractShape implements Shape {
 
-  ColorPattern color;
+  ColorPattern color; //decided to store all shape attributes inside of a different class to have
+  //both flexibility in how they are calculated and stored, and portability between shapes.
   MovementPattern move;
   SizeChangePattern size;
   VisibilityPattern visibility;

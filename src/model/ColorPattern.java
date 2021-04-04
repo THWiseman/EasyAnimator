@@ -8,6 +8,9 @@ import java.util.Map;
  */
 public class ColorPattern {
   private Map<Integer, Integer[]> pattern = new HashMap<>();
+  //color is best stored in an array that can hold values for R,G, and B.
+  //It is mapped to an Integer for time to be consistent with the other patterns, although
+  //we could have easily used a 4th field in the array instead.
   private int endTime;
 
   /**

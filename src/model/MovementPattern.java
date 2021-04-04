@@ -8,6 +8,8 @@ import java.util.Map;
  */
 public class MovementPattern {
   private Map<Integer, Integer[]> pattern = new HashMap<>();
+  //position is most simply stored as an array with X and Y coordinates. It is mapped to integer
+  //for time with a hashmap.
   private int endTime;
 
   /**
