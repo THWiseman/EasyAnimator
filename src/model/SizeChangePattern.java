@@ -88,8 +88,11 @@ public class SizeChangePattern {
     if (time > this.endTime || time < 0) {
       throw new IllegalArgumentException("Chosen frame must be between 0 and 100");
     }
-
-    return new int[] {pattern.get(time)[0], pattern.get(time)[1]};
+  try {
+    return new int[]{pattern.get(time)[0], pattern.get(time)[1]};
+  } catch (NullPointerException e) {
+    throw new IndexOutOfBoundsException("No Size stored for provided time");
+  }
   }
 
   public String toString() {
