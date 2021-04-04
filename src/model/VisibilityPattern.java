@@ -8,12 +8,13 @@ import java.util.Map;
  */
 public class VisibilityPattern {
   private Map<Integer, Boolean> pattern = new HashMap<>();
-
+  private int endTime;
   /**
    * Constructs a new visibility pattern.
    */
   public VisibilityPattern() {
-    for (int i = 1; i < 101; i++) {
+    this.endTime = 100;
+    for (int i = 0; i <= this.endTime; i++) {
       this.pattern.put(i, false);
     }
   }
@@ -23,7 +24,8 @@ public class VisibilityPattern {
    * @param visible whether the shape is visible or not in this VisibilityPattern.
    */
   public VisibilityPattern(boolean visible) {
-    for (int i = 1; i < 101; i++) {
+    this.endTime = 100;
+    for (int i = 0; i <= this.endTime; i++) {
       this.pattern.put(i, visible);
     }
   }
@@ -35,11 +37,11 @@ public class VisibilityPattern {
    * @param isVisible the value to be stored in the frame, and all subsequent frames.
    */
   public void change(Integer frame, boolean isVisible) {
-    if (frame > 100 || frame < 0) {
+    if (frame > this.endTime || frame < 0) {
       throw new IllegalArgumentException("Chosen frame must be between 0 and 100");
     }
-    for (int i = frame; i < 101; i++) {
-      this.pattern.replace(i, isVisible);
+    for (int i = frame; i <= this.endTime; i++) {
+      this.pattern.put(i, isVisible);
     }
   }
 
@@ -48,17 +50,22 @@ public class VisibilityPattern {
    * @param time the frame that the visibility is being pulled from.
    * @return the visibility of the shape at the given frame.
    */
-  public boolean getVisibility(Integer time) {
-    if (time > 100 || time < 0) {
+  public boolean getVisibility(int time) {
+    if (time > this.endTime || time < 0) {
       throw new IllegalArgumentException("Chosen frame must be between 0 and 100");
     }
-    return pattern.get(time);
+    //if a time is not found in the map, assume that the shape is not visible.
+    try {
+      return pattern.get(time);
+    } catch (NullPointerException e) {
+     return false;
+    }
   }
 
 
   public String toString() {
     String str = "";
-    for (int i = 1; i < 101; i++) {
+    for (int i = 0; i <= this.endTime; i++) {
       str += "\n" + "Frame: " + i + ", is visible: " + pattern.get(i);
     }
     return str.substring(1);

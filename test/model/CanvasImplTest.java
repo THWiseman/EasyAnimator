@@ -44,7 +44,26 @@ public class CanvasImplTest {
     big.addShape(ov1, "3");
   }
 
-  //need to test invalid start and end times
+  @Test (expected = IllegalArgumentException.class)
+  public void testInvalidStartTime() {
+    small.setStartTime(-1);
+  }
+
+  @Test (expected = IllegalArgumentException.class)
+  public void testInvalidStartTime2() {
+    small.setStartTime(101);
+  }
+
+  @Test (expected = IllegalArgumentException.class)
+  public void testInvalidEndTime() {
+    small.setEndTime(-1);
+  }
+
+  @Test (expected = IllegalArgumentException.class)
+  public void testInvalidEndTime2() {
+    small.setEndTime(0);
+  }
+
   @Test
   public void testGetStartAndEndTime() {
     assertEquals(0, defaultCanvas.getStartTime());
@@ -91,13 +110,29 @@ public class CanvasImplTest {
   }
 
   @Test
-  public void testGetShapesAtTime() { //waiting on Pattern Implementation.
+  public void testGetShapesAtTime() {
+    //shapes with v1 will be invisible until time 50, then they will be visible until time 100.
+    v1.change(50,true);
+    VisibilityPattern v2 = new VisibilityPattern();
+    v2.change(75,true);
+    Shape testRec = new Rectangle(c1,m1,s1,v1);
+    Shape testOv = new Oval(c1,m1,s1,v2);
+    defaultCanvas.addShape(testRec,"1");
+    List<Shape> emptyList = new ArrayList<>();
+    List<Shape> shapeList = new ArrayList<>();
+    shapeList.add(testRec);
     //test before and after shape disappears
-    //test before and after shape added
-    //test before and after shape removed
-    //test at time0
-    //test at endTIme
-    //test at modified start time
+    assertEquals(emptyList,defaultCanvas.getShapesAtTime(25));
+    assertEquals(shapeList,defaultCanvas.getShapesAtTime(61));
+
+    //add oval and test again
+    defaultCanvas.addShape(testOv,"2");
+    assertEquals(emptyList,defaultCanvas.getShapesAtTime(0)); //start time
+    assertEquals(emptyList,defaultCanvas.getShapesAtTime(25));
+    assertEquals(shapeList,defaultCanvas.getShapesAtTime(62));
+    shapeList.add(testOv);
+    assertEquals(shapeList,defaultCanvas.getShapesAtTime(75));
+    assertEquals(shapeList,defaultCanvas.getShapesAtTime(100)); //end time
   }
 
 
@@ -105,7 +140,6 @@ public class CanvasImplTest {
   public void testAddAndRemoveShape() {
     List<Shape> emptyShapes = new ArrayList<>();
     List<String> emptyStrings = new ArrayList<>();
-
 
     //add one shape and test
     defaultCanvas.addShape(rec1, "1");
@@ -197,5 +231,12 @@ public class CanvasImplTest {
     assertTrue(test1.equals(test3));
   }
 
+  @Test
+  public void testGetShape() {
+    assertEquals(rec1,small.getShape("1"));
+    assertEquals(rec1, big.getShape("1"));
+    assertEquals(rec2, big.getShape("2"));
+    assertEquals(ov1, big.getShape("3"));
+  }
 
 }

@@ -32,7 +32,6 @@ public abstract class AbstractShape implements Shape {
     return visibility.getVisibility(time);
   }
 
-
   @Override
   public abstract Shape copy();
 
@@ -88,13 +87,5 @@ public abstract class AbstractShape implements Shape {
     return this.move;
   }
 
-  @Override
-  public String toString() {
-    String returnString = "Shape Object:\n";
-    returnString += this.getColorPattern().toString() + "\n";
-    returnString += this.getMovementPattern().toString() + "\n";
-    returnString += this.getSizeChangePattern().toString() + "\n";
-    returnString += this.getVisibilityPattern().toString() + "\n";
-    return returnString;
-  }
+
 }

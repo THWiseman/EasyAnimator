@@ -119,7 +119,8 @@ public class MovementTest {
 
   @Test
   public void testToString() {
-    assertEquals("Frame: 1, X: 20, Y: 30\n"
+    assertEquals("Frame: 0, X: 20, Y: 30\n"
+            +"Frame: 1, X: 20, Y: 30\n"
         + "Frame: 2, X: 20, Y: 30\n"
         + "Frame: 3, X: 20, Y: 30\n"
         + "Frame: 4, X: 20, Y: 30\n"

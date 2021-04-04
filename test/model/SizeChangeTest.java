@@ -119,7 +119,8 @@ public class SizeChangeTest {
 
   @Test
   public void testToString() {
-    assertEquals("Frame: 1, Length: 20, Width: 30\n"
+    assertEquals("Frame: 0, Length: 20, Width: 30\n"
+            +"Frame: 1, Length: 20, Width: 30\n"
         + "Frame: 2, Length: 20, Width: 30\n"
         + "Frame: 3, Length: 20, Width: 30\n"
         + "Frame: 4, Length: 20, Width: 30\n"

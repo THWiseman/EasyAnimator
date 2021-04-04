@@ -8,12 +8,14 @@ import java.util.Map;
  */
 public class MovementPattern {
   private Map<Integer, Integer[]> pattern = new HashMap<>();
+  private int endTime;
 
   /**
    * Constructs a new MovementPattern
    */
   public MovementPattern() {
-    for (int i = 1; i < 101; i++) {
+    this.endTime = 100;
+    for (int i = 0; i <= this.endTime; i++) {
       this.pattern.put(i, new Integer[] {50, 50});
     }
   }
@@ -27,7 +29,8 @@ public class MovementPattern {
     if (X > 1000 || X <= 0 || Y > 1000 || Y <= 0) {
       throw new IllegalArgumentException("Length and width must be between 0 and 100");
     }
-    for (int i = 1; i < 101; i++) {
+    this.endTime = 100;
+    for (int i = 0; i <= this.endTime; i++) {
       this.pattern.put(i, new Integer[] {X, Y});
     }
   }
@@ -37,14 +40,14 @@ public class MovementPattern {
    * starting at frame1 and ending at frame2. Changes MUST be implemented in order.
    * @param frame1 the frame at which the change begins.
    * @param frame2 the frame at which the change is over.
-   * @param newY the x coordinate of the shape after the change is over.
+   * @param newX the x coordinate of the shape after the change is over.
    * @param newY the y coordinate of the shape after the change is over.
    */
   public void change(Integer frame1, Integer frame2, Integer newX, Integer newY) {
     if (newX > 1000 || newX <= 0 || newY > 1000 || newY <= 0) {
       throw new IllegalArgumentException("Length and width must be between 0 and 100");
     }
-    if (frame1 > 100 || frame1 < 0 || frame2 > 100 || frame2 < 0) {
+    if (frame1 > this.endTime || frame1 < 0 || frame2 > this.endTime || frame2 < 0) {
       throw new IllegalArgumentException("Start and end times must be between 0 and 100");
     }
     if (frame1 > frame2) {
@@ -70,7 +73,7 @@ public class MovementPattern {
       this.pattern.replace(i, updatedFrame);
     }
 
-    for (int i = frame2; i < 101; i++) {
+    for (int i = frame2; i <= this.endTime; i++) {
       this.pattern.replace(i, new Integer[] {newX, newY});
     }
   }
@@ -81,15 +84,19 @@ public class MovementPattern {
    * @return the coordinates of the given frame.
    */
   public int[] getPosition(Integer time) {
-    if (time > 100 || time < 0) {
+    if (time > this.endTime || time < 0) {
       throw new IllegalArgumentException("Chosen frame must be between 0 and 100");
     }
-    return new int[] {pattern.get(time)[0], pattern.get(time)[1]};
+    try {
+      return new int[]{pattern.get(time)[0], pattern.get(time)[1]};
+    } catch (NullPointerException e) {
+      throw new IndexOutOfBoundsException("No position found for given time.");
+    }
   }
 
-  public String toString() {
+    public String toString() {
     String str = "";
-    for (int i = 1; i < 101; i++) {
+    for (int i = 0; i <= this.endTime; i++) {
       str += "\n" + "Frame: " + i + ", X: " + pattern.get(i)[0] + ", Y: " +
           pattern.get(i)[1];
     }

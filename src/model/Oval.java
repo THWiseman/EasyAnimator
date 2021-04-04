@@ -4,11 +4,6 @@ package model;
  * An oval is a 2d shape with rounded edges defined by a length and width.
  */
 public class Oval extends AbstractShape {
-  private ColorPattern color;
-  private MovementPattern move;
-  private SizeChangePattern size;
-  private VisibilityPattern visibility;
-
 
   /**
    * No argument constructor for a Oval object. Creates an oval with default patterns.
@@ -43,4 +38,8 @@ public class Oval extends AbstractShape {
     return new Oval(this.color, this.move, this.size, this.visibility);
   }
 
+  @Override
+  public String toString() {
+    return "Oval Object";
+  }
 }

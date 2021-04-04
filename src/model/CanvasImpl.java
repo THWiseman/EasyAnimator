@@ -144,7 +144,7 @@ public class CanvasImpl implements Canvas {
     }
     return hashString.hashCode();
   }
- /**
+
   @Override
   public boolean equals(Object other) {
     if (this == other) {
@@ -162,7 +162,7 @@ public class CanvasImpl implements Canvas {
     }
     return (this.startTime == canvas.startTime && this.endTime == canvas.endTime);
   }
-  **/
+
 
   @Override
   public String toString() {

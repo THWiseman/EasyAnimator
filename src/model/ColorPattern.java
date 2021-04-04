@@ -8,12 +8,14 @@ import java.util.Map;
  */
 public class ColorPattern {
   private Map<Integer, Integer[]> pattern = new HashMap<>();
+  private int endTime;
 
   /**
    * Constructs a new ColorPattern.
    */
   public ColorPattern() {
-    for (int i = 1; i < 101; i++) {
+    this.endTime = 100;
+    for (int i = 0; i <= endTime; i++) {
       this.pattern.put(i, new Integer[] {0, 0, 0});
     }
   }
@@ -28,7 +30,8 @@ public class ColorPattern {
     if (R > 255 || R < 0 || G > 255 || G < 0 || B < 0 || B > 255 ) {
       throw new IllegalArgumentException("Length and width must be between 0 and 100");
     }
-    for (int i = 1; i < 101; i++) {
+    this.endTime = 100;
+    for (int i = 0; i <= endTime; i++) {
       this.pattern.put(i, new Integer[] {R, G, B});
     }
   }
@@ -46,7 +49,7 @@ public class ColorPattern {
     if (newR > 255 || newR < 0 || newG > 255 || newG < 0 || newB < 0 || newB > 255 ) {
       throw new IllegalArgumentException("Length and width must be between 0 and 100");
     }
-    if (frame1 > 100 || frame1 < 0 || frame2 > 100 || frame2 < 0) {
+    if (frame1 > this.endTime || frame1 < 0 || frame2 > this.endTime || frame2 < 0) {
       throw new IllegalArgumentException("Start and end times must be between 0 and 100");
     }
     if (frame1 > frame2) {
@@ -74,7 +77,7 @@ public class ColorPattern {
       this.pattern.replace(i, updatedFrame);
     }
 
-    for (int i = frame2; i < 101; i++) {
+    for (int i = frame2; i <= this.endTime; i++) {
       this.pattern.replace(i, new Integer[] {newR, newG, newB});
     }
   }
@@ -85,15 +88,19 @@ public class ColorPattern {
    * @return the RGB color values of the given frame.
    */
   public int[] getColor(Integer time) {
-    if (time > 100 || time < 0) {
+    if (time > this.endTime || time < 0) {
       throw new IllegalArgumentException("Chosen frame must be between 0 and 100");
     }
-    return new int[] {pattern.get(time)[0], pattern.get(time)[1], pattern.get(time)[2]};
+    try {
+      return new int[]{pattern.get(time)[0], pattern.get(time)[1], pattern.get(time)[2]};
+    } catch (NullPointerException e) {
+      throw new IndexOutOfBoundsException("Color not found at specified time");
+    }
   }
 
   public String toString() {
     String str = "";
-    for (int i = 1; i < 101; i++) {
+    for (int i = 0; i <= this.endTime; i++) {
       str += "\n" + "Frame: " + i + ", R: " + pattern.get(i)[0] + ", G: " + pattern.get(i)[1] +
           ", B: " + pattern.get(i)[2];
     }

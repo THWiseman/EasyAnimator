@@ -54,7 +54,7 @@ public class VisibilityTest {
 
   @Test
   public void testToString() {
-    assertEquals("Frame: 1, is visible: false\n"
+    assertEquals("Frame: 0, is visible: false\n" +"Frame: 1, is visible: false\n"
         + "Frame: 2, is visible: false\n"
         + "Frame: 3, is visible: false\n"
         + "Frame: 4, is visible: false\n"

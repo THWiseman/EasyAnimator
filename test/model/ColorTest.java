@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Test class for the SizeChangePattern class.
+ * Test class for the ColorPattern class.
  */
 public class ColorTest {
   ColorPattern pattern1;
@@ -131,7 +131,8 @@ public class ColorTest {
 
   @Test
   public void testToString() {
-    assertEquals("Frame: 1, R: 20, G: 20, B: 20\n"
+    assertEquals("Frame: 0, R: 20, G: 20, B: 20\n"
+            +"Frame: 1, R: 20, G: 20, B: 20\n"
         + "Frame: 2, R: 20, G: 20, B: 20\n"
         + "Frame: 3, R: 20, G: 20, B: 20\n"
         + "Frame: 4, R: 20, G: 20, B: 20\n"

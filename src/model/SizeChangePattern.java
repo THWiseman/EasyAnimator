@@ -8,12 +8,14 @@ import java.util.Map;
  */
 public class SizeChangePattern {
   private Map<Integer, Integer[]> pattern = new HashMap<>();
+  private int endTime;
 
   /**
    * Constructs a new SizeChangePattern.
    */
   public SizeChangePattern() {
-    for (int i = 1; i < 101; i++) {
+    this.endTime = 100;
+    for (int i = 0; i <= this.endTime; i++) {
       this.pattern.put(i, new Integer[] {10, 10});
     }
   }
@@ -27,8 +29,9 @@ public class SizeChangePattern {
     if (length > 100 || length <= 0 || width > 100 || width <= 0) {
       throw new IllegalArgumentException("Length and width must be between 0 and 100");
     }
+    this.endTime = 100;
 
-    for (int i = 1; i < 101; i++) {
+    for (int i = 0; i <= this.endTime; i++) {
       this.pattern.put(i, new Integer[] {length, width});
     }
   }
@@ -42,10 +45,10 @@ public class SizeChangePattern {
    * @param newWidth the width of the shape after the change is over.
    */
   public void change(Integer frame1, Integer frame2, Integer newLength, Integer newWidth) {
-    if (newLength > 100 || newLength <= 0 || newWidth > 100 || newWidth <= 0) {
+    if (newLength > this.endTime || newLength <= 0 || newWidth > this.endTime || newWidth <= 0) {
       throw new IllegalArgumentException("Length and width must be between 0 and 100");
     }
-    if (frame1 > 100 || frame1 < 0 || frame2 > 100 || frame2 < 0) {
+    if (frame1 > this.endTime || frame1 < 0 || frame2 > this.endTime || frame2 < 0) {
       throw new IllegalArgumentException("Start and end times must be between 0 and 100");
     }
     if (frame1 > frame2) {
@@ -71,7 +74,7 @@ public class SizeChangePattern {
       this.pattern.replace(i, updatedFrame);
     }
 
-    for (int i = frame2; i < 101; i++) {
+    for (int i = frame2; i <= this.endTime; i++) {
       this.pattern.replace(i, new Integer[] {newLength, newWidth});
     }
   }
@@ -82,7 +85,7 @@ public class SizeChangePattern {
    * @return the dimensions of the given frame.
    */
   public int[] getSize(Integer time) {
-    if (time > 100 || time < 0) {
+    if (time > this.endTime || time < 0) {
       throw new IllegalArgumentException("Chosen frame must be between 0 and 100");
     }
 
@@ -91,7 +94,7 @@ public class SizeChangePattern {
 
   public String toString() {
     String str = "";
-    for (int i = 1; i < 101; i++) {
+    for (int i = 0; i <= this.endTime; i++) {
       str += "\n" + "Frame: " + i + ", Length: " + pattern.get(i)[0] + ", Width: " +
           pattern.get(i)[1];
     }

@@ -4,10 +4,7 @@ package model;
  * A rectangle is a 2D shape that has a length and width.
  */
 public class Rectangle extends AbstractShape {
-  private ColorPattern color;
-  private MovementPattern move;
-  private SizeChangePattern size;
-  private VisibilityPattern visibility;
+
 
   /**
    * No argument constructor for a Rectangle object. Creates a rectangle with default patterns.
@@ -43,4 +40,8 @@ public class Rectangle extends AbstractShape {
     return new Rectangle(this.color, this.move, this.size, this.visibility);
   }
 
+  @Override
+  public String toString() {
+    return "Rectangle Object";
+  }
 }
