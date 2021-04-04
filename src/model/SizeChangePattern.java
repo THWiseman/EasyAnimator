@@ -73,7 +73,7 @@ public class SizeChangePattern {
       double changeFactorW = alteredFrameNumber * incrementW;
 
       Integer[] updatedFrame = new Integer[]{(int) (pattern.get(i)[0] + changeFactorL),
-              (int) (pattern.get(i)[1] + changeFactorW)
+        (int) (pattern.get(i)[1] + changeFactorW)
       };
 
       this.pattern.replace(i, updatedFrame);

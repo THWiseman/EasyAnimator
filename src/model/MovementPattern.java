@@ -71,7 +71,7 @@ public class MovementPattern {
       double changeFactorY = alteredFrameNumber * incrementY;
 
       Integer[] updatedFrame = new Integer[]{(int) (pattern.get(i)[0] + changeFactorX),
-              (int) (pattern.get(i)[1] + changeFactorY)
+        (int) (pattern.get(i)[1] + changeFactorY)
       };
 
       this.pattern.replace(i, updatedFrame);
