@@ -242,4 +242,9 @@ public class CanvasImplTest {
     assertEquals(ov1, big.getShape("3"));
   }
 
+  @Test (expected = IllegalArgumentException.class)
+  public void testGetShapeThrow() {
+    small.getShape("30");
+  }
+
 }
