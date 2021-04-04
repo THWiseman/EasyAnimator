@@ -11,6 +11,7 @@ public class VisibilityPattern {
   //Visibility is most simply stored as a Boolean. A shape is either visible, or not. If necessary,
   //opacity could be handled by the view or by the Color pattern.
   private int endTime;
+
   /**
    * Constructs a new visibility pattern.
    */
@@ -23,6 +24,7 @@ public class VisibilityPattern {
 
   /**
    * Constructs a new VisibilityPattern with all values being set to the given boolean.
+   *
    * @param visible whether the shape is visible or not in this VisibilityPattern.
    */
   public VisibilityPattern(boolean visible) {
@@ -33,9 +35,10 @@ public class VisibilityPattern {
   }
 
   /**
-   * Implements a change to the values in the Visibility Pattern. Changes MUST be implemented
-   * in order.
-   * @param frame the frame at which the change takes place.
+   * Implements a change to the values in the Visibility Pattern. Changes MUST be implemented in
+   * order.
+   *
+   * @param frame     the frame at which the change takes place.
    * @param isVisible the value to be stored in the frame, and all subsequent frames.
    */
   public void change(Integer frame, boolean isVisible) {
@@ -49,6 +52,7 @@ public class VisibilityPattern {
 
   /**
    * Gets the value stored in the Visibility pattern at any given frame.
+   *
    * @param time the frame that the visibility is being pulled from.
    * @return the visibility of the shape at the given frame.
    */
@@ -60,11 +64,17 @@ public class VisibilityPattern {
     try {
       return pattern.get(time);
     } catch (NullPointerException e) {
-     return false;
+      return false;
     }
   }
 
-
+  /**
+   * Override for the toString method. Returns table of whether or not a shape is visibile for every
+   * time in the hashmap.
+   *
+   * @return String table.
+   */
+  @Override
   public String toString() {
     String str = "";
     for (int i = 0; i <= this.endTime; i++) {

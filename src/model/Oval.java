@@ -6,8 +6,8 @@ package model;
 public class Oval extends AbstractShape {
 
   /**
-   * No argument constructor for a Oval object. Creates an oval with default patterns.
-   * Refer to pattern documentation to see how each default pattern is created.
+   * No argument constructor for a Oval object. Creates an oval with default patterns. Refer to
+   * pattern documentation to see how each default pattern is created.
    */
   public Oval() {
     this.color = new ColorPattern();
@@ -17,16 +17,16 @@ public class Oval extends AbstractShape {
   }
 
   /**
-   * Constructor for a oval where each pattern is provided as an argument. Overwrites the
-   * default patterns.
+   * Constructor for a oval where each pattern is provided as an argument. Overwrites the default
+   * patterns.
    *
    * @param move       MovementPattern that will replace the default one.
    * @param size       SizeChangePattern that will replace the default one.
    * @param visibility VisiblityPattern that will replace the default one.
    * @param color      ColorPattern that will replace the default one.
    */
-  public Oval ( ColorPattern color, MovementPattern move, SizeChangePattern size,
-               VisibilityPattern visibility) {
+  public Oval(ColorPattern color, MovementPattern move, SizeChangePattern size,
+              VisibilityPattern visibility) {
     this.color = color;
     this.move = move;
     this.size = size;

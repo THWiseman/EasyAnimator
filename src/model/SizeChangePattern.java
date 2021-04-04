@@ -19,14 +19,15 @@ public class SizeChangePattern {
   public SizeChangePattern() {
     this.endTime = 100;
     for (int i = 0; i <= this.endTime; i++) {
-      this.pattern.put(i, new Integer[] {10, 10});
+      this.pattern.put(i, new Integer[]{10, 10});
     }
   }
 
   /**
    * Constructs a new SizeChangePattern with all values being set to the given length and width.
+   *
    * @param length The length of the shape.
-   * @param width The width of the shape.
+   * @param width  The width of the shape.
    */
   public SizeChangePattern(Integer length, Integer width) {
     if (length > 100 || length <= 0 || width > 100 || width <= 0) {
@@ -35,17 +36,18 @@ public class SizeChangePattern {
     this.endTime = 100;
 
     for (int i = 0; i <= this.endTime; i++) {
-      this.pattern.put(i, new Integer[] {length, width});
+      this.pattern.put(i, new Integer[]{length, width});
     }
   }
 
   /**
    * Implements a change to the values in the SizeChangePattern. Change is implemented gradually,
    * starting at frame1 and ending at frame2. Changes MUST be implemented in order.
-   * @param frame1 the frame at which the change begins.
-   * @param frame2 the frame at which the change is over.
+   *
+   * @param frame1    the frame at which the change begins.
+   * @param frame2    the frame at which the change is over.
    * @param newLength the length of the shape after the change is over.
-   * @param newWidth the width of the shape after the change is over.
+   * @param newWidth  the width of the shape after the change is over.
    */
   public void change(Integer frame1, Integer frame2, Integer newLength, Integer newWidth) {
     if (newLength > this.endTime || newLength <= 0 || newWidth > this.endTime || newWidth <= 0) {
@@ -70,20 +72,21 @@ public class SizeChangePattern {
       double changeFactorL = alteredFrameNumber * incrementL;
       double changeFactorW = alteredFrameNumber * incrementW;
 
-      Integer[] updatedFrame = new Integer[] {
-          (int) (pattern.get(i)[0] + changeFactorL), (int) (pattern.get(i)[1] + changeFactorW)
+      Integer[] updatedFrame = new Integer[]{(int) (pattern.get(i)[0] + changeFactorL),
+              (int) (pattern.get(i)[1] + changeFactorW)
       };
 
       this.pattern.replace(i, updatedFrame);
     }
 
     for (int i = frame2; i <= this.endTime; i++) {
-      this.pattern.replace(i, new Integer[] {newLength, newWidth});
+      this.pattern.replace(i, new Integer[]{newLength, newWidth});
     }
   }
 
   /**
    * Gets the dimensions stored in the SizeChangePattern at any given frame.
+   *
    * @param time the frame that the dimensions are being pulled from.
    * @return the dimensions of the given frame.
    */
@@ -91,18 +94,25 @@ public class SizeChangePattern {
     if (time > this.endTime || time < 0) {
       throw new IllegalArgumentException("Chosen frame must be between 0 and 100");
     }
-  try {
-    return new int[]{pattern.get(time)[0], pattern.get(time)[1]};
-  } catch (NullPointerException e) {
-    throw new IndexOutOfBoundsException("No Size stored for provided time");
-  }
+    try {
+      return new int[]{pattern.get(time)[0], pattern.get(time)[1]};
+    } catch (NullPointerException e) {
+      throw new IndexOutOfBoundsException("No Size stored for provided time");
+    }
   }
 
+  /**
+   * Override for the toString method. Returns a table of the length and with at every time in the
+   * hashmap.
+   *
+   * @return
+   */
+  @Override
   public String toString() {
     String str = "";
     for (int i = 0; i <= this.endTime; i++) {
       str += "\n" + "Frame: " + i + ", Length: " + pattern.get(i)[0] + ", Width: " +
-          pattern.get(i)[1];
+              pattern.get(i)[1];
     }
     return str.substring(1);
   }

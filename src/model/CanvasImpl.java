@@ -93,29 +93,29 @@ public class CanvasImpl implements Canvas {
   }
 
   @Override
-  public void addShape(Shape s, String ID) {
-    if (s == null || ID == null) {
+  public void addShape(Shape s, String iD) {
+    if (s == null || iD == null) {
       throw new IllegalArgumentException("Shape and Shape IDs cannot be null");
     }
-    if (ID.isEmpty()) {
+    if (iD.isEmpty()) {
       throw new IllegalArgumentException("Shape ID cannot be an empty string.");
     }
     for (String sample : shapeIDs) {
-      if (sample.equals(ID)) {
+      if (sample.equals(iD)) {
         throw new IllegalArgumentException("Must use a unique Shape ID.");
       }
     }
     this.shapes.add(s);
-    this.shapeIDs.add(ID);
+    this.shapeIDs.add(iD);
   }
 
   @Override
-  public boolean removeShape(String ID) {
-    if (ID.isEmpty() || ID.equals(null)) {
+  public boolean removeShape(String iD) {
+    if (iD.isEmpty() || iD == null) {
       throw new IllegalArgumentException("ID cannot be empty or null");
     }
     for (String sample : this.shapeIDs) {
-      if (sample.equals(ID)) {
+      if (sample.equals(iD)) {
         int index = this.shapeIDs.indexOf(sample);
         this.shapeIDs.remove(index);
         this.shapes.remove(index);
@@ -126,8 +126,8 @@ public class CanvasImpl implements Canvas {
   }
 
   @Override
-  public Shape getShape(String ID) throws IllegalArgumentException {
-    int index = this.shapeIDs.indexOf(ID);
+  public Shape getShape(String iD) throws IllegalArgumentException {
+    int index = this.shapeIDs.indexOf(iD);
     if (index == -1) {
       throw new IllegalArgumentException("Shape not found.");
     }
@@ -172,7 +172,8 @@ public class CanvasImpl implements Canvas {
             + String.format("Start time: %d, end time: %d\n",
             this.startTime, this.endTime);
     returnString = returnString
-            + String.format("There are %d shapes currently in the shape list:\n", this.shapes.size());
+            + String.format("There are %d shapes currently in the shape list:\n",
+            this.shapes.size());
     for (Shape s : this.shapes) {
       returnString = returnString + s.toString() + "\n";
     }

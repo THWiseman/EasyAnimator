@@ -25,17 +25,17 @@ public class ColorPattern {
 
   /**
    * Constructs a new ColorPattern with all RGB values being set to the given R, G, and B.
-   * @param R the red value of the shape's color.
-   * @param G the green value of the shape's color.
-   * @param B the blue value of the shape's color.
+   * @param r the red value of the shape's color.
+   * @param g the green value of the shape's color.
+   * @param b the blue value of the shape's color.
    */
-  public ColorPattern(Integer R, Integer G, Integer B) {
-    if (R > 255 || R < 0 || G > 255 || G < 0 || B < 0 || B > 255 ) {
+  public ColorPattern(Integer r, Integer g, Integer b) {
+    if (r > 255 || r < 0 || g > 255 || g < 0 || b < 0 || b > 255 ) {
       throw new IllegalArgumentException("Length and width must be between 0 and 100");
     }
     this.endTime = 100;
     for (int i = 0; i <= endTime; i++) {
-      this.pattern.put(i, new Integer[] {R, G, B});
+      this.pattern.put(i, new Integer[] {r, g, b});
     }
   }
 
@@ -101,6 +101,11 @@ public class ColorPattern {
     }
   }
 
+  /**
+   * toString override method.
+   * @return String table of all the Colors at every time stored in the hashmap.
+   */
+  @Override
   public String toString() {
     String str = "";
     for (int i = 0; i <= this.endTime; i++) {

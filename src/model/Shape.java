@@ -38,12 +38,12 @@ public interface Shape {
    */
   boolean getVisibility(int time);
 
-  /**
-   * Returns the time that the shape will become visible.
-   *
-   * @return Integer of the time the shape will become visible.
-   */
 
+  /**
+   * Changes the color change pattern of the current shape to the one provided.
+   *
+   * @param color ColorPattern object to replace the existing one with.
+   */
   void setColorPattern(ColorPattern color);
 
   /**

@@ -63,23 +63,23 @@ public interface Canvas {
    * Adds a shape to the list of shapes that the canvas has.
    *
    * @param s  Shape object that you wish to add to the canvas.
-   * @param ID A unique string that can be mapped to the shape added in this method.
+   * @param iD A unique string that can be mapped to the shape added in this method.
    */
-  void addShape(Shape s, String ID);
+  void addShape(Shape s, String iD);
 
   /**
    * Removes a shape from the list of shapes that the canvas has.
    *
-   * @param ID Unique string ID of the shape you wish to remove.
+   * @param iD Unique string ID of the shape you wish to remove.
    * @return True if a shape was successfully removed, false otherwise.
    */
-  boolean removeShape(String ID);
+  boolean removeShape(String iD);
 
   /**
    * Returns the shape that matches the string provided. NOT a copy.
    *
-   * @param ID String of the stringID that was used in the addShape method.
+   * @param iD String of the stringID that was used in the addShape method.
    * @return Shape object that matches the ID.
    */
-  Shape getShape(String ID);
+  Shape getShape(String iD);
 }
