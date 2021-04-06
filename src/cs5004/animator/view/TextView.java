@@ -1,10 +1,8 @@
-package view;
+package cs5004.animator.view;
 
 import java.io.IOException;
 
 import cs5004.animator.model.Canvas;
-import cs5004.animator.model.Rectangle;
-import cs5004.animator.model.Shape;
 
 public class TextView implements View {
 
