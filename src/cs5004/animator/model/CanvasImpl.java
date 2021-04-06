@@ -334,13 +334,13 @@ public class CanvasImpl implements Canvas {
     @Override
     public AnimationBuilder<Canvas> addMotion(String name, int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1, int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2) {
       ColorPattern color = new ColorPattern();
-      color.change(t1, t2, r2, g2, b2); //NEED TO CHANGE THIS CODE TO INCORPORATE r1,g1,b1.
+      color.change(t1, t2, new Integer[] {r2, g2, b2}); //NEED TO CHANGE THIS CODE TO INCORPORATE r1,g1,b1.
       //should eventually be color.change(t1,r1,g1,b1,t2,r2,g2,b2);
       MovementPattern move = new MovementPattern();
-      move.change(t1, t2, x2, y2); //NEED TO CHANGE THIS CODE TO INCORPORATE x1, y1.
+      move.change(t1, t2, new Integer[] {x2, y2}); //NEED TO CHANGE THIS CODE TO INCORPORATE x1, y1.
       //should eventually be move.change(t1,x1,y1,t2,x2,y2);
       SizeChangePattern size = new SizeChangePattern();
-      size.change(t1, t2, h2, w2);//NEED TO CHANGE PATTERN TO USE HEIGHT INSTEAD OF LENGTH
+      size.change(t1, t2, new Integer[] {h2, w2});//NEED TO CHANGE PATTERN TO USE HEIGHT INSTEAD OF LENGTH
       //NEED TO CHANGE THIS CODE TO INCORPORATE h1,w1
       //should eventually be size.change(t1,w1,h1,t2,w2,h2);
       this.shapes.get(name).setColorPattern(color);
