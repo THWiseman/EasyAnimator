@@ -32,11 +32,7 @@ public abstract class AbstractShape implements Shape {
 
   @Override
   public boolean getVisibility(int time) {
-    if (time >= this.appearTime && time <= this.disappearTime) {
-      return true;
-    } else {
-      return false;
-    }
+    return time >= this.appearTime && time <= this.disappearTime;
   }
 
   @Override

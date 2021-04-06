@@ -24,7 +24,7 @@ public class CanvasImplTest {
   ColorPattern c1;
   MovementPattern m1;
   SizeChangePattern s1;
-  VisibilityPattern v1;
+
 
   @Before
   public void setUp() {

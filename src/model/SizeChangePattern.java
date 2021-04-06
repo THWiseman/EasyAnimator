@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * Stores and/or calculates the length and width for a shape object given some time.
  */
-public class SizeChangePattern implements Pattern{
+public class SizeChangePattern implements Pattern {
   private Map<Integer, Integer[]> pattern = new HashMap<>();
   //since we're only using ovals and rectangles, an array of length and width values mapped to time
   //is sufficient to calculate everything else about them. More complex shapes would require
@@ -43,13 +43,15 @@ public class SizeChangePattern implements Pattern{
   /**
    * Implements a change to the values in the SizeChangePattern. Change is implemented gradually,
    * starting at frame1 and ending at frame2. Changes MUST be implemented in order.
-   *
-   * @param frame1    the frame at which the change begins.
-   * @param frame2    the frame at which the change is over.
- //  * @param newLength the length of the shape after the change is over.
- //  * @param newWidth  the width of the shape after the change is over.
+   * @param frame1 the frame at which the change begins.
+   * @param frame2 the frame at which the change is over.
+   * @param values the length by width dimensions that the shape will change to.
    */
   public void change(Integer frame1, Integer frame2, Integer[] values) {
+    if (values.length != 2) {
+      throw new IllegalArgumentException("Values must be given as a two Integer array.");
+    }
+
     Integer newLength = values[0];
     Integer newWidth = values[1];
 

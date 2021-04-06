@@ -6,7 +6,8 @@ import java.util.Map;
 /**
  * Stores and/or calculates the position for a shape object given some time.
  */
-public class MovementPattern implements Pattern{
+public class MovementPattern implements Pattern {
+
   private Map<Integer, Integer[]> pattern = new HashMap<>();
   //position is most simply stored as an array with X and Y coordinates. It is mapped to integer
   //for time with a hashmap.
@@ -44,10 +45,13 @@ public class MovementPattern implements Pattern{
    *
    * @param frame1 the frame at which the change begins.
    * @param frame2 the frame at which the change is over.
-  // * @param newX   the x coordinate of the shape after the change is over.
-  // * @param newY   the y coordinate of the shape after the change is over.
+   * @param values the (X,Y) coordinates to which the shape will move.
    */
-  public void change(Integer frame1, Integer frame2, Integer[] values) { //Integer newX, Integer newY) {
+  public void change(Integer frame1, Integer frame2, Integer[] values) {
+    if (values.length != 2) {
+      throw new IllegalArgumentException("Values must be given as a two Integer array.");
+    }
+
     Integer newX = values[0];
     Integer newY = values[1];
 
@@ -61,7 +65,9 @@ public class MovementPattern implements Pattern{
       throw new IllegalArgumentException("End time must be greater than start time");
     }
 
+
     int time = frame2 - frame1;
+
     double changeDifferenceX = newX - this.pattern.get(frame1)[0];
     double changeDifferenceY = newY - this.pattern.get(frame1)[1];
 
@@ -74,7 +80,7 @@ public class MovementPattern implements Pattern{
       double changeFactorY = alteredFrameNumber * incrementY;
 
       Integer[] updatedFrame = new Integer[]{(int) (pattern.get(i)[0] + changeFactorX),
-        (int) (pattern.get(i)[1] + changeFactorY)
+          (int) (pattern.get(i)[1] + changeFactorY)
       };
 
       this.pattern.replace(i, updatedFrame);
@@ -112,7 +118,7 @@ public class MovementPattern implements Pattern{
     String str = "";
     for (int i = 0; i <= this.endTime; i++) {
       str += "\n" + "Frame: " + i + ", X: " + pattern.get(i)[0] + ", Y: " +
-              pattern.get(i)[1];
+          pattern.get(i)[1];
     }
     return str.substring(1);
   }

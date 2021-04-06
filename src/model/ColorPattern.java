@@ -44,11 +44,13 @@ public class ColorPattern implements Pattern {
    * starting at frame1 and ending at frame2. Changes MUST be implemented in order.
    * @param frame1 the frame at which the change begins.
    * @param frame2 the frame at which the change is over.
- //  * @param newR the red value of the shape's color after the change is over.
- //  * @param newG the green value of the shape's color after the change is over.
- //  * @param newB the blue value of the shape's color after the change is over.
+   * @param values the color which the shape will change to.
    */
-  public void change(Integer frame1, Integer frame2, Integer[] values) {// Integer newR, Integer newG, Integer newB) {
+  public void change(Integer frame1, Integer frame2, Integer[] values) {
+    if (values.length != 3) {
+      throw new IllegalArgumentException("Values must be given as a three Integer array.");
+    }
+
     Integer newR = values[0];
     Integer newG = values[1];
     Integer newB = values[2];

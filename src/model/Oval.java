@@ -33,7 +33,7 @@ public class Oval extends AbstractShape {
     this.move = move;
     this.size = size;
     this.appearTime = appearTime;
-    this.disappearTime = disappearTime;;
+    this.disappearTime = disappearTime;
   }
 
   @Override

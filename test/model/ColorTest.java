@@ -32,6 +32,18 @@ public class ColorTest {
 
   @Test
   public void testChange() {
+    try {
+      pattern1.change(10, 20, new Integer[] {40, 60});
+      fail("An exception should have been thrown");
+    } catch (IllegalArgumentException e) {
+      //test passes
+    }
+    try {
+      pattern1.change(10, 20, new Integer[] {40, 60, 80, 100});
+      fail("An exception should have been thrown");
+    } catch (IllegalArgumentException e) {
+      //test passes
+    }
     pattern1.change(10, 20, new Integer[] {40, 60, 80});
 
     assertEquals(40, pattern1.get(20)[0]);
