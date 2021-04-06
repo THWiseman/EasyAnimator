@@ -1,17 +1,15 @@
 package model;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Stores and/or calculates the position for a shape object given some time.
  */
-public class MovementPattern implements Pattern {
-
+public class MovementPattern extends AbstractPattern{
+/**
   private Map<Integer, Integer[]> pattern = new HashMap<>();
   //position is most simply stored as an array with X and Y coordinates. It is mapped to integer
   //for time with a hashmap.
   private int endTime;
+ **/
 
   /**
    * Constructs a new MovementPattern.
@@ -47,6 +45,8 @@ public class MovementPattern implements Pattern {
    * @param frame2 the frame at which the change is over.
    * @param values the (X,Y) coordinates to which the shape will move.
    */
+
+
   public void change(Integer frame1, Integer frame2, Integer[] values) {
     if (values.length != 2) {
       throw new IllegalArgumentException("Values must be given as a two Integer array.");
@@ -56,8 +56,14 @@ public class MovementPattern implements Pattern {
     Integer newY = values[1];
 
     if (newX > 1000 || newX <= 0 || newY > 1000 || newY <= 0) {
-      throw new IllegalArgumentException("Length and width must be between 0 and 100");
+      throw new IllegalArgumentException("Coordinates must be between 0 and 100");
     }
+
+    super.change(frame1, frame2, values);
+
+  }
+    /**
+
     if (frame1 > this.endTime || frame1 < 0 || frame2 > this.endTime || frame2 < 0) {
       throw new IllegalArgumentException("Start and end times must be between 0 and 100");
     }
@@ -65,26 +71,39 @@ public class MovementPattern implements Pattern {
       throw new IllegalArgumentException("End time must be greater than start time");
     }
 
-
     int time = frame2 - frame1;
-
-    double changeDifferenceX = newX - this.pattern.get(frame1)[0];
-    double changeDifferenceY = newY - this.pattern.get(frame1)[1];
-
-    double incrementX = changeDifferenceX / time;
-    double incrementY = changeDifferenceY / time;
 
     for (int i = frame1; i < frame2; i++) {
       int alteredFrameNumber = i - frame1;
-      double changeFactorX = alteredFrameNumber * incrementX;
-      double changeFactorY = alteredFrameNumber * incrementY;
+      Integer[] updatedFrame = new Integer[values.length];
 
-      Integer[] updatedFrame = new Integer[]{(int) (pattern.get(i)[0] + changeFactorX),
-          (int) (pattern.get(i)[1] + changeFactorY)
-      };
-
+      for (int j = 0; j < values.length; j++) {
+        double changeFactor = alteredFrameNumber *
+            ((values[j] - this.pattern.get(frame1)[j]) / time);
+        updatedFrame[j] = (int) (pattern.get(i)[j] + changeFactor);
+      }
       this.pattern.replace(i, updatedFrame);
     }
+
+    /**
+     double changeDifferenceX = newX - this.pattern.get(frame1)[0];
+     double changeDifferenceY = newY - this.pattern.get(frame1)[1];
+
+     double incrementX = changeDifferenceX / time;
+     double incrementY = changeDifferenceY / time;
+
+     for (int i = frame1; i < frame2; i++) {
+     int alteredFrameNumber = i - frame1;
+     double changeFactorX = alteredFrameNumber * incrementX;
+     double changeFactorY = alteredFrameNumber * incrementY;
+
+     Integer[] updatedFrame = new Integer[]{(int) (pattern.get(i)[0] + changeFactorX),
+     (int) (pattern.get(i)[1] + changeFactorY)
+     };
+
+     this.pattern.replace(i, updatedFrame);
+     }
+
 
     for (int i = frame2; i <= this.endTime; i++) {
       this.pattern.replace(i, new Integer[]{newX, newY});
@@ -97,6 +116,8 @@ public class MovementPattern implements Pattern {
    * @param time the frame that the coordinate are being pulled from.
    * @return the coordinates of the given frame.
    */
+
+    /**
   public int[] get(Integer time) {
     if (time > this.endTime || time < 0) {
       throw new IllegalArgumentException("Chosen frame must be between 0 and 100");
@@ -107,6 +128,7 @@ public class MovementPattern implements Pattern {
       throw new IndexOutOfBoundsException("No position found for given time.");
     }
   }
+**/
 
   /**
    * toString override method. Returns a table of the x and y cooridnates for every time stored.

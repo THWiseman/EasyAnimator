@@ -77,6 +77,7 @@ public class MovementTest {
 
     assertEquals(30, pattern1.get(60)[0]);
     assertEquals(45, pattern1.get(60)[1]);
+
   }
 
   @Test

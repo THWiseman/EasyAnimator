@@ -66,6 +66,19 @@ public class ColorPattern implements Pattern {
     }
 
     int time = frame2 - frame1;
+
+    for (int i = frame1; i < frame2; i++) {
+      int alteredFrameNumber = i - frame1;
+      Integer[] updatedFrame = new Integer[values.length];
+
+      for (int j = 0; j < values.length; j++) {
+        double changeFactor = alteredFrameNumber *
+            ((values[j] - this.pattern.get(frame1)[j]) / time);
+        updatedFrame[j] = (int) (pattern.get(i)[j] + changeFactor);
+      }
+      this.pattern.replace(i, updatedFrame);
+    }
+    /**
     double changeDifferenceR = newR - this.pattern.get(frame1)[0];
     double changeDifferenceG = newG - this.pattern.get(frame1)[1];
     double changeDifferenceB = newB - this.pattern.get(frame1)[2];
@@ -85,9 +98,11 @@ public class ColorPattern implements Pattern {
           (int) (pattern.get(i)[2] + changeFactorB) };
       this.pattern.replace(i, updatedFrame);
     }
+**/
+
 
     for (int i = frame2; i <= this.endTime; i++) {
-      this.pattern.replace(i, new Integer[] {newR, newG, newB});
+      this.pattern.replace(i, values);
     }
   }
 
@@ -96,6 +111,24 @@ public class ColorPattern implements Pattern {
    * @param time the frame that the color values are being pulled from.
    * @return the RGB color values of the given frame.
    */
+
+  public int[] get(Integer time) {
+    if (time > this.endTime || time < 0) {
+      throw new IllegalArgumentException("Chosen frame must be between 0 and 100");
+    }
+    try {
+      int[] updatedFrame = new int[pattern.get(time).length];
+      for (int i = 0; i < pattern.get(time).length; i++) {
+        updatedFrame[i] = pattern.get(time)[i];
+      }
+      return updatedFrame;
+      //return pattern.get(time); //new int[]{pattern.get(time)[0], pattern.get(time)[1]};
+    } catch (NullPointerException e) {
+      throw new IndexOutOfBoundsException("No position found for given time.");
+    }
+  }
+
+  /**
   public int[] get(Integer time) {
     if (time > this.endTime || time < 0) {
       throw new IllegalArgumentException("Chosen frame must be between 0 and 100");
@@ -106,6 +139,7 @@ public class ColorPattern implements Pattern {
       throw new IndexOutOfBoundsException("Color not found at specified time");
     }
   }
+   **/
 
   /**
    * toString override method.
