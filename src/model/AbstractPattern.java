@@ -3,10 +3,21 @@ package model;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This abstract class represents the qualities of a Shape as it changes over the course of
+ * an animation, such as its color, size, and position.
+ */
 public abstract class AbstractPattern implements Pattern {
   Map<Integer, Integer[]> pattern = new HashMap<>();
   int endTime = 100;
 
+  /**
+   * Implements a change to the values in the Pattern. Change is implemented gradually,
+   * starting at frame1 and ending at frame2. Changes MUST be implemented in order.
+   * @param frame1 the frame at which the change begins.
+   * @param frame2 the frame at which the change is over.
+   * @param values the new values to which the Shape will change.
+   */
   @Override
   public void change(Integer frame1, Integer frame2, Integer[] values) {
     if (frame1 > this.endTime || frame1 < 0 || frame2 > this.endTime || frame2 < 0) {
@@ -29,9 +40,7 @@ public abstract class AbstractPattern implements Pattern {
         double increment = difference / time;
 
         double changeFactor = alteredFrameNumber * increment;
-        /**
-        double changeFactor = alteredFrameNumber *
-            ((values[j] - this.pattern.get(frame1)[j]) / time); **/
+
         updatedFrame[j] = (int) (pattern.get(i)[j] + changeFactor);
       }
       this.pattern.replace(i, updatedFrame);
@@ -42,6 +51,12 @@ public abstract class AbstractPattern implements Pattern {
     }
   }
 
+  /**
+   * Gets the values stored in the Pattern at any given frame.
+   *
+   * @param time the frame that the values are being pulled from.
+   * @return the values of the given frame.
+   */
   @Override
   public int[] get(Integer time) {
     if (time > this.endTime || time < 0) {

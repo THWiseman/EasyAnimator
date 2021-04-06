@@ -1,17 +1,9 @@
 package model;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Stores and/or calculates the length and width for a shape object given some time.
  */
-public class SizeChangePattern implements Pattern {
-  private Map<Integer, Integer[]> pattern = new HashMap<>();
-  //since we're only using ovals and rectangles, an array of length and width values mapped to time
-  //is sufficient to calculate everything else about them. More complex shapes would require
-  //different types of SizeChangePatterns.
-  private int endTime;
+public class SizeChangePattern extends AbstractPattern {
 
   /**
    * Constructs a new SizeChangePattern.
@@ -58,59 +50,14 @@ public class SizeChangePattern implements Pattern {
     if (newLength > this.endTime || newLength <= 0 || newWidth > this.endTime || newWidth <= 0) {
       throw new IllegalArgumentException("Length and width must be between 0 and 100");
     }
-    if (frame1 > this.endTime || frame1 < 0 || frame2 > this.endTime || frame2 < 0) {
-      throw new IllegalArgumentException("Start and end times must be between 0 and 100");
-    }
-    if (frame1 > frame2) {
-      throw new IllegalArgumentException("End time must be greater than start time");
-    }
-
-    int time = frame2 - frame1;
-    double changeDifferenceL = newLength - this.pattern.get(frame1)[0];
-    double changeDifferenceW = newWidth - this.pattern.get(frame1)[1];
-
-    double incrementL = changeDifferenceL / time;
-    double incrementW = changeDifferenceW / time;
-
-    for (int i = frame1; i < frame2; i++) {
-      int alteredFrameNumber = i - frame1;
-      double changeFactorL = alteredFrameNumber * incrementL;
-      double changeFactorW = alteredFrameNumber * incrementW;
-
-      Integer[] updatedFrame = new Integer[]{(int) (pattern.get(i)[0] + changeFactorL),
-        (int) (pattern.get(i)[1] + changeFactorW)
-      };
-
-      this.pattern.replace(i, updatedFrame);
-    }
-
-    for (int i = frame2; i <= this.endTime; i++) {
-      this.pattern.replace(i, new Integer[]{newLength, newWidth});
-    }
-  }
-
-  /**
-   * Gets the dimensions stored in the SizeChangePattern at any given frame.
-   *
-   * @param time the frame that the dimensions are being pulled from.
-   * @return the dimensions of the given frame.
-   */
-  public int[] get(Integer time) {
-    if (time > this.endTime || time < 0) {
-      throw new IllegalArgumentException("Chosen frame must be between 0 and 100");
-    }
-    try {
-      return new int[]{pattern.get(time)[0], pattern.get(time)[1]};
-    } catch (NullPointerException e) {
-      throw new IndexOutOfBoundsException("No Size stored for provided time");
-    }
+    super.change(frame1, frame2, values);
   }
 
   /**
    * Override for the toString method. Returns a table of the length and with at every time in the
    * hashmap.
    *
-   * @return
+   * @return String table of all the dimensions at every time stored in the hashmap.
    */
   @Override
   public String toString() {
