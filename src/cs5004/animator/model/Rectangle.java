@@ -1,4 +1,4 @@
-package model;
+package cs5004.animator.model;
 
 /**
  * A rectangle is a 2D shape that has a length and width.
@@ -42,6 +42,6 @@ public class Rectangle extends AbstractShape {
 
   @Override
   public String toString() {
-    return "Rectangle Object";
+    return "rectangle";
   }
 }

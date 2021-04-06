@@ -1,4 +1,4 @@
-package model;
+package cs5004.animator.model;
 
 import java.util.List;
 
@@ -82,4 +82,22 @@ public interface Canvas {
    * @return Shape object that matches the ID.
    */
   Shape getShape(String iD);
+
+  /**
+   * Sets the dimensions for the Canvas.
+   * @param leftmostX The leftmost edge of the canvas. Default is -100.
+   * @param width The width of the canvas. Default is 200.
+   * @param topmostY The topmost Y coordinate of the canvas. Default is 100.
+   * @param height The total height of the canvas. Default is 200.
+   */
+  void setDimensions(int leftmostX, int width, int topmostY, int height);
+
+  /**
+   * Gets the dimensions for the canvas. Returns them as an array in the form:
+   * {leftmostX, width, topmostY, height}
+   * @return Integer array with all the dimension values.
+   */
+  int[] getDimensions();
+
+  String getStringDescription();
 }

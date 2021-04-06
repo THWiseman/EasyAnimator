@@ -1,4 +1,4 @@
-package model;
+package cs5004.animator.model;
 
 /**
  * An oval is a 2d shape with rounded edges defined by a length and width.
@@ -40,6 +40,6 @@ public class Oval extends AbstractShape {
 
   @Override
   public String toString() {
-    return "Oval Object";
+    return "oval";
   }
 }

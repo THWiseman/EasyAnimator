@@ -1,5 +1,4 @@
-
-package model;
+package cs5004.animator.model;
 
 /**
  * Shape is an object that can be displayed on a canvas.
@@ -101,4 +100,9 @@ public interface Shape {
    * @return Shape that is a copy of the current shape object.
    */
   Shape copy();
+
+//need to actually implement these.
+  int getAppearTime();
+
+  int getDisappearTime();
 }

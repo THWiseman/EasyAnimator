@@ -1,4 +1,4 @@
-package model;
+package cs5004.animator.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;

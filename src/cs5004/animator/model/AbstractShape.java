@@ -1,4 +1,4 @@
-package model;
+package cs5004.animator.model;
 
 /**
  * All shapes extend Abstract shape. By default, all shapes will simply query their patterns for
@@ -35,6 +35,15 @@ public abstract class AbstractShape implements Shape {
 
   @Override
   public abstract Shape copy();
+
+  //need to implement
+  @Override
+  public int getAppearTime() {
+    return 0;
+  }
+
+  @Override
+  public int getDisappearTime() {return 0;}
 
   @Override
   public void setColorPattern(ColorPattern color) {
