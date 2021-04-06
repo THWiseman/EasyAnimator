@@ -6,8 +6,8 @@ import java.util.Map;
 /**
  * Stores and/or calculates the visibility for a shape object given some time.
  */
-public class VisibilityPattern {
-  private Map<Integer, Boolean> pattern = new HashMap<>();
+public class VisibilityPattern implements Pattern{
+  private Map<Integer, Integer> pattern = new HashMap<>();
   //Visibility is most simply stored as a Boolean. A shape is either visible, or not. If necessary,
   //opacity could be handled by the view or by the Color pattern.
   private int endTime;
@@ -18,7 +18,7 @@ public class VisibilityPattern {
   public VisibilityPattern() {
     this.endTime = 100;
     for (int i = 0; i <= this.endTime; i++) {
-      this.pattern.put(i, false);
+      this.pattern.put(i, 0);
     }
   }
 
@@ -27,7 +27,7 @@ public class VisibilityPattern {
    *
    * @param visible whether the shape is visible or not in this VisibilityPattern.
    */
-  public VisibilityPattern(boolean visible) {
+  public VisibilityPattern(Integer visible) {
     this.endTime = 100;
     for (int i = 0; i <= this.endTime; i++) {
       this.pattern.put(i, visible);
@@ -38,14 +38,16 @@ public class VisibilityPattern {
    * Implements a change to the values in the Visibility Pattern. Changes MUST be implemented in
    * order.
    *
-   * @param frame     the frame at which the change takes place.
-   * @param isVisible the value to be stored in the frame, and all subsequent frames.
+//   * @param frame     the frame at which the change takes place.
+ //  * @param isVisible the value to be stored in the frame, and all subsequent frames.
    */
-  public void change(Integer frame, boolean isVisible) {
-    if (frame > this.endTime || frame < 0) {
+  public void change(Integer frame1, Integer frame2, Integer[] values) {
+    Integer isVisible = values[0];
+
+    if (frame1 > this.endTime || frame1 < 0) {
       throw new IllegalArgumentException("Chosen frame must be between 0 and 100");
     }
-    for (int i = frame; i <= this.endTime; i++) {
+    for (int i = frame1; i <= this.endTime; i++) {
       this.pattern.put(i, isVisible);
     }
   }
@@ -56,15 +58,14 @@ public class VisibilityPattern {
    * @param time the frame that the visibility is being pulled from.
    * @return the visibility of the shape at the given frame.
    */
-  public boolean getVisibility(int time) {
+  public int[] get(Integer time) {
     if (time > this.endTime || time < 0) {
       throw new IllegalArgumentException("Chosen frame must be between 0 and 100");
     }
-    //if a time is not found in the map, assume that the shape is not visible.
     try {
-      return pattern.get(time);
+      return new int[pattern.get(time)];
     } catch (NullPointerException e) {
-      return false;
+      throw new IndexOutOfBoundsException("No Size stored for provided time");
     }
   }
 

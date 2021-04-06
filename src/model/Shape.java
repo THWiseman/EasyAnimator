@@ -56,16 +56,14 @@ public interface Shape {
   /**
    * Changes the visibility pattern of the shape to the one provided.
    *
-   * @param visibility VisibilityPattern Object that you wish to replace the existing one with.
+   * @param appearTime The frame at which the shape will become visible.
+   * @param disappearTime The frame at which the shape will disappear.
    */
-  void setVisibilityPattern(VisibilityPattern visibility);
+  void setVisibility(int appearTime, int disappearTime);
 
-  /**
-   * Getter for the shape's current visibility pattern.
-   *
-   * @return VisibilityPattern object that the current shape is using.
-   */
-  VisibilityPattern getVisibilityPattern();
+  int getAppearTime();
+
+  int getDisappearTime();
 
   /**
    * Sets the SizeChange pattern of the shape to the one provided.

@@ -13,7 +13,8 @@ public class Oval extends AbstractShape {
     this.color = new ColorPattern();
     this.move = new MovementPattern();
     this.size = new SizeChangePattern();
-    this.visibility = new VisibilityPattern();
+    this.appearTime = 0;
+    this.disappearTime = 100;
   }
 
   /**
@@ -22,20 +23,22 @@ public class Oval extends AbstractShape {
    *
    * @param move       MovementPattern that will replace the default one.
    * @param size       SizeChangePattern that will replace the default one.
-   * @param visibility VisiblityPattern that will replace the default one.
    * @param color      ColorPattern that will replace the default one.
+   * @param appearTime The frame at which the shape will appear.
+   * @param disappearTime The frame at which the shape will disappear.
    */
   public Oval(ColorPattern color, MovementPattern move, SizeChangePattern size,
-              VisibilityPattern visibility) {
+      int appearTime, int disappearTime) {
     this.color = color;
     this.move = move;
     this.size = size;
-    this.visibility = visibility;
+    this.appearTime = appearTime;
+    this.disappearTime = disappearTime;;
   }
 
   @Override
   public Oval copy() {
-    return new Oval(this.color, this.move, this.size, this.visibility);
+    return new Oval(this.color, this.move, this.size, this.appearTime, this.disappearTime);
   }
 
   @Override

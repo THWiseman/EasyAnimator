@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * Stores and/or calculates the position for a shape object given some time.
  */
-public class MovementPattern {
+public class MovementPattern implements Pattern{
   private Map<Integer, Integer[]> pattern = new HashMap<>();
   //position is most simply stored as an array with X and Y coordinates. It is mapped to integer
   //for time with a hashmap.
@@ -44,10 +44,13 @@ public class MovementPattern {
    *
    * @param frame1 the frame at which the change begins.
    * @param frame2 the frame at which the change is over.
-   * @param newX   the x coordinate of the shape after the change is over.
-   * @param newY   the y coordinate of the shape after the change is over.
+  // * @param newX   the x coordinate of the shape after the change is over.
+  // * @param newY   the y coordinate of the shape after the change is over.
    */
-  public void change(Integer frame1, Integer frame2, Integer newX, Integer newY) {
+  public void change(Integer frame1, Integer frame2, Integer[] values) { //Integer newX, Integer newY) {
+    Integer newX = values[0];
+    Integer newY = values[1];
+
     if (newX > 1000 || newX <= 0 || newY > 1000 || newY <= 0) {
       throw new IllegalArgumentException("Length and width must be between 0 and 100");
     }
@@ -88,7 +91,7 @@ public class MovementPattern {
    * @param time the frame that the coordinate are being pulled from.
    * @return the coordinates of the given frame.
    */
-  public int[] getPosition(Integer time) {
+  public int[] get(Integer time) {
     if (time > this.endTime || time < 0) {
       throw new IllegalArgumentException("Chosen frame must be between 0 and 100");
     }

@@ -18,53 +18,53 @@ public class SizeChangeTest {
   }
 
   @Test
-  public void testGetSize() {
+  public void testGet() {
     try {
-      pattern1.getSize(150);
+      pattern1.get(150);
       fail("An exception should have been thrown");
     } catch (IllegalArgumentException e) {
       //test passes
     }
-    assertEquals(30, pattern1.getSize(2)[1]);
-    assertEquals(20, pattern1.getSize(2)[0]);
+    assertEquals(30, pattern1.get(2)[1]);
+    assertEquals(20, pattern1.get(2)[0]);
   }
 
   @Test
   public void testChange() {
-    pattern1.change(10, 20, 40, 60);
+    pattern1.change(10, 20, new Integer[] {40, 60});
 
-    assertEquals(40, pattern1.getSize(20)[0]);
-    assertEquals(20, pattern1.getSize(10)[0]);
-    assertEquals(30, pattern1.getSize(10)[1]);
-    assertEquals(60, pattern1.getSize(20)[1]);
+    assertEquals(40, pattern1.get(20)[0]);
+    assertEquals(20, pattern1.get(10)[0]);
+    assertEquals(30, pattern1.get(10)[1]);
+    assertEquals(60, pattern1.get(20)[1]);
 
-    assertEquals(30, pattern1.getSize(15)[0]);
-    assertEquals(45, pattern1.getSize(15)[1]);
+    assertEquals(30, pattern1.get(15)[0]);
+    assertEquals(45, pattern1.get(15)[1]);
 
-    assertEquals(40, pattern1.getSize(75)[0]);
-    assertEquals(60, pattern1.getSize(75)[1]);
+    assertEquals(40, pattern1.get(75)[0]);
+    assertEquals(60, pattern1.get(75)[1]);
   }
 
   @Test
   public void testSecondChange() {
-    pattern1.change(10, 20, 40, 60);
-    pattern1.change(50, 70, 20, 30);
+    pattern1.change(10, 20, new Integer[] {40, 60});
+    pattern1.change(50, 70, new Integer[] {20, 30});
 
-    assertEquals(40, pattern1.getSize(20)[0]);
-    assertEquals(20, pattern1.getSize(10)[0]);
-    assertEquals(30, pattern1.getSize(10)[1]);
-    assertEquals(60, pattern1.getSize(20)[1]);
+    assertEquals(40, pattern1.get(20)[0]);
+    assertEquals(20, pattern1.get(10)[0]);
+    assertEquals(30, pattern1.get(10)[1]);
+    assertEquals(60, pattern1.get(20)[1]);
 
-    assertEquals(30, pattern1.getSize(15)[0]);
-    assertEquals(45, pattern1.getSize(15)[1]);
+    assertEquals(30, pattern1.get(15)[0]);
+    assertEquals(45, pattern1.get(15)[1]);
 
-    assertEquals(20, pattern1.getSize(70)[0]);
-    assertEquals(40, pattern1.getSize(50)[0]);
-    assertEquals(30, pattern1.getSize(70)[1]);
-    assertEquals(60, pattern1.getSize(50)[1]);
+    assertEquals(20, pattern1.get(70)[0]);
+    assertEquals(40, pattern1.get(50)[0]);
+    assertEquals(30, pattern1.get(70)[1]);
+    assertEquals(60, pattern1.get(50)[1]);
 
-    assertEquals(30, pattern1.getSize(60)[0]);
-    assertEquals(45, pattern1.getSize(60)[1]);
+    assertEquals(30, pattern1.get(60)[0]);
+    assertEquals(45, pattern1.get(60)[1]);
   }
 
   @Test
@@ -86,31 +86,31 @@ public class SizeChangeTest {
   @Test
   public void testBadChange() {
     try {
-      pattern1.change(10, 20, 40, -60);
+      pattern1.change(10, 20, new Integer[] {40, -60});
       fail("An exception should have been thrown");
     } catch (IllegalArgumentException e) {
       //test passes
     }
     try {
-      pattern1.change(10, 20, 400, 60);
+      pattern1.change(10, 20, new Integer[] {400, 60});
       fail("An exception should have been thrown");
     } catch (IllegalArgumentException e) {
       //test passes
     }
     try {
-      pattern1.change(10, 200, 40, 60);
+      pattern1.change(10, 200, new Integer[] {40, 60});
       fail("An exception should have been thrown");
     } catch (IllegalArgumentException e) {
       //test passes
     }
     try {
-      pattern1.change(-10, 20, 40, 60);
+      pattern1.change(-10, 20, new Integer[] {40, 60});
       fail("An exception should have been thrown");
     } catch (IllegalArgumentException e) {
       //test passes
     }
     try {
-      pattern1.change(30, 20, 40, 60);
+      pattern1.change(30, 20, new Integer[] {40, 60});
       fail("An exception should have been thrown");
     } catch (IllegalArgumentException e) {
       //test passes

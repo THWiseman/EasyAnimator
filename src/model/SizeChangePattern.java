@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * Stores and/or calculates the length and width for a shape object given some time.
  */
-public class SizeChangePattern {
+public class SizeChangePattern implements Pattern{
   private Map<Integer, Integer[]> pattern = new HashMap<>();
   //since we're only using ovals and rectangles, an array of length and width values mapped to time
   //is sufficient to calculate everything else about them. More complex shapes would require
@@ -46,10 +46,13 @@ public class SizeChangePattern {
    *
    * @param frame1    the frame at which the change begins.
    * @param frame2    the frame at which the change is over.
-   * @param newLength the length of the shape after the change is over.
-   * @param newWidth  the width of the shape after the change is over.
+ //  * @param newLength the length of the shape after the change is over.
+ //  * @param newWidth  the width of the shape after the change is over.
    */
-  public void change(Integer frame1, Integer frame2, Integer newLength, Integer newWidth) {
+  public void change(Integer frame1, Integer frame2, Integer[] values) {
+    Integer newLength = values[0];
+    Integer newWidth = values[1];
+
     if (newLength > this.endTime || newLength <= 0 || newWidth > this.endTime || newWidth <= 0) {
       throw new IllegalArgumentException("Length and width must be between 0 and 100");
     }
@@ -90,7 +93,7 @@ public class SizeChangePattern {
    * @param time the frame that the dimensions are being pulled from.
    * @return the dimensions of the given frame.
    */
-  public int[] getSize(Integer time) {
+  public int[] get(Integer time) {
     if (time > this.endTime || time < 0) {
       throw new IllegalArgumentException("Chosen frame must be between 0 and 100");
     }

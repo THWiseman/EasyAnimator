@@ -1,8 +1,6 @@
 package model;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.junit.Before;
@@ -18,38 +16,38 @@ public class VisibilityTest {
   @Before
   public void setup() {
     pattern1 = new VisibilityPattern();
-    pattern2 = new VisibilityPattern(true);
+    pattern2 = new VisibilityPattern(1);
   }
 
   @Test
   public void testGetVisibility() {
     try {
-      pattern1.getVisibility(150);
+      pattern1.get(150);
       fail("An exception should have been thrown");
     } catch (IllegalArgumentException e) {
       //test passes
     }
-    assertFalse(pattern1.getVisibility(10));
-    assertTrue(pattern2.getVisibility(10));
+    assertEquals(0, pattern1.get(10)[0]);
+    assertEquals(1, pattern2.get(10)[0]);
   }
 
   @Test
   public void testChange() {
-    pattern1.change(20, true);
-    assertFalse(pattern1.getVisibility(10));
-    assertTrue(pattern1.getVisibility(25));
-    pattern2.change(50, false);
-    assertTrue(pattern2.getVisibility(25));
-    assertFalse(pattern2.getVisibility(55));
+    pattern1.change(20, 20, new Integer[] {1});
+    assertEquals(0, pattern1.get(10)[0]);
+    assertEquals(1, pattern1.get(25)[0]);
+    pattern2.change(50, 50, new Integer[] {0});
+    assertEquals(1, pattern2.get(25)[0]);
+    assertEquals(0, pattern2.get(55)[0]);
   }
 
   @Test
   public void testSecondChange() {
-    pattern1.change(20, true);
-    pattern1.change(50, false);
-    assertFalse(pattern1.getVisibility(10));
-    assertTrue(pattern1.getVisibility(25));
-    assertFalse(pattern1.getVisibility(60));
+    pattern1.change(20, 20, new Integer[] {1});
+    pattern1.change(50, 50, new Integer[] {0});
+    assertEquals(0, pattern1.get(10)[0]);
+    assertEquals(1, pattern1.get(25)[0]);
+    assertEquals(0, pattern1.get(60)[0]);
   }
 
   @Test

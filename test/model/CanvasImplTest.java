@@ -31,12 +31,12 @@ public class CanvasImplTest {
     c1 = new ColorPattern();
     m1 = new MovementPattern();
     s1 = new SizeChangePattern();
-    v1 = new VisibilityPattern();
+
 
     rec1 = new Rectangle();
-    rec2 = new Rectangle(c1, m1, s1, v1);
+    rec2 = new Rectangle(c1, m1, s1, 0, 100);
     ov1 = new Oval();
-    ov2 = new Oval(c1, m1, s1, v1);
+    ov2 = new Oval(c1, m1, s1, 0, 100);
 
     defaultCanvas = new CanvasImpl();
     small = new CanvasImpl(5);
@@ -114,12 +114,8 @@ public class CanvasImplTest {
 
   @Test
   public void testGetShapesAtTime() {
-    //shapes with v1 will be invisible until time 50, then they will be visible until time 100.
-    v1.change(50,true);
-    VisibilityPattern v2 = new VisibilityPattern();
-    v2.change(75,true);
-    Shape testRec = new Rectangle(c1,m1,s1,v1);
-    Shape testOv = new Oval(c1,m1,s1,v2);
+    Shape testRec = new Rectangle(c1,m1,s1,50, 100);
+    Shape testOv = new Oval(c1,m1,s1,70, 100);
     defaultCanvas.addShape(testRec,"1");
     List<Shape> emptyList = new ArrayList<>();
     List<Shape> shapeList = new ArrayList<>();

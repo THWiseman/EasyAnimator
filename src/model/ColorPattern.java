@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * Stores and/or calculates the color for a shape object given some time.
  */
-public class ColorPattern {
+public class ColorPattern implements Pattern {
   private Map<Integer, Integer[]> pattern = new HashMap<>();
   //color is best stored in an array that can hold values for R,G, and B.
   //It is mapped to an Integer for time to be consistent with the other patterns, although
@@ -44,11 +44,15 @@ public class ColorPattern {
    * starting at frame1 and ending at frame2. Changes MUST be implemented in order.
    * @param frame1 the frame at which the change begins.
    * @param frame2 the frame at which the change is over.
-   * @param newR the red value of the shape's color after the change is over.
-   * @param newG the green value of the shape's color after the change is over.
-   * @param newB the blue value of the shape's color after the change is over.
+ //  * @param newR the red value of the shape's color after the change is over.
+ //  * @param newG the green value of the shape's color after the change is over.
+ //  * @param newB the blue value of the shape's color after the change is over.
    */
-  public void change(Integer frame1, Integer frame2, Integer newR, Integer newG, Integer newB) {
+  public void change(Integer frame1, Integer frame2, Integer[] values) {// Integer newR, Integer newG, Integer newB) {
+    Integer newR = values[0];
+    Integer newG = values[1];
+    Integer newB = values[2];
+
     if (newR > 255 || newR < 0 || newG > 255 || newG < 0 || newB < 0 || newB > 255 ) {
       throw new IllegalArgumentException("Length and width must be between 0 and 100");
     }
@@ -90,7 +94,7 @@ public class ColorPattern {
    * @param time the frame that the color values are being pulled from.
    * @return the RGB color values of the given frame.
    */
-  public int[] getColor(Integer time) {
+  public int[] get(Integer time) {
     if (time > this.endTime || time < 0) {
       throw new IllegalArgumentException("Chosen frame must be between 0 and 100");
     }

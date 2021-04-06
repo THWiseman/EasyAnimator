@@ -6,31 +6,37 @@ package model;
  * here.
  */
 public abstract class AbstractShape implements Shape {
-
   ColorPattern color; //decided to store all shape attributes inside of a different class to have
   //both flexibility in how they are calculated and stored, and portability between shapes.
   MovementPattern move;
   SizeChangePattern size;
-  VisibilityPattern visibility;
+
+  int appearTime;
+  int disappearTime;
+
 
   @Override
   public int[] getPosition(int time) {
-    return move.getPosition(time);
+    return move.get(time);
   }
 
   @Override
   public int[] getColor(int time) {
-    return color.getColor(time);
+    return color.get(time);
   }
 
   @Override
   public int[] getSize(int time) {
-    return size.getSize(time);
+    return size.get(time);
   }
 
   @Override
   public boolean getVisibility(int time) {
-    return visibility.getVisibility(time);
+    if (time >= this.appearTime && time <= this.disappearTime) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   @Override
@@ -50,16 +56,17 @@ public abstract class AbstractShape implements Shape {
   }
 
   @Override
-  public void setVisibilityPattern(VisibilityPattern visibility) {
-    if (visibility == null) {
-      throw new IllegalArgumentException("Pattern cannot be null.");
-    }
-    this.visibility = visibility;
+  public void setVisibility(int appearTime, int disappearTime) {
+    this.appearTime = appearTime;
+    this.disappearTime = disappearTime;
   }
 
-  @Override
-  public VisibilityPattern getVisibilityPattern() {
-    return this.visibility;
+  public int getAppearTime() {
+    return this.appearTime;
+  }
+
+  public int getDisappearTime() {
+    return this.disappearTime;
   }
 
   @Override
