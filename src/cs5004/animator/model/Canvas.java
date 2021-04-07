@@ -1,6 +1,7 @@
 package cs5004.animator.model;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Canvas is an object that keeps track of the locations of shapes in 2d space, and it keeps track
@@ -93,11 +94,13 @@ public interface Canvas {
   void setDimensions(int leftmostX, int width, int topmostY, int height);
 
   /**
-   * Gets the dimensions for the canvas. Returns them as an array in the form:
+   * Gets the dimensions for the canvas. Returns them as an int array in the form:
    * {leftmostX, width, topmostY, height}
-   * @return Integer array with all the dimension values.
+   * @return int array with all the dimension values.
    */
   int[] getDimensions();
 
   String getStringDescription();
+
+  Map<String,Shape> getShapeMap();
 }

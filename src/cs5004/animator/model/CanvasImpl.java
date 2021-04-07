@@ -107,7 +107,7 @@ public class CanvasImpl implements Canvas {
   @Override
   public void addShape(Shape s, String iD) {
     if (s == null || iD == null) {
-      throw new IllegalArgumentException("Shape and Shape IDs cannot be null");
+      throw new IllegalArgumentException("Shape and Shape IDs cannot be null.");
     }
     if (iD.isEmpty()) {
       throw new IllegalArgumentException("Shape ID cannot be an empty string.");
@@ -123,7 +123,7 @@ public class CanvasImpl implements Canvas {
   @Override
   public boolean removeShape(String iD) {
     if (iD.isEmpty() || iD == null) {
-      throw new IllegalArgumentException("ID cannot be empty or null");
+      throw new IllegalArgumentException("ID cannot be empty or null.");
     }
     if (this.shapes.get(iD) == null) {
       return false;
@@ -135,7 +135,7 @@ public class CanvasImpl implements Canvas {
   @Override
   public Shape getShape(String iD) throws IllegalArgumentException {
     if (this.shapes.get(iD) == null) {
-      throw new IllegalArgumentException("Shape not found");
+      throw new IllegalArgumentException("Shape not found.");
     }
     return this.shapes.get(iD);
   }
@@ -143,7 +143,7 @@ public class CanvasImpl implements Canvas {
   @Override
   public void setDimensions(int leftmostX, int width, int topmostY, int height) {
     if (width <= 0 || height <= 0) {
-      throw new IllegalArgumentException("Width and height must be positive");
+      throw new IllegalArgumentException("Width and height must be positive.");
     }
     this.leftmostX = leftmostX;
     this.width = width;
@@ -153,54 +153,31 @@ public class CanvasImpl implements Canvas {
 
   @Override
   public int[] getDimensions() {
-    return new int[0];
+    return new int[] {this.leftmostX,this.width,this.topmostY,this.height};
   }
 
-  private String getColorName(int[] RGB) { //very sophisticated l33t hacker code to get a color
-    //from rgb values
-    if(RGB[0]==255 && RGB[1]==255 &&RGB[2] == 255) {
-      return "white";
-    }
-    if(RGB[0]==0 && RGB[1]==0 && RGB[2] == 0) {
-      return "black";
-    }
-    if(RGB[0] == RGB[1] && RGB[1] == RGB[2]) {
-      return "gray";
-    }
-    if(RGB[0] >= RGB[1] && RGB[0] >= RGB[2]) {
-      return "red";
-    }
-    if(RGB[1] >=RGB[0] && RGB[1] >=RGB[2]) {
-      return "green";
-    }
-    if(RGB[2] >= RGB[0] && RGB[2] >= RGB[1]) {
-      return "blue";
-    }
-    return "brown";
-  }
 
   @Override
   public String getStringDescription() {
     String allCreates = "";
 
-    //this for loop will create a string like "Create red rectangle R with corner at (200,200),
+    //this for loop will create a string like "Create rectangle R with corner at (200,200),
     //width 50 and height 100\n" for each shape and append it to createString.
     for (Map.Entry<String, Shape> e : shapes.entrySet()) {
       String createString = "Create "; //"Create "
-      createString += getColorName(e.getValue().getColor(0)) + " "; //"red "
       createString += e.getValue().toString() + " "; //"rectangle "
 
       if (e.getValue().toString() == "rectangle") {
         //"R with corner at (200,200), "
         createString += String.format("%s with corner at (%d,%d), ", e.getKey(), e.getValue().getPosition(0)[0], e.getValue().getPosition(0)[1]);
-        //width 50 and height 100\n"
-        createString += String.format("width %d and height %d\n", e.getValue().getSize(0)[0], e.getValue().getSize(0)[1]);
+        //width 50, height 100, and color.\n"
+        createString += String.format("width %d, height %d, and color %s.\n", e.getValue().getSize(0)[0], e.getValue().getSize(0)[1],e.getValue().getSize(0).toString());
       }
       if (e.getValue().toString() == "oval") {
         //"C with center at (500,100), "
         createString += String.format("%s with center at (%d,%d), ", e.getKey(), e.getValue().getPosition(0)[0], e.getValue().getPosition(0)[1]);
         //radius 60 and height 30\n"
-        createString += String.format("radius %d and %d\n", e.getValue().getSize(0)[0], e.getValue().getSize(0)[1]);
+        createString += String.format("radius %d and %d, and color %s.\n", e.getValue().getSize(0)[0], e.getValue().getSize(0)[1],e.getValue().getSize(0).toString());
       }
       allCreates += createString;
     }
@@ -214,7 +191,7 @@ public class CanvasImpl implements Canvas {
       appearString += e.getKey() + String.format("appears at time t=%d and disappears at time t=%d\n", e.getValue().getAppearTime(), e.getValue().getDisappearTime());
       allAppears += appearString;
     }
-    allAppears += "\n"; //add extra newline to separate from next section.
+    allAppears += "\n"; //add extra newline to separate from next section.?.OMRT
 
 
     //this for loop will create strings like:
@@ -227,6 +204,12 @@ public class CanvasImpl implements Canvas {
       allChanges += "send help im being held hostage by my OOD teacher";
     }
     return allCreates + allAppears + allChanges;
+  }
+
+  //Shallow copy of the shape hash map. Changing these will not affect the shapes in the model.
+  @Override
+  public Map<String, Shape> getShapeMap() {
+    return new HashMap<String,Shape>(this.shapes);
   }
 
   @Override
