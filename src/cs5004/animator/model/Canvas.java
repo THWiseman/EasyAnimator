@@ -100,7 +100,6 @@ public interface Canvas {
    */
   int[] getDimensions();
 
-  String getStringDescription();
 
   Map<String,Shape> getShapeMap();
 }
