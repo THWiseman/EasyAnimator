@@ -94,8 +94,28 @@ public interface Shape {
    */
   Shape copy();
 
-//need to actually implement these.
+
+  /**
+   * Returns the time that the shape appears.
+   * @return Integer of the appear time.
+   */
   int getAppearTime();
 
+  /**
+   * Returns the time that the shape disappears.
+   * @return Integer of the disappear time.
+   */
   int getDisappearTime();
+
+  /**
+   * Changes the appear time to a new value.
+   * @param time integer of the time that the appear time should be set to.
+   */
+  void setAppearTime(int time);
+
+  /**
+   * Changes the disappear time to a new value.
+   * @param time integer of the time that the appear time should be set to.
+   */
+  void setDisappearTime(int time);
 }

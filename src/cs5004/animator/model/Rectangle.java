@@ -45,6 +45,6 @@ public class Rectangle extends AbstractShape {
 
   @Override
   public String toString() {
-    return "Rectangle Object";
+    return "rectangle";
   }
 }

@@ -1,6 +1,7 @@
 package cs5004.animator.view;
 
 import cs5004.animator.model.Canvas;
+//look into java swing timer
 
 /**
  * This is the common cs5004.animator.view interface that all views, regardless of type, will implement.

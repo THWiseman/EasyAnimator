@@ -43,6 +43,6 @@ public class Oval extends AbstractShape {
 
   @Override
   public String toString() {
-    return "Oval Object";
+    return "oval";
   }
 }

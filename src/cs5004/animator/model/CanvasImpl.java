@@ -13,12 +13,8 @@ import cs5004.animator.util.AnimationBuilder;
  */
 public class CanvasImpl implements Canvas {
   private Map<String, Shape> shapes;
-  //  private List<Shape> shapes; //List of Shape and Strings provide fast access
-  // to the shapes as needed.
-//  private List<String> shapeIDs;
-  private int startTime; //time is best stored as an integer for simplicity.
+  private int startTime;
   private int endTime;
-  //default values for a Canvas are a coordinate plane from -100 to 100 for both x and y.
   private int leftmostX;
   private int topmostY;
   private int width;
@@ -314,7 +310,7 @@ public class CanvasImpl implements Canvas {
     @Override
     public AnimationBuilder<Canvas> declareShape(String name, String type) {
       Shape newShape;
-      if (!type.toUpperCase().equals("RECTANGLE") || !type.toUpperCase().equals("ELLIPSE")) {
+      if (!type.toUpperCase().equals("RECTANGLE") || !type.toUpperCase().equals("ELLIPSE") || !type.toUpperCase().equals("OVAL")) {
         throw new IllegalArgumentException("Shape type must be RECTANGLE or ELLIPSE.");
       }
       if (type.toUpperCase().equals("RECTANGLE")) {
@@ -322,7 +318,7 @@ public class CanvasImpl implements Canvas {
         this.shapes.put(name, newShape);
         return this;
       }
-      if (type.toUpperCase().equals("ELLIPSE")) {
+      if (type.toUpperCase().equals("ELLIPSE") || type.toUpperCase().equals("OVAL")) {
         newShape = new Oval();
         this.shapes.put(name, newShape);
         return this;

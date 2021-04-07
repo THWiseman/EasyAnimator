@@ -6,8 +6,7 @@ package cs5004.animator.model;
  * here.
  */
 public abstract class AbstractShape implements Shape {
-  ColorPattern color; //decided to store all shape attributes inside of a different class to have
-  //both flexibility in how they are calculated and stored, and portability between shapes.
+  ColorPattern color;
   MovementPattern move;
   SizeChangePattern size;
 
@@ -91,5 +90,19 @@ public abstract class AbstractShape implements Shape {
     return this.move;
   }
 
+  @Override
+  public void setAppearTime(int time) {
+    if(time < 0 || time >= this.disappearTime) {
+      throw new IllegalArgumentException("Appear time must be greater than zero and before the disappear time.");
+    }
+    this.appearTime = time;
+  }
 
+  @Override
+  public void setDisappearTime(int time) {
+    if(time < this.appearTime || time <= 0) {
+      throw new IllegalArgumentException("Disappear time must be greater than the appear time and greater than zero.");
+    }
+    this.disappearTime = time;
+  }
 }
