@@ -63,9 +63,41 @@ public class ColorTest {
   }
 
   @Test
-  public void testSecondChange() {
+  public void testChange2() {
+    try {
+      pattern1.change(10, 20, new Integer[] {40, 60});
+      fail("An exception should have been thrown");
+    } catch (IllegalArgumentException e) {
+      //test passes
+    }
+    try {
+      pattern1.change(10, 20, new Integer[] {40, 60, 80, 100});
+      fail("An exception should have been thrown");
+    } catch (IllegalArgumentException e) {
+      //test passes
+    }
     pattern1.change(10, 20, new Integer[] {40, 60, 80});
-    pattern1.change(50, 70, new Integer[] {20, 20, 20});
+
+    assertEquals(40, pattern1.get(20)[0]);
+    assertEquals(20, pattern1.get(10)[0]);
+    assertEquals(20, pattern1.get(10)[1]);
+    assertEquals(60, pattern1.get(20)[1]);
+    assertEquals(20, pattern1.get(10)[2]);
+    assertEquals(80, pattern1.get(20)[2]);
+
+    assertEquals(30, pattern1.get(15)[0]);
+    assertEquals(40, pattern1.get(15)[1]);
+    assertEquals(50, pattern1.get(15)[2]);
+
+    assertEquals(40, pattern1.get(75)[0]);
+    assertEquals(60, pattern1.get(75)[1]);
+    assertEquals(80, pattern1.get(75)[2]);
+  }
+
+  @Test
+  public void testSecondChange() {
+    pattern1.change(10, 20, new Integer[] {20, 20, 20}, new Integer[] {40, 60, 80});
+    pattern1.change(50, 70, new Integer[] {40, 60, 80}, new Integer[] {20, 20, 20});
 
     assertEquals(40, pattern1.get(20)[0]);
     assertEquals(20, pattern1.get(10)[0]);

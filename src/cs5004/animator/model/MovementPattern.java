@@ -56,6 +56,26 @@ public class MovementPattern extends AbstractPattern {
     super.changeTracker(PatternType.MOVEMENT, frame1, frame2, pattern.get(frame1), values);
   }
 
+  /////////////////////////////////////////////////////////
+
+  public void change(Integer frame1, Integer frame2, Integer[] startValues, Integer[] endValues) {
+    if (endValues.length != 2) {
+      throw new IllegalArgumentException("Values must be given as a two Integer array.");
+    }
+
+    Integer newX = endValues[0];
+    Integer newY = endValues[1];
+
+    if (newX > 1000 || newX <= 0 || newY > 1000 || newY <= 0) {
+      throw new IllegalArgumentException("Coordinates must be between 0 and 100");
+    }
+      super.change(frame1, frame2, startValues, endValues);
+
+      super.changeTracker(PatternType.MOVEMENT, frame1, frame2, startValues, endValues);
+
+  }
+
+  //////////////////////////////////////////////////////////////////////////
 
   /**
    * toString override method. Returns a table of the x and y cooridnates for every time stored.

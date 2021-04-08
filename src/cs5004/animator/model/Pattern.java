@@ -15,6 +15,8 @@ public interface Pattern {
    */
   void change(Integer frame1, Integer frame2, Integer[] values);
 
+  void change(Integer frame1, Integer frame2, Integer[] startValues, Integer[] endValues);
+
   /**
    * Gets the values stored in the Pattern at any given frame.
    *

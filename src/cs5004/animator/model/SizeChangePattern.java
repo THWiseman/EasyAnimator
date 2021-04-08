@@ -50,11 +50,48 @@ public class SizeChangePattern extends AbstractPattern {
     if (newLength <= 0 || newWidth <= 0) {
       throw new IllegalArgumentException("Length and width must be between 0 and 100");
     }
+    if (newLength > 1000 || newWidth > 1000) {
+      throw new IllegalArgumentException("Length and width must be between 0 and 100");
+    }
+    if (frame1 < 0 || frame2 < 0) {
+      throw new IllegalArgumentException("Start and end times must be between 0 and 100");
+    }
+    if (frame1 > frame2) {
+      throw new IllegalArgumentException("End time must be greater than start time");
+    }
     super.change(frame1, frame2, values);
 
     super.changeTracker(PatternType.SIZECHANGE, frame1, frame2, pattern.get(frame1), values);
   }
 
+/////////////////////////////////////////////////////////
+
+  public void change(Integer frame1, Integer frame2, Integer[] startValues, Integer[] endValues) {
+    if (endValues.length != 2) {
+      throw new IllegalArgumentException("Values must be given as a two Integer array.");
+    }
+
+    Integer newLength = endValues[0];
+    Integer newWidth = endValues[1];
+
+    if (newLength <= 0 || newWidth <= 0) {
+      throw new IllegalArgumentException("Length and width must be between 0 and 100");
+    }
+    if (newLength > 1000 || newWidth > 1000) {
+      throw new IllegalArgumentException("Length and width must be between 0 and 100");
+    }
+    if (frame1 < 0 || frame2 < 0) {
+      throw new IllegalArgumentException("Start and end times must be between 0 and 100");
+    }
+    if (frame1 > frame2) {
+      throw new IllegalArgumentException("End time must be greater than start time");
+    }
+    super.change(frame1, frame2, startValues, endValues);
+
+    super.changeTracker(PatternType.SIZECHANGE, frame1, frame2, startValues, endValues);
+  }
+
+  //////////////////////////////////////////////////////////////////////////
 
   /**
    * Override for the toString method. Returns a table of the length and with at every time in the

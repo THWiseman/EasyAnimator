@@ -58,6 +58,27 @@ public class ColorPattern extends AbstractPattern {
   }
 
 
+  /////////////////////////////////////////////////////////
+
+  public void change(Integer frame1, Integer frame2, Integer[] startValues, Integer[] endValues) {
+    if (endValues.length != 3) {
+      throw new IllegalArgumentException("Values must be given as a two Integer array.");
+    }
+
+    Integer newR = endValues[0];
+    Integer newG = endValues[1];
+    Integer newB = endValues[2];
+
+    if (newR > 255 || newR < 0 || newG > 255 || newG < 0 || newB < 0 || newB > 255) {
+      throw new IllegalArgumentException("Length and width must be between 0 and 100");
+    }
+    super.change(frame1, frame2, startValues, endValues);
+
+    super.changeTracker(PatternType.COLOR, frame1, frame2, startValues, endValues);
+  }
+
+  //////////////////////////////////////////////////////////////////////////
+
   /**
    * toString override method.
    * @return String table of all the Colors at every time stored in the hashmap.

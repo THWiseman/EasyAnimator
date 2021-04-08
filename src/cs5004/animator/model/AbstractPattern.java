@@ -13,7 +13,7 @@ import java.util.Map;
 public abstract class AbstractPattern implements Pattern {
   Map<Integer, Integer[]> pattern = new HashMap<>();
   List<LogNode> changeLog = new ArrayList<>();
-  int endTime = 100000;
+  int endTime = 100;
 
   /**
    * Implements a change to the values in the Pattern. Change is implemented gradually,
@@ -31,6 +31,9 @@ public abstract class AbstractPattern implements Pattern {
     }
     if (frame1 > frame2) {
       throw new IllegalArgumentException("End time must be greater than start time");
+    }
+    if (frame2 > endTime) {
+      throw new IllegalArgumentException("End time of the change must be less than the end time of the animation");
     }
 
     int time = frame2 - frame1;
@@ -54,6 +57,45 @@ public abstract class AbstractPattern implements Pattern {
 
     for (int i = frame2; i <= this.endTime; i++) {
       this.pattern.replace(i, values);
+    }
+  }
+
+
+  @Override
+  public void change(Integer frame1, Integer frame2, Integer[] startValues, Integer[] endValues) {
+    //should change to something like:
+    //change(Integer frame1, Integer frame2, Integer values1, Integer values2)
+    if (frame1 < 0 || frame2 < 0) {
+      throw new IllegalArgumentException("Start and end times must be between 0 and 100");
+    }
+    if (frame1 > frame2) {
+      throw new IllegalArgumentException("End time must be greater than start time");
+    }
+    if (frame2 > endTime) {
+      throw new IllegalArgumentException("End time of the change must be less than the end time of the animation");
+    }
+
+    int time = frame2 - frame1;
+
+    for (int i = frame1; i < frame2; i++) {
+      int alteredFrameNumber = i - frame1;
+      Integer[] updatedFrame = new Integer[endValues.length];
+
+      for (int j = 0; j < endValues.length; j++) {
+
+        double difference = endValues[j] - startValues[j];
+
+        double increment = difference / time;
+
+        double changeFactor = alteredFrameNumber * increment;
+
+        updatedFrame[j] = (int) (pattern.get(i)[j] + changeFactor);
+      }
+      this.pattern.replace(i, updatedFrame);
+    }
+
+    for (int i = frame2; i <= this.endTime; i++) {
+      this.pattern.replace(i, endValues);
     }
   }
 

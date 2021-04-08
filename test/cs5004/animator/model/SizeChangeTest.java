@@ -59,6 +59,35 @@ public class SizeChangeTest {
   }
 
   @Test
+  public void testChange2() {
+    try {
+      pattern1.change(10, 20, new Integer[] {40});
+      fail("An exception should have been thrown");
+    } catch (IllegalArgumentException e) {
+      //test passes
+    }
+    try {
+      pattern1.change(10, 20, new Integer[] {40, 60, 80});
+      fail("An exception should have been thrown");
+    } catch (IllegalArgumentException e) {
+      //test passes
+    }
+    pattern1.change(10, 20, new Integer[] {20, 30}, new Integer[] {40, 60});
+
+    assertEquals(40, pattern1.get(20)[0]);
+    assertEquals(20, pattern1.get(10)[0]);
+    assertEquals(30, pattern1.get(10)[1]);
+    assertEquals(60, pattern1.get(20)[1]);
+
+    assertEquals(30, pattern1.get(15)[0]);
+    assertEquals(45, pattern1.get(15)[1]);
+
+    assertEquals(40, pattern1.get(75)[0]);
+    assertEquals(60, pattern1.get(75)[1]);
+  }
+
+
+  @Test
   public void testSecondChange() {
     pattern1.change(10, 20, new Integer[] {40, 60});
     pattern1.change(50, 70, new Integer[] {20, 30});
@@ -105,7 +134,7 @@ public class SizeChangeTest {
       //test passes
     }
     try {
-      pattern1.change(10, 20, new Integer[] {400, 60});
+      pattern1.change(10, 20, new Integer[] {1400, 60});
       fail("An exception should have been thrown");
     } catch (IllegalArgumentException e) {
       //test passes
