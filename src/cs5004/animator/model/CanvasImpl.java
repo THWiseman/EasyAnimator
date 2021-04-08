@@ -1,6 +1,7 @@
 package cs5004.animator.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ import cs5004.animator.util.AnimationBuilder;
  */
 public class CanvasImpl implements Canvas {
   private Map<String, Shape> shapes;
+  private Map<Integer, String> changeLog = new HashMap<>();
   private int startTime;
   private int endTime;
   private int leftmostX;
@@ -193,6 +195,41 @@ public class CanvasImpl implements Canvas {
     return (this.startTime == canvas.startTime && this.endTime == canvas.endTime);
   }
 
+/////////////////////////////////////////////////////////////////
+  public void setChangeLog(Map<Integer, String> changeLog) {
+    this.changeLog = changeLog;
+  }
+
+  public String getChangeLog() {
+    String str = "";
+    for (int i = 0; i <= this.endTime; i++) {
+
+      if (changeLog.containsKey(i)) {
+      str += "\n" + changeLog.get(i);
+    }
+    }
+    return str.substring(1);
+  }
+
+/**
+  private void changeTracker(PatternType type, Integer frame1, Integer frame2,
+      Integer[] startValues, Integer[] endValues) {
+
+    if (type == PatternType.SIZECHANGE) {
+      changeLog.put(frame1, "changes dimensions from length " + startValues[0] + "by width"
+          + startValues[1] + " to length " + endValues[0] + "by width " + endValues[1]
+          + " from time t=" + frame1 + " to t=" + frame2);
+    } else if (type == PatternType.MOVEMENT) {
+      changeLog.put(frame1, "moves position from (" + startValues[0] + ", " + startValues[1]
+          + ") to (" + endValues[0] + ", " + endValues[1] + ") from time t=" + frame1 + " to t="
+          + frame2);
+    } else if (type == PatternType.COLOR) {
+      changeLog.put(frame1, "changes color from RGB" + Arrays.toString(startValues) + " to RGB"
+          + Arrays.toString(endValues) + " from time t=" + frame1 + " to t=" + frame2);
+    }
+  }
+**/
+  ///////////////////////////////////////////////////////////////
 
   @Override
   public String toString() {
@@ -216,6 +253,7 @@ public class CanvasImpl implements Canvas {
     private int width = 200;
     private int height = 200;
     private Map<String, Shape> shapes;
+    private Map<Integer, String> changeLog = new HashMap<>();
 
     @Override
     public Canvas build() {
@@ -229,6 +267,7 @@ public class CanvasImpl implements Canvas {
         returnCanvas.addShape(entry.getValue(), entry.getKey());
       }
       //returns the constructed CanvasImpl object.
+      returnCanvas.setChangeLog(this.changeLog);
       return returnCanvas;
     }
 
@@ -262,21 +301,42 @@ public class CanvasImpl implements Canvas {
     }
 
     @Override
-    public AnimationBuilder<Canvas> addMotion(String name, int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1, int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2) {
+    public AnimationBuilder<Canvas> addMotion(String name, int t1, int x1, int y1, int w1, int h1,
+        int r1, int g1, int b1, int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2) {
       ColorPattern color = new ColorPattern();
       color.change(t1, t2, new Integer[] {r2, g2, b2}); //NEED TO CHANGE THIS CODE TO INCORPORATE r1,g1,b1.
+      this.changeTracker(PatternType.COLOR, t1, t2, new Integer[] {r1, g1, b1}, new Integer[]{r2, g2, b2});
       //should eventually be color.change(t1,r1,g1,b1,t2,r2,g2,b2);
       MovementPattern move = new MovementPattern();
       move.change(t1, t2, new Integer[] {x2, y2}); //NEED TO CHANGE THIS CODE TO INCORPORATE x1, y1.
+      this.changeTracker(PatternType.MOVEMENT, t1, t2, new Integer[] {x1, y1}, new Integer[]{x2, y2});
       //should eventually be move.change(t1,x1,y1,t2,x2,y2);
       SizeChangePattern size = new SizeChangePattern();
       size.change(t1, t2, new Integer[] {h2, w2});//NEED TO CHANGE PATTERN TO USE HEIGHT INSTEAD OF LENGTH
+      this.changeTracker(PatternType.COLOR, t1, t2, new Integer[] {h1, w1}, new Integer[]{h2, w2});
       //NEED TO CHANGE THIS CODE TO INCORPORATE h1,w1
       //should eventually be size.change(t1,w1,h1,t2,w2,h2);
       this.shapes.get(name).setColorPattern(color);
       this.shapes.get(name).setMovementPattern(move);
       this.shapes.get(name).setSizeChangePattern(size);
       return this;
+    }
+
+    private void changeTracker(PatternType type, Integer frame1, Integer frame2,
+        Integer[] startValues, Integer[] endValues) {
+
+      if (type == PatternType.SIZECHANGE) {
+        changeLog.put(frame1, "changes dimensions from length " + startValues[0] + "by width"
+            + startValues[1] + " to length " + endValues[0] + "by width " + endValues[1]
+            + " from time t=" + frame1 + " to t=" + frame2);
+      } else if (type == PatternType.MOVEMENT) {
+        changeLog.put(frame1, "moves position from (" + startValues[0] + ", " + startValues[1]
+            + ") to (" + endValues[0] + ", " + endValues[1] + ") from time t=" + frame1 + " to t="
+            + frame2);
+      } else if (type == PatternType.COLOR) {
+        changeLog.put(frame1, "changes color from RGB" + Arrays.toString(startValues) + " to RGB"
+            + Arrays.toString(endValues) + " from time t=" + frame1 + " to t=" + frame2);
+      }
     }
   }
 }

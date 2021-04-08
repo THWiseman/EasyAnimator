@@ -1,5 +1,7 @@
 package cs5004.animator.model;
 
+import java.util.HashMap;
+
 /**
  * Stores and/or calculates the color for a shape object given some time.
  */

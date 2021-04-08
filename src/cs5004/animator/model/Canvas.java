@@ -102,4 +102,6 @@ public interface Canvas {
 
 
   Map<String,Shape> getShapeMap();
+
+  void setChangeLog(Map<Integer, String> changeLog);
 }

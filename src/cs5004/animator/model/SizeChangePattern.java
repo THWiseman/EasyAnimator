@@ -53,6 +53,7 @@ public class SizeChangePattern extends AbstractPattern {
     super.change(frame1, frame2, values);
   }
 
+
   /**
    * Override for the toString method. Returns a table of the length and with at every time in the
    * hashmap.
