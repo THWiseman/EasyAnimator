@@ -53,6 +53,8 @@ public class ColorPattern extends AbstractPattern {
       throw new IllegalArgumentException("Length and width must be between 0 and 100");
     }
     super.change(frame1, frame2, values);
+
+    super.changeTracker(PatternType.COLOR, frame1, frame2, pattern.get(frame1), values);
   }
 
 

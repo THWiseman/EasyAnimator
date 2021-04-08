@@ -142,6 +142,15 @@ public class ColorTest {
   }
 
   @Test
+  public void testChangeLog() {
+    pattern1.change(10, 20, new Integer[] {40, 60, 80});
+    pattern1.change(50, 70, new Integer[] {20, 20, 20});
+    assertEquals("changes color from RGB[20, 20, 20] to RGB[40, 60, 80], from time t=10 to t=20\n"
+        + "changes color from RGB[40, 60, 80] to RGB[20, 20, 20], from time t=50 to t=70", pattern1.getChangeLog());
+  }
+
+
+  @Test
   public void testToString() {
     assertEquals("Frame: 0, R: 20, G: 20, B: 20\n"
         + "Frame: 1, R: 20, G: 20, B: 20\n"

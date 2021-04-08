@@ -6,7 +6,9 @@ import cs5004.animator.model.Rectangle;
 import cs5004.animator.util.AnimationReader;
 import cs5004.animator.view.SwingView;
 
+
 public final class EasyAnimator {
+/**
   public static void main(String[] args) {
     Readable file
     Canvas canvas = AnimationReader.parseFile(toh-3.txt);
@@ -15,5 +17,5 @@ public final class EasyAnimator {
     SwingView view = new SwingView(canvas);
 
   }
-
+**/
 }

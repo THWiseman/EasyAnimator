@@ -52,6 +52,8 @@ public class MovementPattern extends AbstractPattern {
       throw new IllegalArgumentException("Coordinates must be between 0 and 100");
     }
     super.change(frame1, frame2, values);
+
+    super.changeTracker(PatternType.MOVEMENT, frame1, frame2, pattern.get(frame1), values);
   }
 
 

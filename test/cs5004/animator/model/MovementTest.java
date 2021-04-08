@@ -131,6 +131,15 @@ public class MovementTest {
   }
 
   @Test
+  public void testChangeLog() {
+    pattern1.change(10, 20, new Integer[] {40, 60});
+    pattern1.change(50, 70, new Integer[] {20, 30});
+    assertEquals("moves position from (20, 30) to (40, 60), from time t=10 to t=20\n"
+        + "moves position from (40, 60) to (20, 30), from time t=50 to t=70", pattern1.getChangeLog());
+  }
+
+
+  @Test
   public void testToString() {
     assertEquals("Frame: 0, X: 20, Y: 30\n"
         + "Frame: 1, X: 20, Y: 30\n"

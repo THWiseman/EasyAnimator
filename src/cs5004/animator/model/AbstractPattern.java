@@ -1,5 +1,6 @@
 package cs5004.animator.model;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,6 +10,7 @@ import java.util.Map;
  */
 public abstract class AbstractPattern implements Pattern {
   Map<Integer, Integer[]> pattern = new HashMap<>();
+  Map<Integer, String> changeLog = new HashMap<>();
   int endTime = 100;
 
   /**
@@ -72,6 +74,35 @@ public abstract class AbstractPattern implements Pattern {
       return updatedFrame;
     } catch (NullPointerException e) {
       throw new IndexOutOfBoundsException("No position found for given time.");
+    }
+  }
+
+  public String getChangeLog() {
+      String str = "";
+      for (int i = 0; i <= this.endTime; i++) {
+
+        if (changeLog.containsKey(i)) {
+          str += "\n" + changeLog.get(i);
+        }
+      }
+      return str.substring(1);
+    }
+
+
+  public void changeTracker(PatternType type, Integer frame1, Integer frame2,
+      Integer[] startValues, Integer[] endValues) {
+
+    if (type == PatternType.SIZECHANGE) {
+      changeLog.put(frame1, "changes dimensions from length " + startValues[0] + " by width "
+          + startValues[1] + " to length " + endValues[0] + " by width " + endValues[1]
+          + ", from time t=" + frame1 + " to t=" + frame2);
+    } else if (type == PatternType.MOVEMENT) {
+      changeLog.put(frame1, "moves position from (" + startValues[0] + ", " + startValues[1]
+          + ") to (" + endValues[0] + ", " + endValues[1] + "), from time t=" + frame1 + " to t="
+          + frame2);
+    } else if (type == PatternType.COLOR) {
+      changeLog.put(frame1, "changes color from RGB" + Arrays.toString(startValues) + " to RGB"
+          + Arrays.toString(endValues) + ", from time t=" + frame1 + " to t=" + frame2);
     }
   }
 }
