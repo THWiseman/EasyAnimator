@@ -246,6 +246,7 @@ public class CanvasImpl implements Canvas {
     private int topmostY = 100;
     private int width = 200;
     private int height = 200;
+    private int greatestEndTime = 0;
     private Map<String, Shape> shapes = new HashMap<>();
     private Map<Integer, String> changeLog = new HashMap<>();
 
@@ -256,6 +257,7 @@ public class CanvasImpl implements Canvas {
       //sets the dimensions of the new canvas. If the setBounds method was never called, uses
       //the default values.
       returnCanvas.setDimensions(leftmostX, width, topmostY, height);
+      returnCanvas.setEndTime(this.greatestEndTime);
       //adds every shape in the map to the CanvasImpl
       for (Map.Entry<String, Shape> entry : shapes.entrySet()) {
         returnCanvas.addShape(entry.getValue(), entry.getKey());
@@ -293,6 +295,10 @@ public class CanvasImpl implements Canvas {
     @Override
     public AnimationBuilder<Canvas> addMotion(String name, int t1, int x1, int y1, int w1, int h1,
         int r1, int g1, int b1, int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2) {
+      if (t2 > this.greatestEndTime) {
+        //update the endTime to the time that the last change finishes.
+        greatestEndTime = t2;
+      }
       ColorPattern color = new ColorPattern();
       color.change(t1, t2, new Integer[] {r2, g2, b2}); //NEED TO CHANGE THIS CODE TO INCORPORATE r1,g1,b1.
       //should eventually be color.change(t1,r1,g1,b1,t2,r2,g2,b2);

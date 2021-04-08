@@ -84,7 +84,7 @@ public class TextView implements View {
     String allChanges = "";
     for (Map.Entry<String, Shape> e : shapes.entrySet()) {
       if(e.getValue().getChangeLog()!="") {
-        allChanges += e.getKey() + e.getValue().getChangeLog();
+        allChanges += e.getKey() + " " + e.getValue().getChangeLog();
       }
     }
     return allCreates + allAppears + allChanges;
