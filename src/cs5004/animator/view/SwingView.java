@@ -14,6 +14,7 @@ public class SwingView extends JFrame implements View {
     private JFrame frame;
     private Map<String, Shape> shapes;
     private Component[] shapeComponents;
+    private int hi;
 
     public SwingView(Canvas model) {
         //load in our model.
