@@ -40,6 +40,15 @@ public class ShapeTest {
   }
 
   @Test
+  public void testChangeLog() {
+    c1.change(20, 40, new Integer[] {40, 60, 80});
+    m1.change(10, 20, new Integer[] {40, 60});
+    s1.change(30, 60, new Integer[] {40, 60});
+    //this method needs to be updated so that the name of the shape can be put in the log
+    assertEquals("hello", ov2.getChangeLog());
+  }
+
+  @Test
   public void testGetPositionRec() {
     try {
       assertTrue(Arrays.equals(m1.get(-1), rec2.getPosition(-1)));

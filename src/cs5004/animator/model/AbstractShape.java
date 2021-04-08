@@ -20,11 +20,25 @@ public abstract class AbstractShape implements Shape {
   int disappearTime;
 
   ////////////////////////////////////////////////////////
-  public List<LogNode> pullChangeLog() {
+  private void updateChangeLog() {
     changeLog.addAll(color.pullChangeLog());
     changeLog.addAll(move.pullChangeLog());
     changeLog.addAll(size.pullChangeLog());
     Collections.sort(changeLog);
+  }
+
+  public String getChangeLog() {
+    this.updateChangeLog();
+    String str = "";
+    for (int i = 0; i < changeLog.size(); i++) {
+
+      str += "\n" + changeLog.get(i).getChangeNotes();
+    }
+    return str.substring(1);
+  }
+
+  public List<LogNode> pullChangeLog() {
+    this.updateChangeLog();
     return changeLog;
   }
   ///////////////////////////////////////////////////////////
