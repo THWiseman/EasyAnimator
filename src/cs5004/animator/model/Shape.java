@@ -1,5 +1,7 @@
 package cs5004.animator.model;
 
+import java.util.List;
+
 /**
  * Shape is an object that can be displayed on a canvas.
  */
@@ -118,4 +120,7 @@ public interface Shape {
    * @param time integer of the time that the appear time should be set to.
    */
   void setDisappearTime(int time);
+
+
+  public List<LogNode> pullChangeLog();
 }

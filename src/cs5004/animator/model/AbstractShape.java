@@ -1,5 +1,10 @@
 package cs5004.animator.model;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+
 /**
  * All shapes extend Abstract shape. By default, all shapes will simply query their patterns for
  * information about their position/size/color/visibility/timing, so those methods are implemented
@@ -9,10 +14,20 @@ public abstract class AbstractShape implements Shape {
   ColorPattern color;
   MovementPattern move;
   SizeChangePattern size;
+  private List<LogNode> changeLog = new ArrayList<>();
 
   int appearTime;
   int disappearTime;
 
+  ////////////////////////////////////////////////////////
+  public List<LogNode> pullChangeLog() {
+    changeLog.addAll(color.pullChangeLog());
+    changeLog.addAll(move.pullChangeLog());
+    changeLog.addAll(size.pullChangeLog());
+    Collections.sort(changeLog);
+    return changeLog;
+  }
+  ///////////////////////////////////////////////////////////
 
   @Override
   public int[] getPosition(int time) {
