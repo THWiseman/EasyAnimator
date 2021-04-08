@@ -131,6 +131,15 @@ public class SizeChangeTest {
   }
 
   @Test
+  public void testChangeLog() {
+    pattern1.change(10, 20, new Integer[] {40, 60});
+    pattern1.change(50, 70, new Integer[] {20, 30});
+    assertEquals("changes dimensions from length 20 by width 30 to length 40 by width 60, from time t=10 to t=20\n"
+        + "changes dimensions from length 40 by width 60 to length 20 by width 30, from time t=50 to t=70", pattern1.getChangeLog());
+  }
+
+
+  @Test
   public void testToString() {
     assertEquals("Frame: 0, Length: 20, Width: 30\n"
         + "Frame: 1, Length: 20, Width: 30\n"
