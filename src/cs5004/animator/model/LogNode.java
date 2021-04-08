@@ -4,7 +4,7 @@ import java.util.Comparator;
 
 public class LogNode implements Comparable<LogNode> {
   private final int frame;
-  private final String changeNotes;
+  private String changeNotes;
 
   public LogNode(int frame, String changeNotes) {
     this.frame = frame;

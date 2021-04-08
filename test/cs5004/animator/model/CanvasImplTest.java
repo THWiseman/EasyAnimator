@@ -45,6 +45,15 @@ public class CanvasImplTest {
     big.addShape(ov1, "3");
   }
 
+  @Test
+  public void testChangeLog() {
+    c1.change(20, 40, new Integer[] {40, 60, 80});
+    m1.change(10, 20, new Integer[] {40, 60});
+    s1.change(30, 60, new Integer[] {40, 60});
+    assertEquals("hello", big.getChangeLog());
+  }
+
+
   @Test (expected = IllegalArgumentException.class)
   public void testInvalidStartTime() {
     small.setStartTime(-1);

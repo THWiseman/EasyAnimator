@@ -2,6 +2,7 @@ package cs5004.animator.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import cs5004.animator.util.AnimationBuilder;
  */
 public class CanvasImpl implements Canvas {
   private Map<String, Shape> shapes;
+  private List<LogNode> changeLog;
   private int startTime;
   private int endTime;
   private int leftmostX;
@@ -28,6 +30,7 @@ public class CanvasImpl implements Canvas {
    */
   public CanvasImpl(int endTime) {
     this.shapes = new HashMap<String, Shape>();
+    this.changeLog = new ArrayList<>();
     this.startTime = 0;
     this.endTime = endTime;
     this.leftmostX = -100;
@@ -48,6 +51,33 @@ public class CanvasImpl implements Canvas {
     this.width = 200;
     this.height = 200;
   }
+
+  ///////////////////////////////////////////////////////////////
+  private void updateChangeLog() {
+    for (Map.Entry<String, Shape> e : shapes.entrySet()) {
+      changeLog.addAll(e.getValue().pullChangeLog());
+    }
+    Collections.sort(changeLog);
+  }
+
+  public String getChangeLog() {
+    this.updateChangeLog();
+    String str = "";
+    for (int i = 0; i < changeLog.size(); i++) {
+
+      str += "\n" + changeLog.get(i).getChangeNotes();
+    }
+    return str.substring(1);
+  }
+
+  public List<LogNode> pullChangeLog() {
+    this.updateChangeLog();
+    return this.changeLog;
+  }
+  ////////////////////////////////////////////////////////////
+
+
+
 
   @Override
   public int getStartTime() {
