@@ -246,7 +246,7 @@ public class CanvasImpl implements Canvas {
     private int topmostY = 100;
     private int width = 200;
     private int height = 200;
-    private Map<String, Shape> shapes;
+    private Map<String, Shape> shapes = new HashMap<>();
     private Map<Integer, String> changeLog = new HashMap<>();
 
     @Override
@@ -276,15 +276,12 @@ public class CanvasImpl implements Canvas {
     @Override
     public AnimationBuilder<Canvas> declareShape(String name, String type) {
       Shape newShape;
-      if (!type.toUpperCase().equals("RECTANGLE") || !type.toUpperCase().equals("ELLIPSE") || !type.toUpperCase().equals("OVAL")) {
-        throw new IllegalArgumentException("Shape type must be RECTANGLE or ELLIPSE.");
-      }
+      System.out.println(type);
       if (type.toUpperCase().equals("RECTANGLE")) {
         newShape = new Rectangle();
         this.shapes.put(name, newShape);
         return this;
-      }
-      if (type.toUpperCase().equals("ELLIPSE") || type.toUpperCase().equals("OVAL")) {
+      } else if (type.toUpperCase().equals("ELLIPSE") || type.toUpperCase().equals("OVAL")) {
         newShape = new Oval();
         this.shapes.put(name, newShape);
         return this;

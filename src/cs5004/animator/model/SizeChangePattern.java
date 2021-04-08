@@ -47,7 +47,7 @@ public class SizeChangePattern extends AbstractPattern {
     Integer newLength = values[0];
     Integer newWidth = values[1];
 
-    if (newLength > this.endTime || newLength <= 0 || newWidth > this.endTime || newWidth <= 0) {
+    if (newLength <= 0 || newWidth <= 0) {
       throw new IllegalArgumentException("Length and width must be between 0 and 100");
     }
     super.change(frame1, frame2, values);

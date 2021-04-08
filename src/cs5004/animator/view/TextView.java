@@ -79,7 +79,7 @@ public class TextView implements View {
     //and append them to allChanges.
     String allChanges = "";
     for (Map.Entry<String, Shape> e : shapes.entrySet()) {
-      allChanges += "send help im being held hostage by my OOD teacher";
+      allChanges += e.getKey();
     }
     return allCreates + allAppears + allChanges;
   }

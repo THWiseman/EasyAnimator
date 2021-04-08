@@ -13,7 +13,7 @@ import java.util.Map;
 public abstract class AbstractPattern implements Pattern {
   Map<Integer, Integer[]> pattern = new HashMap<>();
   List<LogNode> changeLog = new ArrayList<>();
-  int endTime = 100;
+  int endTime = 100000;
 
   /**
    * Implements a change to the values in the Pattern. Change is implemented gradually,
@@ -26,7 +26,7 @@ public abstract class AbstractPattern implements Pattern {
   public void change(Integer frame1, Integer frame2, Integer[] values) {
     //should change to something like:
     //change(Integer frame1, Integer frame2, Integer values1, Integer values2)
-    if (frame1 > this.endTime || frame1 < 0 || frame2 > this.endTime || frame2 < 0) {
+    if (frame1 < 0 || frame2 < 0) {
       throw new IllegalArgumentException("Start and end times must be between 0 and 100");
     }
     if (frame1 > frame2) {
