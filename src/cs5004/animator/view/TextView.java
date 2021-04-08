@@ -69,7 +69,7 @@ public class TextView implements View {
       appearString += e.getKey() + String.format("appears at time t=%d and disappears at time t=%d.\n", e.getValue().getAppearTime(), e.getValue().getDisappearTime());
       allAppears += appearString;
     }
-    allAppears += "\n"; //add extra newline to separate from next section.?.OMRT
+    allAppears += "\n"; //add extra newline to separate from next section.
 
 
     //this for loop will create strings like:
