@@ -49,13 +49,17 @@ public class TextView implements View {
         //"R with corner at (200,200), "
         createString += String.format("%s with corner at (%d,%d), ", e.getKey(), e.getValue().getPosition(0)[0], e.getValue().getPosition(0)[1]);
         //width 50, height 100, and color.\n"
-        createString += String.format("width %d, height %d, and color %s.\n", e.getValue().getSize(0)[0], e.getValue().getSize(0)[1],e.getValue().getColor(0).toString());
+        createString += String.format("width %d, height %d, and color {%d, %d, %d}.\n", e.getValue().getSize(0)[0],
+                e.getValue().getSize(0)[1],e.getValue().getColor(0)[0],e.getValue().getColor(0)[1],
+                e.getValue().getColor(0)[2]);
       }
       if (e.getValue() instanceof Oval) {
         //"C with center at (500,100), "
         createString += String.format("%s with center at (%d,%d), ", e.getKey(), e.getValue().getPosition(0)[0], e.getValue().getPosition(0)[1]);
         //radius 60 and height 30\n"
-        createString += String.format("radius %d and %d, and color %s.\n", e.getValue().getSize(0)[0], e.getValue().getSize(0)[1],e.getValue().getColor(0).toString());
+        createString += String.format("radius %d and %d, and color {%d,%d,%d}.\n", e.getValue().getSize(0)[0],
+                e.getValue().getSize(0)[1],e.getValue().getColor(0)[0],e.getValue().getColor(0)[1],
+                e.getValue().getColor(0)[2]);
       }
       allCreates += createString;
     }
@@ -66,7 +70,7 @@ public class TextView implements View {
     String allAppears = "";
     for (Map.Entry<String, Shape> e : shapes.entrySet()) {
       String appearString = "";
-      appearString += e.getKey() + String.format("appears at time t=%d and disappears at time t=%d.\n", e.getValue().getAppearTime(), e.getValue().getDisappearTime());
+      appearString += e.getKey() + String.format(" appears at time t=%d and disappears at time t=%d.\n", e.getValue().getAppearTime(), e.getValue().getDisappearTime());
       allAppears += appearString;
     }
     allAppears += "\n"; //add extra newline to separate from next section.
@@ -79,7 +83,9 @@ public class TextView implements View {
     //and append them to allChanges.
     String allChanges = "";
     for (Map.Entry<String, Shape> e : shapes.entrySet()) {
-      allChanges += e.getKey();
+      if(e.getValue().getChangeLog()!="") {
+        allChanges += e.getKey() + e.getValue().getChangeLog();
+      }
     }
     return allCreates + allAppears + allChanges;
   }

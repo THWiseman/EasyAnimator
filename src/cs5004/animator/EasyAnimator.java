@@ -13,7 +13,7 @@ import java.nio.file.Paths;
 
 public final class EasyAnimator {
   public static void main(String[] args) throws IOException {
-    Path path = Paths.get("/Users/tom/IdeaProjects/EasyAnimator/src/toh-3.txt");
+    Path path = Paths.get("src/toh-3.txt");
     BufferedReader reader = Files.newBufferedReader(path);
     Canvas canvas =  AnimationReader.parseFile(reader, new CanvasImpl.Builder());
     //canvas.setDimensions(200,600,200,600);

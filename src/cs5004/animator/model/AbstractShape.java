@@ -34,7 +34,11 @@ public abstract class AbstractShape implements Shape {
 
       str += "\n" + changeLog.get(i).getChangeNotes();
     }
-    return str.substring(1);
+    try { // FIX THIS
+      return str.substring(1);
+    } catch (StringIndexOutOfBoundsException e) {
+      return "";
+    }
   }
 
   public List<LogNode> pullChangeLog() {
