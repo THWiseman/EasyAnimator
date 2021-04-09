@@ -1,3 +1,4 @@
+/*
 package cs5004.animator.model;
 
 import static org.junit.Assert.assertEquals;
@@ -9,9 +10,11 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
+*/
 /**
  * Test class for the Shape objects. Currently testing Rectangles and Ovals.
- */
+ *//*
+
 public class ShapeTest {
   Shape rec1;
   Shape rec2;
@@ -162,4 +165,4 @@ public class ShapeTest {
     assertEquals(copyRec.getAppearTime(), rec2.getAppearTime());
     assertEquals(copyRec.getDisappearTime(), rec2.getDisappearTime());
   }
-}
+}*/

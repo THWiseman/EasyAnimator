@@ -23,51 +23,30 @@ public class MovementPattern extends AbstractPattern {
     }
   }
 
-  /**
-   * Implements a change to the values in the MovementPattern. Change is implemented gradually,
-   * starting at frame1 and ending at frame2. Changes MUST be implemented in order.
-   *
-   * @param frame1 the frame at which the change begins.
-   * @param frame2 the frame at which the change is over.
-   * @param values the (X,Y) coordinates to which the shape will move.
-   */
-  @Override
-  public void change(Integer frame1, Integer frame2, Integer[] values) {
-    if (values.length != 2) {
-      throw new IllegalArgumentException("Values must be given as a two Integer array.");
-    }
-
-    Integer newX = values[0];
-    Integer newY = values[1];
-
-    if (newX > 1000 || newX <= 0 || newY > 1000 || newY <= 0) {
-      throw new IllegalArgumentException("Coordinates must be between 0 and 100");
-    }
-    super.change(frame1, frame2, values);
-
-    //super.changeTracker(PatternType.MOVEMENT, frame1, frame2, pattern.get(frame1), values);
-  }
-
-  /////////////////////////////////////////////////////////
 
   public void change(Integer frame1, Integer frame2, Integer[] startValues, Integer[] endValues) {
     if (endValues.length != 2) {
       throw new IllegalArgumentException("Values must be given as a two Integer array.");
     }
-
-    Integer newX = endValues[0];
-    Integer newY = endValues[1];
-
-    if (newX > 1000 || newX <= 0 || newY > 1000 || newY <= 0) {
-      throw new IllegalArgumentException("Coordinates must be between 0 and 100");
+    for (int i = frame1; i <= frame2; i++) {
+      if (this.pattern.keySet().contains(i)) {
+        continue;
+      }
+      int newX = tween(frame1, frame2, startValues[0], endValues[0], i);
+      int newY = tween(frame1, frame2, startValues[1], endValues[1], i);
+      this.pattern.put(i, new Integer[]{newX, newY});
     }
-      super.change(frame1, frame2, startValues, endValues);
-
-      super.changeTracker(PatternType.MOVEMENT, frame1, frame2, startValues, endValues);
-
   }
 
-  //////////////////////////////////////////////////////////////////////////
+  @Override
+  public Integer[] get(Integer time) {
+    if (time < 0) {
+      throw new IllegalArgumentException("Chosen frame must be greater than 0.");
+    }
+    System.out.print(String.format("Integer[]get at time %d", (int) time));
+    return this.pattern.get(time);
+  }
+
 
   /**
    * toString override method. Returns a table of the x and y cooridnates for every time stored.
@@ -76,11 +55,6 @@ public class MovementPattern extends AbstractPattern {
    */
   @Override
   public String toString() {
-    String str = "";
-    for (int i = 0; i <= this.pattern.size(); i++) {
-      str += "\n" + "Frame: " + i + ", X: " + pattern.get(i)[0] + ", Y: " +
-          pattern.get(i)[1];
-    }
-    return str.substring(1);
+    return String.format("MovementPattern object with HashMap size %d", this.pattern.size());
   }
 }

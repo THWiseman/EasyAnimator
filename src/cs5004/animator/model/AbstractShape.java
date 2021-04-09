@@ -3,7 +3,6 @@ package cs5004.animator.model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 /**
  * All shapes extend Abstract shape. By default, all shapes will simply query their patterns for
@@ -48,17 +47,17 @@ public abstract class AbstractShape implements Shape {
   ///////////////////////////////////////////////////////////
 
   @Override
-  public int[] getPosition(int time) {
+  public Integer[] getPosition(int time) {
     return move.get(time);
   }
 
   @Override
-  public int[] getColor(int time) {
+  public Integer[] getColor(int time) {
     return color.get(time);
   }
 
   @Override
-  public int[] getSize(int time) {
+  public Integer[] getSize(int time) {
     return size.get(time);
   }
 

@@ -11,75 +11,29 @@ public class SizeChangePattern extends AbstractPattern {
   public SizeChangePattern() {
   }
 
-  /**
-   * Constructs a new SizeChangePattern with all values being set to the given length and width.
-   *
-   * @param length The length of the shape.
-   * @param width  The width of the shape.
-   */
-  public SizeChangePattern(Integer length, Integer width) {
-    if (length > 100 || length <= 0 || width > 100 || width <= 0) {
-      throw new IllegalArgumentException("Length and width must be between 0 and 100");
-    }
-  }
-
-  /**
-   * Implements a change to the values in the SizeChangePattern. Change is implemented gradually,
-   * starting at frame1 and ending at frame2. Changes MUST be implemented in order.
-   * @param frame1 the frame at which the change begins.
-   * @param frame2 the frame at which the change is over.
-   * @param values the length by width dimensions that the shape will change to.
-   */
-  public void change(Integer frame1, Integer frame2, Integer[] values) {
-    if (values.length != 2) {
-      throw new IllegalArgumentException("Values must be given as a two Integer array.");
-    }
-
-    Integer newLength = values[0];
-    Integer newWidth = values[1];
-
-    if (newLength <= 0 || newWidth <= 0) {
-      throw new IllegalArgumentException("Length and width must be between 0 and 100");
-    }
-    if (newLength > 1000 || newWidth > 1000) {
-      throw new IllegalArgumentException("Length and width must be between 0 and 100");
-    }
-    if (frame1 < 0 || frame2 < 0) {
-      throw new IllegalArgumentException("Start and end times must be between 0 and 100");
-    }
-    if (frame1 > frame2) {
-      throw new IllegalArgumentException("End time must be greater than start time");
-    }
-    super.change(frame1, frame2, values);
-
-    //super.changeTracker(PatternType.SIZECHANGE, frame1, frame2, pattern.get(frame1), values);
-  }
-
-/////////////////////////////////////////////////////////
 
   public void change(Integer frame1, Integer frame2, Integer[] startValues, Integer[] endValues) {
     if (endValues.length != 2) {
       throw new IllegalArgumentException("Values must be given as a two Integer array.");
     }
+    for(int i = frame1; i<=frame2; i++) {
+      if (this.pattern.keySet().contains(i)) {
+        continue;
+      }
+      int newLength = tween(frame1,frame2,startValues[0],endValues[0],i);
+      int newWidth = tween(frame1,frame2,startValues[1],endValues[1],i);
+      this.pattern.put(i, new Integer[] {newLength, newWidth});
+    }
 
-    Integer newLength = endValues[0];
-    Integer newWidth = endValues[1];
+  }
 
-    if (newLength <= 0 || newWidth <= 0) {
-      throw new IllegalArgumentException("Length and width must be between 0 and 100");
+  @Override
+  public Integer[] get(Integer time) {
+    if (time < 0) {
+      throw new IllegalArgumentException("Chosen frame must be greater than 0.");
     }
-    if (newLength > 1000 || newWidth > 1000) {
-      throw new IllegalArgumentException("Length and width must be between 0 and 100");
-    }
-    if (frame1 < 0 || frame2 < 0) {
-      throw new IllegalArgumentException("Start and end times must be between 0 and 100");
-    }
-    if (frame1 > frame2) {
-      throw new IllegalArgumentException("End time must be greater than start time");
-    }
-    super.change(frame1, frame2, startValues, endValues);
-
-    super.changeTracker(PatternType.SIZECHANGE, frame1, frame2, startValues, endValues);
+    System.out.print(String.format("Integer[]get at time %d", (int) time));
+    return this.pattern.get(time);
   }
 
   //////////////////////////////////////////////////////////////////////////
@@ -92,11 +46,6 @@ public class SizeChangePattern extends AbstractPattern {
    */
   @Override
   public String toString() {
-    String str = "";
-    for (int i = 0; i <= this.pattern.size(); i++) {
-      str += "\n" + "Frame: " + i + ", Length: " + pattern.get(i)[0] + ", Width: " +
-          pattern.get(i)[1];
-    }
-    return str.substring(1);
+    return String.format("SizeChange object with HashMap size %d", this.pattern.size());
   }
 }

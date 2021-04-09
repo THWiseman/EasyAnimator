@@ -1,3 +1,4 @@
+/*
 package cs5004.animator.model;
 
 import static org.junit.Assert.assertEquals;
@@ -6,9 +7,11 @@ import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
 
+*/
 /**
  * Test class for the ColorPattern class.
- */
+ *//*
+
 public class ColorTest {
   ColorPattern pattern1;
 
@@ -287,3 +290,4 @@ public class ColorTest {
         + "Frame: 100, R: 20, G: 20, B: 20", pattern1.toString());
   }
 }
+*/

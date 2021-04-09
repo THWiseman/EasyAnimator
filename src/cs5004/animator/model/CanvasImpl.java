@@ -229,13 +229,10 @@ public class CanvasImpl implements Canvas {
   public String toString() {
     String returnString = "Canvas object:\n";
     returnString = returnString
-            + String.format("Start time: %d, end time: %d\n",
-            this.startTime, this.endTime);
-    returnString = returnString
             + String.format("There are %d shapes currently in the shape list:\n",
             this.shapes.size());
-    for (Shape s : this.shapes.values()) {
-      returnString = returnString + s.toString() + "\n";
+    for (String s : this.shapes.keySet()) {
+      returnString = returnString + s + "\n";
     }
     return returnString;
   }
