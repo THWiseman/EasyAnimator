@@ -244,10 +244,11 @@ public class CanvasImpl implements Canvas {
     private int width = 200;
     private int height = 200;
     private int greatestEndTime = 0;
-    private ColorPattern color = new ColorPattern();
-    private SizeChangePattern size = new SizeChangePattern();
-    private MovementPattern move = new MovementPattern();
-    private Map<String, Shape> shapes = new HashMap<>();
+    private Map<String, ColorPattern> colorPatterns = new HashMap<>(); //these hashmaps store the patterns
+    //for all shapes that are being built.
+    private Map<String, SizeChangePattern> sizeChangePatterns = new HashMap<>();
+    private Map<String, MovementPattern> movementPatterns = new HashMap<>();
+    private Map<String, Shape> shapes = new HashMap<>(); //hashmap of all the shapes
     private Map<Integer, String> changeLog = new HashMap<>();
 
     @Override
@@ -258,6 +259,15 @@ public class CanvasImpl implements Canvas {
       //the default values.
       returnCanvas.setDimensions(leftmostX, width, topmostY, height);
       returnCanvas.setEndTime(this.greatestEndTime);
+
+      //for every shapeKey, get that shape from the "shapes" map and set its pattern
+      //to its corresponding pattern in the patterns maps.
+      for (String s : this.shapes.keySet()) {
+        this.shapes.get(s).setColorPattern(this.colorPatterns.get(s));
+        this.shapes.get(s).setMovementPattern(this.movementPatterns.get(s));
+        this.shapes.get(s).setSizeChangePattern(this.sizeChangePatterns.get(s));
+      }
+
       //adds every shape in the map to the CanvasImpl
       for (Map.Entry<String, Shape> entry : shapes.entrySet()) {
         returnCanvas.addShape(entry.getValue(), entry.getKey());
@@ -277,7 +287,14 @@ public class CanvasImpl implements Canvas {
 
     @Override
     public AnimationBuilder<Canvas> declareShape(String name, String type) {
+      //create the new shape
       Shape newShape;
+
+      //create patterns for this new shape and put them in their own pattern hashmap
+      this.colorPatterns.put(name,new ColorPattern());
+      this.sizeChangePatterns.put(name, new SizeChangePattern());
+      this.movementPatterns.put(name, new MovementPattern());
+
       if (type.toUpperCase().equals("RECTANGLE")) {
         newShape = new Rectangle();
         this.shapes.put(name, newShape);
@@ -306,13 +323,10 @@ public class CanvasImpl implements Canvas {
       Integer[] pos1 = new Integer[] {x1, y1};
       Integer[] pos2 = new Integer[] {x2, y2};
 
-      color.change(t1, t2, color1, color2);
-      move.change(t1, t2, pos1, pos2);
-      size.change(t1, t2, size1, size2);
+      this.colorPatterns.get(name).change(t1,t2,color1,color2);
+      this.movementPatterns.get(name).change(t1,t2,pos1,pos2);
+      this.sizeChangePatterns.get(name).change(t1,t2,size1,size2);
 
-      this.shapes.get(name).setColorPattern(color);
-      this.shapes.get(name).setMovementPattern(move);
-      this.shapes.get(name).setSizeChangePattern(size);
       return this;
     }
   }

@@ -14,6 +14,7 @@ public class ColorPattern extends AbstractPattern {
      */
     public ColorPattern() {
         this.pattern = new HashMap<>();
+        this.changeLog = new HashMap<Integer, String>();
     }
 
     @Override

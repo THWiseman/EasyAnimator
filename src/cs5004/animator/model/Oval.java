@@ -1,5 +1,7 @@
 package cs5004.animator.model;
 
+import java.util.List;
+
 /**
  * An oval is a 2d shape with rounded edges defined by a length and width.
  */
@@ -39,6 +41,16 @@ public class Oval extends AbstractShape {
   @Override
   public Oval copy() {
     return new Oval(this.color, this.move, this.size, this.appearTime, this.disappearTime);
+  }
+
+  @Override
+  public List<LogNode> pullChangeLog() {
+    return null;
+  }
+
+  @Override
+  public String getChangeLog() {
+    return null;
   }
 
   @Override

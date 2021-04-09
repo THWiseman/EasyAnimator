@@ -18,33 +18,7 @@ public abstract class AbstractShape implements Shape {
   int appearTime;
   int disappearTime;
 
-  ////////////////////////////////////////////////////////
-  private void updateChangeLog() {
-    changeLog.addAll(color.pullChangeLog());
-    changeLog.addAll(move.pullChangeLog());
-    changeLog.addAll(size.pullChangeLog());
-    Collections.sort(changeLog);
-  }
 
-  public String getChangeLog() {
-    this.updateChangeLog();
-    String str = "";
-    for (int i = 0; i < changeLog.size(); i++) {
-
-      str += "\n" + changeLog.get(i).getChangeNotes();
-    }
-    try { // FIX THIS
-      return str.substring(1);
-    } catch (StringIndexOutOfBoundsException e) {
-      return "";
-    }
-  }
-
-  public List<LogNode> pullChangeLog() {
-    this.updateChangeLog();
-    return changeLog;
-  }
-  ///////////////////////////////////////////////////////////
 
   @Override
   public int[] getPosition(int time) {

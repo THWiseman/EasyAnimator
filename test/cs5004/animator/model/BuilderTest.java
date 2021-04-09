@@ -1,6 +1,5 @@
 package cs5004.animator.model;
 
-import cs5004.animator.util.AnimationBuilder;
 import cs5004.animator.util.AnimationReader;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -12,9 +11,6 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -29,7 +25,6 @@ public class BuilderTest {
     @Test
     public void testTestText() throws FileNotFoundException {
         Canvas canvas1;
-        Path path = Paths.get("src/toh-3.txt");
         BufferedReader reader = new BufferedReader((new FileReader("src/testText")));
         canvas1 = AnimationReader.parseFile(reader, new CanvasImpl.Builder());
         assertEquals("[190, 180]",Arrays.toString(canvas1.getShape("disk1").getPosition(1)));
@@ -53,9 +48,7 @@ public class BuilderTest {
 
     @Test
     public void testShapeCount() throws IOException {
-        //assertEquals(3,canvas1.getAllShapes().size());
         Canvas canvas1;
-        Path path = Paths.get("src/toh-3.txt");
         BufferedReader reader = new BufferedReader((new FileReader("src/toh-3.txt")));
         canvas1 = AnimationReader.parseFile(reader, new CanvasImpl.Builder());
 
@@ -65,13 +58,22 @@ public class BuilderTest {
         assertNotNull(canvas1.getShape("disk3").getSizeChangePattern().getMap());
         assertEquals(302,canvas1.getShape("disk3").getSizeChangePattern().getMap().size());
         Map<Integer, int[]> map = canvas1.getShape("disk3").getSizeChangePattern().getMap();
-        System.out.print
         for(Integer key : map.keySet() ) {
             System.out.println(key.toString());
             System.out.println(Arrays.toString(map.get(key)));
         }
     }
 
+    @Test
+    public void testFunctionalBuilder() throws FileNotFoundException {
+        Canvas canvas1;
+        BufferedReader reader = new BufferedReader((new FileReader("src/toh-3.txt")));
+        canvas1 = AnimationReader.parseFile(reader, new CanvasImpl.Builder());
+
+        assertEquals(190,canvas1.getShape("disk1").getPosition(1)[0]);
+        assertEquals(167,canvas1.getShape("disk2").getPosition(1)[0]);
+        assertEquals(114,canvas1.getShape("disk1").getPosition(115)[1]);
+    }
 
 
 }

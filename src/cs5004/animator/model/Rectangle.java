@@ -1,5 +1,7 @@
 package cs5004.animator.model;
 
+import java.util.List;
+
 /**
  * A rectangle is a 2D shape that has a length and width.
  */
@@ -41,6 +43,16 @@ public class Rectangle extends AbstractShape {
   @Override
   public Rectangle copy() {
     return new Rectangle(this.color, this.move, this.size, this.appearTime, this.disappearTime);
+  }
+
+  @Override
+  public List<LogNode> pullChangeLog() {
+    return null;
+  }
+
+  @Override
+  public String getChangeLog() {
+    return null;
   }
 
   @Override

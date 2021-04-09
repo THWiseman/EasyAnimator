@@ -15,6 +15,7 @@ public class SizeChangePattern extends AbstractPattern {
      */
     public SizeChangePattern() {
         this.pattern = new HashMap<Integer, int[]>();
+        this.changeLog = new HashMap<Integer, String>();
     }
 
     //for testing only, delete later.

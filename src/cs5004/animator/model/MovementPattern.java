@@ -14,6 +14,7 @@ public class MovementPattern extends AbstractPattern {
    */
   public MovementPattern() {
     this.pattern = new HashMap<Integer,int[]>();
+    this.changeLog = new HashMap<Integer, String>();
   }
 
   //for testing purposes only, delete later.
