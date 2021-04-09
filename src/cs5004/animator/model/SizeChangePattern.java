@@ -52,7 +52,7 @@ public class SizeChangePattern extends AbstractPattern {
     }
     super.change(frame1, frame2, values);
 
-    super.changeTracker(PatternType.SIZECHANGE, frame1, frame2, pattern.get(frame1), values);
+    //super.changeTracker(PatternType.SIZECHANGE, frame1, frame2, pattern.get(frame1), values);
   }
 
 /////////////////////////////////////////////////////////

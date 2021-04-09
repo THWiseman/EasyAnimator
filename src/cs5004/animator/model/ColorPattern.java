@@ -66,7 +66,7 @@ public class ColorPattern extends AbstractPattern {
     }
     super.change(frame1, frame2, startValues, endValues);
 
-    super.changeTracker(PatternType.COLOR, frame1, frame2, startValues, endValues);
+   // super.changeTracker(PatternType.COLOR, frame1, frame2, startValues, endValues);
   }
 
   //////////////////////////////////////////////////////////////////////////
