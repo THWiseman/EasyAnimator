@@ -23,4 +23,6 @@ public interface Pattern {
    * @return the values of the given frame.
    */
   int[] get(Integer time);
+
+
 }

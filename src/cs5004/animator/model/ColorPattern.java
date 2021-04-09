@@ -14,7 +14,7 @@ public class ColorPattern extends AbstractPattern {
      */
     public ColorPattern() {
         this.pattern = new HashMap<>();
-        this.changeLog = new HashMap<Integer, String>();
+       // this.changeLog = new HashMap<Integer, String>();
     }
 
     @Override
@@ -32,10 +32,15 @@ public class ColorPattern extends AbstractPattern {
             int newB = tween(frame1, frame2, startValues[2], endValues[2], i);
             this.pattern.put(i, new int[]{newR, newG, newB});
         }
+
+        super.changeTracker(PatternType.COLOR, frame1, frame2, startValues, endValues);
+
+        /**
         changeCount++;
         this.changeLog.put(changeCount,
                 String.format("changes from RGB [%d, %d, %d] at time %d to RGB [%d, %d, %d] at time %d.",
                         startValues[0], startValues[1], startValues[2], frame1, endValues[0], endValues[1], endValues[2], frame2));
+         **/
     }
 
     @Override
@@ -59,6 +64,11 @@ public class ColorPattern extends AbstractPattern {
      */
     @Override
     public String toString() {
-        return "ColorPattern object:\n" + this.pattern.toString();
+        String str = "";
+        for (int i = 0; i <= this.pattern.size(); i++) {
+            str += "\n" + "Frame: " + i + ", R: " + pattern.get(i)[0] + ", G: " + pattern.get(i)[1] +
+                ", B: " + pattern.get(i)[2];
+        }
+        return str.substring(1);
     }
 }

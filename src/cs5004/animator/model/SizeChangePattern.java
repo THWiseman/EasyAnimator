@@ -15,7 +15,7 @@ public class SizeChangePattern extends AbstractPattern {
      */
     public SizeChangePattern() {
         this.pattern = new HashMap<Integer, int[]>();
-        this.changeLog = new HashMap<Integer, String>();
+        //this.changeLog = new HashMap<Integer, String>();
     }
 
     //for testing only, delete later.
@@ -34,9 +34,13 @@ public class SizeChangePattern extends AbstractPattern {
             int newWidth = tween(frame1, frame2, startValues[1], endValues[1], i);
             this.pattern.put(i, new int[]{newLength, newWidth});
         }
+
+        super.changeTracker(PatternType.SIZECHANGE, frame1, frame2, startValues, endValues);
+
+        /**
         this.changeCount++;
         changeLog.put(changeCount, String.format("changes from length:%d width%d at time %d to length:%d width%d at time %d", startValues[0],
-                startValues[1],frame1, endValues[0],endValues[1],frame2));
+                startValues[1],frame1, endValues[0],endValues[1],frame2)); **/
 
     }
 

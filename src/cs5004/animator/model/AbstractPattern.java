@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public abstract class AbstractPattern implements Pattern {
     int changeCount = 0;
-    Map<Integer,String> changeLog;
+    List<LogNode> changeLog = new ArrayList<>();
 
     /**
      * Given start/end times and start/end values, figures out what the value of something would be between those times.
@@ -60,10 +60,21 @@ public abstract class AbstractPattern implements Pattern {
 
     public String getChangeLog() {
         String str = "";
-        for(String s : this.changeLog.values()) {
-            str += s;
+        for (int i = 0; i < changeLog.size(); i++) {
+
+            str += "\n" + changeLog.get(i).getChangeNotes();
         }
-        return str;
+        return str.substring(1);
+    }
+
+    public List<LogNode> pullChangeLog() {
+        return this.changeLog;
+    }
+
+
+    public void changeTracker(PatternType type, Integer frame1, Integer frame2,
+        Integer[] startValues, Integer[] endValues) {
+        changeLog.add(new LogNode(type, frame1, frame2, startValues, endValues));
     }
 
 }

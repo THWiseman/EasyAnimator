@@ -53,6 +53,7 @@ public class CanvasImpl implements Canvas {
   }
 
   ///////////////////////////////////////////////////////////////
+
   private void updateChangeLog() {
     for (Map.Entry<String, Shape> e : shapes.entrySet()) {
       changeLog.addAll(e.getValue().pullChangeLog());
@@ -78,6 +79,8 @@ public class CanvasImpl implements Canvas {
     this.updateChangeLog();
     return this.changeLog;
   }
+
+
 
   @Override
   public int getStartTime() {
@@ -249,7 +252,7 @@ public class CanvasImpl implements Canvas {
     private Map<String, SizeChangePattern> sizeChangePatterns = new HashMap<>();
     private Map<String, MovementPattern> movementPatterns = new HashMap<>();
     private Map<String, Shape> shapes = new HashMap<>(); //hashmap of all the shapes
-    private Map<Integer, String> changeLog = new HashMap<>();
+    //private Map<Integer, String> changeLog = new HashMap<>();
 
     @Override
     public Canvas build() {

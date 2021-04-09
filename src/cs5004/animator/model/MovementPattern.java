@@ -14,7 +14,7 @@ public class MovementPattern extends AbstractPattern {
    */
   public MovementPattern() {
     this.pattern = new HashMap<Integer,int[]>();
-    this.changeLog = new HashMap<Integer, String>();
+    //this.changeLog = new HashMap<Integer, String>();
   }
 
   //for testing purposes only, delete later.
@@ -32,9 +32,13 @@ public class MovementPattern extends AbstractPattern {
       int newY = tween(frame1, frame2, startValues[1], endValues[1], i);
       this.pattern.put(i, new int[]{newX, newY});
     }
+
+    super.changeTracker(PatternType.MOVEMENT, frame1, frame2, startValues, endValues);
+
+    /**
     this.changeCount++;
     changeLog.put(changeCount, String.format("changes from x:%d y%d at time %d to x:%d y%d at time %d", startValues[0],
-            startValues[1],frame1, endValues[0],endValues[1],frame2));
+            startValues[1],frame1, endValues[0],endValues[1],frame2)); **/
   }
 
   @Override

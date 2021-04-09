@@ -125,4 +125,5 @@ public interface Shape {
   public List<LogNode> pullChangeLog();
 
   public String getChangeLog();
+
 }

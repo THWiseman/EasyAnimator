@@ -1,4 +1,4 @@
-/*
+
 package cs5004.animator.model;
 
 import static org.junit.Assert.assertEquals;
@@ -7,17 +7,17 @@ import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
 
-*/
+
 /**
  * Test class for the MovementPattern class.
- *//*
+ */
 
 public class MovementTest {
   MovementPattern pattern1;
 
   @Before
   public void setup() {
-    pattern1 = new MovementPattern(20, 30);
+    pattern1 = new MovementPattern();
   }
 
   @Test
@@ -35,18 +35,18 @@ public class MovementTest {
   @Test
   public void testChange() {
     try {
-      pattern1.change(10, 20, new Integer[] {40});
+      pattern1.change(10, 20, new Integer[] {40}, new Integer[] {40});
       fail("An exception should have been thrown");
     } catch (IllegalArgumentException e) {
       //test passes
     }
     try {
-      pattern1.change(10, 20, new Integer[] {40, 60, 80});
+      pattern1.change(10, 20, new Integer[] {40, 60, 80}, new Integer[] {40, 60, 80});
       fail("An exception should have been thrown");
     } catch (IllegalArgumentException e) {
       //test passes
     }
-    pattern1.change(10, 20, new Integer[] {40, 60});
+    pattern1.change(10, 20, new Integer[] {0, 0}, new Integer[] {40, 60});
 
     assertEquals(40, pattern1.get(20)[0]);
     assertEquals(20, pattern1.get(10)[0]);
@@ -63,13 +63,13 @@ public class MovementTest {
   @Test
   public void testChange2() {
     try {
-      pattern1.change(10, 20, new Integer[] {40});
+      pattern1.change(10, 20, new Integer[] {40}, new Integer[] {40});
       fail("An exception should have been thrown");
     } catch (IllegalArgumentException e) {
       //test passes
     }
     try {
-      pattern1.change(10, 20, new Integer[] {40, 60, 80});
+      pattern1.change(10, 20, new Integer[] {40, 60, 80}, new Integer[] {40, 60, 80});
       fail("An exception should have been thrown");
     } catch (IllegalArgumentException e) {
       //test passes
@@ -90,8 +90,8 @@ public class MovementTest {
 
   @Test
   public void testSecondChange() {
-    pattern1.change(10, 20, new Integer[] {40, 60});
-    pattern1.change(50, 70, new Integer[] {20, 30});
+    pattern1.change(10, 20, new Integer[] {20, 30}, new Integer[] {40, 60});
+    pattern1.change(50, 70, new Integer[] {40, 60}, new Integer[] {20, 30});
 
     assertEquals(40, pattern1.get(20)[0]);
     assertEquals(20, pattern1.get(10)[0]);
@@ -114,35 +114,36 @@ public class MovementTest {
   @Test
   public void testBadConstructors() {
     try {
-      MovementPattern badPattern = new MovementPattern(1500, 60);
+      MovementPattern badPattern = new MovementPattern();
       fail("An exception should have been thrown");
     } catch (IllegalArgumentException e) {
       //test passes
     }
     try {
-      MovementPattern badPattern = new MovementPattern(40, -60);
+      MovementPattern badPattern = new MovementPattern();
       fail("An exception should have been thrown");
     } catch (IllegalArgumentException e) {
       //test passes
     }
   }
 
+  /**
   @Test
   public void testBadChange() {
     try {
-      pattern1.change(10, 20, new Integer[] {40, -60});
+      pattern1.change(10, 20, new Integer[] {40, -60}, new Integer[] {40, -60});
       fail("An exception should have been thrown");
     } catch (IllegalArgumentException e) {
       //test passes
     }
     try {
-      pattern1.change(10, 20, new Integer[] {1400, 60});
+      pattern1.change(10, 20, new Integer[] {1400, 60}, new Integer[] {1400, 60});
       fail("An exception should have been thrown");
     } catch (IllegalArgumentException e) {
       //test passes
     }
     try {
-      pattern1.change(10, 200, new Integer[] {40, 60});
+      pattern1.change(10, 200, new Integer[] {40, 60}, new Integer[] {40, 60});
       fail("An exception should have been thrown");
     } catch (IllegalArgumentException e) {
       //test passes
@@ -160,13 +161,14 @@ public class MovementTest {
       //test passes
     }
   }
+   **/
 
   @Test
   public void testChangeLog() {
-    pattern1.change(10, 20, new Integer[] {40, 60});
-    pattern1.change(50, 70, new Integer[] {20, 30});
-    assertEquals("moves position from (20, 30) to (40, 60), from time t=10 to t=20\n"
-        + "moves position from (40, 60) to (20, 30), from time t=50 to t=70", pattern1.getChangeLog());
+    pattern1.change(0, 20, new Integer[] {20, 30}, new Integer[] {40, 60});
+    pattern1.change(20, 50, new Integer[] {40, 60}, new Integer[] {20, 30});
+    assertEquals("moves position from (20, 30) to (40, 60), from time t=0 to t=20\n"
+        + "moves position from (40, 60) to (20, 30), from time t=20 to t=50", pattern1.getChangeLog());
   }
 
 
@@ -275,4 +277,4 @@ public class MovementTest {
         + "Frame: 100, X: 20, Y: 30", pattern1.toString());
   }
 }
-*/
+

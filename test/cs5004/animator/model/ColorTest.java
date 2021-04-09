@@ -15,7 +15,7 @@ public class ColorTest {
   @Before
   public void setup() {
     pattern1 = new ColorPattern();
-    pattern1.change(1,10,new Integer[]{10,10,10}, new Integer[] {100,100,100} );
+    //pattern1.change(1,10,new Integer[]{10,10,10}, new Integer[] {100,100,100} );
   }
 
   @Test
@@ -28,6 +28,13 @@ public class ColorTest {
 
   @Test
   public void testChange() {
+    pattern1.change(1,20, new Integer[] {0,0,0}, new Integer[] {40, 60, 80});
+    assertEquals(1, pattern1.get(0)[0]);
+  }
+
+
+  @Test
+  public void testChange1() {
     try {
       pattern1.change(10, 20, new Integer[] {40, 60}, new Integer[] {-1,0});
       fail("An exception should have been thrown");
@@ -168,11 +175,12 @@ public class ColorTest {
 
   @Test
   public void testChangeLog() {
-    pattern1.change(10, 20, new Integer[] {0,0,0}, new Integer[] {40, 60, 80});
-    pattern1.change(50, 70, new Integer[] {10,20,30}, new Integer[] {20, 20, 20});
-    assertEquals("changes color from RGB[20, 20, 20] to RGB[40, 60, 80], from time t=10 to t=20\n"
-        + "changes color from RGB[40, 60, 80] to RGB[20, 20, 20], from time t=50 to t=70", pattern1.getChangeLog());
+    pattern1.change(0, 20, new Integer[] {0,0,0}, new Integer[] {40, 60, 80});
+    pattern1.change(20, 70, new Integer[] {10,20,30}, new Integer[] {20, 20, 20});
+    assertEquals("changes color from RGB[0, 0, 0] to RGB[40, 60, 80], from time t=0 to t=20\n"
+        + "changes color from RGB[10, 20, 30] to RGB[20, 20, 20], from time t=20 to t=70", pattern1.getChangeLog());
   }
+
 
 
   @Test
