@@ -7,6 +7,13 @@ package cs5004.animator.model;
 public interface Pattern {
 
 
+  /**
+   * Fills in values to the HashMap of the Pattern.
+   * @param frame1 Initial Time
+   * @param frame2 End Time
+   * @param startValues Array of starting values.
+   * @param endValues Array of ending values.
+   */
   void change(Integer frame1, Integer frame2, Integer[] startValues, Integer[] endValues);
 
   /**

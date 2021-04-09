@@ -7,30 +7,21 @@ import java.util.Map;
  * Stores and/or calculates the position for a shape object given some time.
  */
 public class MovementPattern extends AbstractPattern {
-
-  Map<Integer, int[]> pattern = new HashMap<>();
+  Map<Integer, int[]> pattern;
 
   /**
    * Constructs a new MovementPattern.
    */
   public MovementPattern() {
+    this.pattern = new HashMap<Integer,int[]>();
   }
 
-  /**
-   * Constructs a new MovementPattern with all values being set to the given X and Y.
-   *
-   * @param x the x coordinate location of the shape.
-   * @param y the y coordinate location of the shape.
-   */
-  public MovementPattern(Integer x, Integer y) {
-    if (x > 1000 || x <= 0 || y > 1000 || y <= 0) {
-      throw new IllegalArgumentException("Length and width must be between 0 and 100");
-    }
-  }
+  //for testing purposes only, delete later.
   public Map<Integer, int[]> getMap() {
     return this.pattern;
   }
 
+  @Override
   public void change(Integer frame1, Integer frame2, Integer[] startValues, Integer[] endValues) {
     if (endValues.length != 2) {
       throw new IllegalArgumentException("Values must be given as a two Integer array.");
@@ -50,7 +41,6 @@ public class MovementPattern extends AbstractPattern {
     if (time < 0) {
       throw new IllegalArgumentException("Chosen frame must be greater than 0.");
     }
-    System.out.print(String.format("Integer[]get at time %d", (int) time));
     return this.pattern.get(time);
   }
 
@@ -62,6 +52,6 @@ public class MovementPattern extends AbstractPattern {
    */
   @Override
   public String toString() {
-    return String.format("MovementPattern object with HashMap size %d", this.pattern.size());
+    return "MovementPattern object:\n" + this.pattern.toString();
   }
 }

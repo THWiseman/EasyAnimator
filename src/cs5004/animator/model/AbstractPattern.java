@@ -12,7 +12,17 @@ public abstract class AbstractPattern implements Pattern {
     List<LogNode> changeLog = new ArrayList<>();
 
 
-    int tween(int t1, int t2, int startValue, int endValue, int desiredTime) {
+    /**
+     * Given start/end times and start/end values, figures out what the value of something would be between those times.
+     * @param t1 Initial Time
+     * @param t2 Ending Time
+     * @param startValue Known starting value.
+     * @param endValue Known ending value.
+     * @param desiredTime Time for which you wish to calculate the unknown value.
+     * @return The value of the desiredTime.
+     */
+    public int tween(int t1, int t2, int startValue, int endValue, int desiredTime) {
+
         if (desiredTime < t1 || desiredTime > t2) {
             throw new IllegalArgumentException("Desired time must be between start and end times.");
         }
@@ -22,10 +32,20 @@ public abstract class AbstractPattern implements Pattern {
         if (desiredTime == t2) {
             return endValue;
         }
-        double answer = (startValue * ((t2 - desiredTime) / (t2 - t1)) ) + (endValue * ((desiredTime - t1) / (t2 - t1)));
+        int totalTime = t2-t1;
+        double step = (endValue-startValue)/totalTime;
+        double answer = startValue + (step*(desiredTime-t1));
         return (int) Math.round(answer);
     }
 
+    /**
+     * Fills in times from frame1 to frame2 with their interpolated values. Uses the tween method to calculate the
+     * values between frame1 and frame2.
+     * @param frame1 Initial Time
+     * @param frame2 End Time
+     * @param startValues Array of starting values.
+     * @param endValues Array of ending values.
+     */
     public abstract void change(Integer frame1, Integer frame2, Integer[] startValues, Integer[] endValues);
 
     /**
