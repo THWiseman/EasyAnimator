@@ -31,6 +31,10 @@ public class ColorPattern extends AbstractPattern {
             int newB = tween(frame1, frame2, startValues[2], endValues[2], i);
             this.pattern.put(i, new int[]{newR, newG, newB});
         }
+        changeCount++;
+        this.changeLog.put(changeCount,
+                String.format("changes from RGB [%d, %d, %d] at time %d to RGB [%d, %d, %d] at time %d.",
+                        startValues[0], startValues[1], startValues[2], frame1, endValues[0], endValues[1], endValues[2], frame2));
     }
 
     @Override

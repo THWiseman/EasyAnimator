@@ -33,6 +33,9 @@ public class SizeChangePattern extends AbstractPattern {
             int newWidth = tween(frame1, frame2, startValues[1], endValues[1], i);
             this.pattern.put(i, new int[]{newLength, newWidth});
         }
+        this.changeCount++;
+        changeLog.put(changeCount, String.format("changes from length:%d width%d at time %d to length:%d width%d at time %d", startValues[0],
+                startValues[1],frame1, endValues[0],endValues[1],frame2));
 
     }
 
