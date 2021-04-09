@@ -65,5 +65,5 @@ public abstract class AbstractPattern implements Pattern {
         }
         return str;
     }
-    
+
 }

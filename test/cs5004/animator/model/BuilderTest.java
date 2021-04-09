@@ -65,6 +65,7 @@ public class BuilderTest {
         assertNotNull(canvas1.getShape("disk3").getSizeChangePattern().getMap());
         assertEquals(302,canvas1.getShape("disk3").getSizeChangePattern().getMap().size());
         Map<Integer, int[]> map = canvas1.getShape("disk3").getSizeChangePattern().getMap();
+        System.out.print
         for(Integer key : map.keySet() ) {
             System.out.println(key.toString());
             System.out.println(Arrays.toString(map.get(key)));
