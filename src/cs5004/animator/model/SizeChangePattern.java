@@ -9,10 +9,6 @@ public class SizeChangePattern extends AbstractPattern {
    * Constructs a new SizeChangePattern.
    */
   public SizeChangePattern() {
-    this.endTime = 100;
-    for (int i = 0; i <= this.endTime; i++) {
-      this.pattern.put(i, new Integer[]{10, 10});
-    }
   }
 
   /**
@@ -24,11 +20,6 @@ public class SizeChangePattern extends AbstractPattern {
   public SizeChangePattern(Integer length, Integer width) {
     if (length > 100 || length <= 0 || width > 100 || width <= 0) {
       throw new IllegalArgumentException("Length and width must be between 0 and 100");
-    }
-    this.endTime = 100;
-
-    for (int i = 0; i <= this.endTime; i++) {
-      this.pattern.put(i, new Integer[]{length, width});
     }
   }
 
@@ -102,7 +93,7 @@ public class SizeChangePattern extends AbstractPattern {
   @Override
   public String toString() {
     String str = "";
-    for (int i = 0; i <= this.endTime; i++) {
+    for (int i = 0; i <= this.pattern.size(); i++) {
       str += "\n" + "Frame: " + i + ", Length: " + pattern.get(i)[0] + ", Width: " +
           pattern.get(i)[1];
     }

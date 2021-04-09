@@ -9,10 +9,6 @@ public class MovementPattern extends AbstractPattern {
    * Constructs a new MovementPattern.
    */
   public MovementPattern() {
-    this.endTime = 100;
-    for (int i = 0; i <= this.endTime; i++) {
-      this.pattern.put(i, new Integer[]{50, 50});
-    }
   }
 
   /**
@@ -24,10 +20,6 @@ public class MovementPattern extends AbstractPattern {
   public MovementPattern(Integer x, Integer y) {
     if (x > 1000 || x <= 0 || y > 1000 || y <= 0) {
       throw new IllegalArgumentException("Length and width must be between 0 and 100");
-    }
-    this.endTime = 100;
-    for (int i = 0; i <= this.endTime; i++) {
-      this.pattern.put(i, new Integer[]{x, y});
     }
   }
 
@@ -85,7 +77,7 @@ public class MovementPattern extends AbstractPattern {
   @Override
   public String toString() {
     String str = "";
-    for (int i = 0; i <= this.endTime; i++) {
+    for (int i = 0; i <= this.pattern.size(); i++) {
       str += "\n" + "Frame: " + i + ", X: " + pattern.get(i)[0] + ", Y: " +
           pattern.get(i)[1];
     }

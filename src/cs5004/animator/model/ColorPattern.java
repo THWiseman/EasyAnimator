@@ -11,10 +11,6 @@ public class ColorPattern extends AbstractPattern {
    * Constructs a new ColorPattern.
    */
   public ColorPattern() {
-    this.endTime = 100;
-    for (int i = 0; i <= endTime; i++) {
-      this.pattern.put(i, new Integer[] {0, 0, 0});
-    }
   }
 
   /**
@@ -26,10 +22,6 @@ public class ColorPattern extends AbstractPattern {
   public ColorPattern(Integer r, Integer g, Integer b) {
     if (r > 255 || r < 0 || g > 255 || g < 0 || b < 0 || b > 255 ) {
       throw new IllegalArgumentException("Length and width must be between 0 and 100");
-    }
-    this.endTime = 100;
-    for (int i = 0; i <= endTime; i++) {
-      this.pattern.put(i, new Integer[] {r, g, b});
     }
   }
 
@@ -50,7 +42,7 @@ public class ColorPattern extends AbstractPattern {
     Integer newB = values[2];
 
     if (newR > 255 || newR < 0 || newG > 255 || newG < 0 || newB < 0 || newB > 255) {
-      throw new IllegalArgumentException("Length and width must be between 0 and 100");
+      throw new IllegalArgumentException("Color values must be between 0 and 255.");
     }
     super.change(frame1, frame2, values);
 
@@ -86,7 +78,7 @@ public class ColorPattern extends AbstractPattern {
   @Override
   public String toString() {
     String str = "";
-    for (int i = 0; i <= this.endTime; i++) {
+    for (int i = 0; i <= pattern.size(); i++) {
       str += "\n" + "Frame: " + i + ", R: " + pattern.get(i)[0] + ", G: " + pattern.get(i)[1] +
           ", B: " + pattern.get(i)[2];
     }

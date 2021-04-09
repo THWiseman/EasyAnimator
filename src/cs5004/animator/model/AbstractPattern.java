@@ -13,7 +13,6 @@ import java.util.Map;
 public abstract class AbstractPattern implements Pattern {
   Map<Integer, Integer[]> pattern = new HashMap<>();
   List<LogNode> changeLog = new ArrayList<>();
-  int endTime = 100;
 
   /**
    * Implements a change to the values in the Pattern. Change is implemented gradually,
@@ -31,9 +30,6 @@ public abstract class AbstractPattern implements Pattern {
     }
     if (frame1 > frame2) {
       throw new IllegalArgumentException("End time must be greater than start time");
-    }
-    if (frame2 > endTime) {
-      throw new IllegalArgumentException("End time of the change must be less than the end time of the animation");
     }
 
     int time = frame2 - frame1;
@@ -55,9 +51,9 @@ public abstract class AbstractPattern implements Pattern {
       this.pattern.replace(i, updatedFrame);
     }
 
-    for (int i = frame2; i <= this.endTime; i++) {
-      this.pattern.replace(i, values);
-    }
+   // for (int i = frame2; i <= this.endTime; i++) {
+  //    this.pattern.replace(i, values);
+  //  }
   }
 
 
@@ -70,9 +66,6 @@ public abstract class AbstractPattern implements Pattern {
     }
     if (frame1 > frame2) {
       throw new IllegalArgumentException("End time must be greater than start time");
-    }
-    if (frame2 > endTime) {
-      throw new IllegalArgumentException("End time of the change must be less than the end time of the animation");
     }
 
     int time = frame2 - frame1;
@@ -93,10 +86,6 @@ public abstract class AbstractPattern implements Pattern {
       }
       this.pattern.replace(i, updatedFrame);
     }
-
-    for (int i = frame2; i <= this.endTime; i++) {
-      this.pattern.replace(i, endValues);
-    }
   }
 
   /**
@@ -107,8 +96,8 @@ public abstract class AbstractPattern implements Pattern {
    */
   @Override
   public int[] get(Integer time) {
-    if (time > this.endTime || time < 0) {
-      throw new IllegalArgumentException("Chosen frame must be between 0 and 100");
+    if (time < 0) {
+      throw new IllegalArgumentException("Chosen frame must be greater than 0.");
     }
     try {
       int[] updatedFrame = new int[pattern.get(time).length];
