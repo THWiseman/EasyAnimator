@@ -1,4 +1,3 @@
-/*
 package cs5004.animator.model;
 
 import static org.junit.Assert.assertEquals;
@@ -10,10 +9,9 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-*/
 /**
  * Test class for the Canvas interface.
- *//*
+ */
 
 public class CanvasImplTest {
   Canvas defaultCanvas;
@@ -50,9 +48,9 @@ public class CanvasImplTest {
 
   @Test
   public void testChangeLog() {
-    c1.change(20, 40, new Integer[] {40, 60, 80});
-    m1.change(10, 20, new Integer[] {40, 60});
-    s1.change(30, 60, new Integer[] {40, 60});
+    c1.change(20, 40, new Integer[] {40, 60, 80},new Integer[] {60,80,100});
+    m1.change(10, 20, new Integer[] {40, 60}, new Integer[] {40, 20});
+    s1.change(30, 60, new Integer[] {40, 60}, new Integer[] {10,10});
     //this method needs to be updated so that the name of the shape can be put in the log
     assertEquals("hello", big.getChangeLog());
   }
@@ -254,4 +252,4 @@ public class CanvasImplTest {
     small.getShape("30");
   }
 
-}*/
+}

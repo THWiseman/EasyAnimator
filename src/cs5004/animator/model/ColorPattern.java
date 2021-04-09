@@ -26,9 +26,6 @@ public class ColorPattern extends AbstractPattern {
             return;
         }
         for (int i = frame1; i <= frame2; i++) {
-            if (this.pattern.keySet().contains(i)) {
-                continue;
-            }
             int newR = tween(frame1, frame2, startValues[0], endValues[0], i);
             int newG = tween(frame1, frame2, startValues[1], endValues[1], i);
             int newB = tween(frame1, frame2, startValues[2], endValues[2], i);
@@ -41,7 +38,6 @@ public class ColorPattern extends AbstractPattern {
         if (time < 0) {
             throw new IllegalArgumentException("Chosen frame must be greater than 0.");
         }
-        System.out.print(String.format("Integer[]get at time %d", (int) time));
         return this.pattern.get(time);
     }
 

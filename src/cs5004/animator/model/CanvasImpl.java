@@ -67,17 +67,17 @@ public class CanvasImpl implements Canvas {
 
       str += "\n" + changeLog.get(i).getChangeNotes();
     }
-    return str.substring(1);
+    try {
+      return str.substring(1);
+    } catch (StringIndexOutOfBoundsException e) {
+      return "";
+    }
   }
 
   public List<LogNode> pullChangeLog() {
     this.updateChangeLog();
     return this.changeLog;
   }
-  ////////////////////////////////////////////////////////////
-
-
-
 
   @Override
   public int getStartTime() {
@@ -244,6 +244,9 @@ public class CanvasImpl implements Canvas {
     private int width = 200;
     private int height = 200;
     private int greatestEndTime = 0;
+    private ColorPattern color = new ColorPattern();
+    private SizeChangePattern size = new SizeChangePattern();
+    private MovementPattern move = new MovementPattern();
     private Map<String, Shape> shapes = new HashMap<>();
     private Map<Integer, String> changeLog = new HashMap<>();
 
@@ -275,7 +278,6 @@ public class CanvasImpl implements Canvas {
     @Override
     public AnimationBuilder<Canvas> declareShape(String name, String type) {
       Shape newShape;
-      System.out.println(type);
       if (type.toUpperCase().equals("RECTANGLE")) {
         newShape = new Rectangle();
         this.shapes.put(name, newShape);
@@ -303,13 +305,9 @@ public class CanvasImpl implements Canvas {
       Integer[] size2 = new Integer[] {w2,h2};
       Integer[] pos1 = new Integer[] {x1, y1};
       Integer[] pos2 = new Integer[] {x2, y2};
-      
-      ColorPattern color = new ColorPattern();
-      color.change(t1, t2, color1, color2);
-      MovementPattern move = new MovementPattern();
-      move.change(t1, t2, pos1, pos2);
 
-      SizeChangePattern size = new SizeChangePattern();
+      color.change(t1, t2, color1, color2);
+      move.change(t1, t2, pos1, pos2);
       size.change(t1, t2, size1, size2);
 
       this.shapes.get(name).setColorPattern(color);

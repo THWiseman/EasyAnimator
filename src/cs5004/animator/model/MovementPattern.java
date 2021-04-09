@@ -27,9 +27,6 @@ public class MovementPattern extends AbstractPattern {
       throw new IllegalArgumentException("Values must be given as a two Integer array.");
     }
     for (int i = frame1; i <= frame2; i++) {
-      if (this.pattern.keySet().contains(i)) {
-        continue;
-      }
       int newX = tween(frame1, frame2, startValues[0], endValues[0], i);
       int newY = tween(frame1, frame2, startValues[1], endValues[1], i);
       this.pattern.put(i, new int[]{newX, newY});
