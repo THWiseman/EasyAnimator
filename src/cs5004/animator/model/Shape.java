@@ -13,7 +13,7 @@ public interface Shape {
    * @param time Integer of the time you wish to know the position of the shape.
    * @return Int[2] x and y coordinates of the shape.
    */
-  Integer[] getPosition(int time);
+  int[] getPosition(int time);
 
   /**
    * Returns the RGB value  of the shape at the specified time.
@@ -21,7 +21,7 @@ public interface Shape {
    * @param time Integer of the time you wish to know the color of the shape.
    * @return Int[3] RGB values  of the shape.
    */
-  Integer[] getColor(int time);
+  int[] getColor(int time);
 
   /**
    * Returns the length and with of the shape at the specified time.
@@ -29,7 +29,7 @@ public interface Shape {
    * @param time Integer of the time you wish to know the length and with of the shape.
    * @return Int[2] length and width values of the shape.
    */
-  Integer[] getSize(int time);
+  int[] getSize(int time);
 
   /**
    * Returns the visibility of the shape at the current time.

@@ -1,12 +1,14 @@
 package cs5004.animator.model;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Stores and/or calculates the color for a shape object given some time.
  */
 public class ColorPattern extends AbstractPattern {
 
+  Map<Integer, int[]> pattern = new HashMap<>();
   /**
    * Constructs a new ColorPattern.
    */
@@ -31,7 +33,7 @@ public class ColorPattern extends AbstractPattern {
       throw new IllegalArgumentException("Values must be given as a three Integer array.");
     }
     if(frame1==frame2) {
-      this.pattern.put(frame1,startValues);
+      this.pattern.put(frame1,new int[] {startValues[0], startValues[1], startValues[2]});
       return;
     }
     for(int i = frame1; i<=frame2; i++) {
@@ -41,13 +43,13 @@ public class ColorPattern extends AbstractPattern {
       int newR = tween(frame1,frame2,startValues[0],endValues[0],i);
       int newG = tween(frame1,frame2,startValues[1],endValues[1],i);
       int newB = tween(frame1,frame2,startValues[2],endValues[2],i);
-      this.pattern.put(i, new Integer[] {newR, newG, newB});
+      this.pattern.put(i, new int[] {newR, newG, newB});
     }
 
   }
 
   @Override
-  public Integer[] get(Integer time) {
+  public int[] get(Integer time) {
       if (time < 0) {
         throw new IllegalArgumentException("Chosen frame must be greater than 0.");
       }
@@ -55,6 +57,9 @@ public class ColorPattern extends AbstractPattern {
       return this.pattern.get(time);
     }
 
+    public Map<Integer, int[]> getMap() {
+    return this.pattern;
+    }
 
 
   /**

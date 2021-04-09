@@ -1,9 +1,14 @@
 package cs5004.animator.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Stores and/or calculates the position for a shape object given some time.
  */
 public class MovementPattern extends AbstractPattern {
+
+  Map<Integer, int[]> pattern = new HashMap<>();
 
   /**
    * Constructs a new MovementPattern.
@@ -22,7 +27,9 @@ public class MovementPattern extends AbstractPattern {
       throw new IllegalArgumentException("Length and width must be between 0 and 100");
     }
   }
-
+  public Map<Integer, int[]> getMap() {
+    return this.pattern;
+  }
 
   public void change(Integer frame1, Integer frame2, Integer[] startValues, Integer[] endValues) {
     if (endValues.length != 2) {
@@ -34,12 +41,12 @@ public class MovementPattern extends AbstractPattern {
       }
       int newX = tween(frame1, frame2, startValues[0], endValues[0], i);
       int newY = tween(frame1, frame2, startValues[1], endValues[1], i);
-      this.pattern.put(i, new Integer[]{newX, newY});
+      this.pattern.put(i, new int[]{newX, newY});
     }
   }
 
   @Override
-  public Integer[] get(Integer time) {
+  public int[] get(Integer time) {
     if (time < 0) {
       throw new IllegalArgumentException("Chosen frame must be greater than 0.");
     }

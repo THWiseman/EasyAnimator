@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -24,12 +25,23 @@ public class BuilderTest {
     }
 
     @Test
+    public void testTween() {
+        ColorPattern c = new ColorPattern();
+        c.change(1,10,new Integer[]{1,1,1},new Integer[]{10,10,10});
+        assertEquals("[1, 1, 1]",Arrays.toString(c.getMap().get(1)));
+        assertEquals("[5, 5, 5]",Arrays.toString(c.getMap().get(5)));
+        assertEquals("[1, 1, 1]",Arrays.toString(c.getMap().get(1)));
+    }
+
+    @Test
     public void testShapeCount() throws IOException {
         //assertEquals(3,canvas1.getAllShapes().size());
         Canvas canvas1;
         Path path = Paths.get("src/toh-3.txt");
-        BufferedReader reader = Files.newBufferedReader(path);
+        BufferedReader reader = new BufferedReader((new FileReader("src/toh-3.txt")));
         canvas1 = AnimationReader.parseFile(reader, new CanvasImpl.Builder());
+
+
 
         System.out.println(canvas1.toString());
         System.out.println(canvas1.getShape("disk3").getColorPattern().getMap().get(256));
@@ -38,7 +50,7 @@ public class BuilderTest {
         assertNotNull(canvas1.getShape("disk3").getSizeChangePattern());
         assertNotNull(canvas1.getShape("disk3").getSizeChangePattern().getMap());
         assertEquals(142,canvas1.getShape("disk3").getSizeChangePattern().getMap().size());
-        Map<Integer, Integer[]> map = canvas1.getShape("disk3").getSizeChangePattern().getMap();
+        Map<Integer, int[]> map = canvas1.getShape("disk3").getSizeChangePattern().getMap();
         for(Integer key : map.keySet() ) {
             System.out.println(key.toString());
             System.out.println(Arrays.toString(map.get(key)));

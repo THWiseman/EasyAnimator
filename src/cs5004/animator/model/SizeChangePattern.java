@@ -1,14 +1,22 @@
 package cs5004.animator.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Stores and/or calculates the length and width for a shape object given some time.
  */
 public class SizeChangePattern extends AbstractPattern {
 
+  Map<Integer, int[]> pattern = new HashMap<>();
   /**
    * Constructs a new SizeChangePattern.
    */
   public SizeChangePattern() {
+  }
+
+  public Map<Integer, int[]> getMap() {
+    return this.pattern;
   }
 
 
@@ -22,13 +30,13 @@ public class SizeChangePattern extends AbstractPattern {
       }
       int newLength = tween(frame1,frame2,startValues[0],endValues[0],i);
       int newWidth = tween(frame1,frame2,startValues[1],endValues[1],i);
-      this.pattern.put(i, new Integer[] {newLength, newWidth});
+      this.pattern.put(i, new int[] {newLength, newWidth});
     }
 
   }
 
   @Override
-  public Integer[] get(Integer time) {
+  public int[] get(Integer time) {
     if (time < 0) {
       throw new IllegalArgumentException("Chosen frame must be greater than 0.");
     }

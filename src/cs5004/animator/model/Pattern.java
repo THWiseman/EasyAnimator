@@ -15,5 +15,5 @@ public interface Pattern {
    * @param time the frame that the values are being pulled from.
    * @return the values of the given frame.
    */
-  Integer[] get(Integer time);
+  int[] get(Integer time);
 }

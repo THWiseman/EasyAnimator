@@ -2,35 +2,31 @@ package cs5004.animator.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * This abstract class represents the qualities of a Shape as it changes over the course of
  * an animation, such as its color, size, and position.
  */
 public abstract class AbstractPattern implements Pattern {
-    Map<Integer, Integer[]> pattern = new HashMap<>();
     List<LogNode> changeLog = new ArrayList<>();
-
 
 
     int tween(int t1, int t2, int startValue, int endValue, int desiredTime) {
         if (desiredTime < t1 || desiredTime > t2) {
             throw new IllegalArgumentException("Desired time must be between start and end times.");
         }
-        if(desiredTime == t1) {
+        if (desiredTime == t1) {
             return startValue;
         }
         if (desiredTime == t2) {
             return endValue;
         }
-        double answer = startValue * ((t2 - desiredTime) / (t2 - t1)) + endValue * ((desiredTime - t1) / (t2 - t1));
+        double answer = (startValue * ((t2 - desiredTime) / (t2 - t1)) ) + (endValue * ((desiredTime - t1) / (t2 - t1)));
         return (int) Math.round(answer);
     }
 
-     public abstract void change(Integer frame1, Integer frame2, Integer[] startValues, Integer[] endValues);
+    public abstract void change(Integer frame1, Integer frame2, Integer[] startValues, Integer[] endValues);
 
     /**
      * Gets the values stored in the Pattern at any given frame.
@@ -38,7 +34,7 @@ public abstract class AbstractPattern implements Pattern {
      * @param time the frame that the values are being pulled from.
      * @return the values of the given frame.
      */
-    public abstract Integer[] get(Integer time);
+    public abstract int[] get(Integer time);
 
 
     public String getChangeLog() {
@@ -52,10 +48,6 @@ public abstract class AbstractPattern implements Pattern {
 
     public List<LogNode> pullChangeLog() {
         return this.changeLog;
-    }
-
-    public Map getMap() {
-        return this.pattern;
     }
 
 

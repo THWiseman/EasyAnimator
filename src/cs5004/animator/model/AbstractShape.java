@@ -47,17 +47,17 @@ public abstract class AbstractShape implements Shape {
   ///////////////////////////////////////////////////////////
 
   @Override
-  public Integer[] getPosition(int time) {
+  public int[] getPosition(int time) {
     return move.get(time);
   }
 
   @Override
-  public Integer[] getColor(int time) {
+  public int[] getColor(int time) {
     return color.get(time);
   }
 
   @Override
-  public Integer[] getSize(int time) {
+  public int[] getSize(int time) {
     return size.get(time);
   }
 
