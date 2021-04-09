@@ -299,16 +299,22 @@ public class CanvasImpl implements Canvas {
         //update the endTime to the time that the last change finishes.
         greatestEndTime = t2;
       }
+
+      Integer[] color1 = new Integer[] {r1,g1,b1};
+      Integer[] color2 = new Integer[] {r2, g2,b2};
+      Integer[] size1 = new Integer[] {w1,h1};
+      Integer[] size2 = new Integer[] {w2,h2};
+      Integer[] pos1 = new Integer[] {x1, y1};
+      Integer[] pos2 = new Integer[] {x2, y2};
+      
       ColorPattern color = new ColorPattern();
-      color.change(t1, t2, new Integer[] {r1, g1, b1}, new Integer[] {r2, g2, b2}); //NEED TO CHANGE THIS CODE TO INCORPORATE r1,g1,b1.
-      //should eventually be color.change(t1,r1,g1,b1,t2,r2,g2,b2);
+      color.change(t1, t2, color1, color2);
       MovementPattern move = new MovementPattern();
-      move.change(t1, t2, new Integer[] {x1, y1}, new Integer[] {x2, y2}); //NEED TO CHANGE THIS CODE TO INCORPORATE x1, y1.
-      //should eventually be move.change(t1,x1,y1,t2,x2,y2);
+      move.change(t1, t2, pos1, pos2);
+
       SizeChangePattern size = new SizeChangePattern();
-      size.change(t1, t2, new Integer[] {h2, w2}, new Integer[] {h2, w2});//NEED TO CHANGE PATTERN TO USE HEIGHT INSTEAD OF LENGTH
-      //NEED TO CHANGE THIS CODE TO INCORPORATE h1,w1
-      //should eventually be size.change(t1,w1,h1,t2,w2,h2);
+      size.change(t1, t2, size1, size2);
+
       this.shapes.get(name).setColorPattern(color);
       this.shapes.get(name).setMovementPattern(move);
       this.shapes.get(name).setSizeChangePattern(size);
