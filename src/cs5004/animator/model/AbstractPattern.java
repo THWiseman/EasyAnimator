@@ -70,6 +70,10 @@ public abstract class AbstractPattern implements Pattern {
 
     int time = frame2 - frame1;
 
+    for (int i = frame1; i <= frame2; i++) {
+      this.pattern.put(i, startValues);
+    }
+
     for (int i = frame1; i < frame2; i++) {
       int alteredFrameNumber = i - frame1;
       Integer[] updatedFrame = new Integer[endValues.length];
