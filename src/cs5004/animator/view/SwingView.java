@@ -33,7 +33,7 @@ public class SwingView extends JFrame implements View {
 
         //A Canvas (not to be confused with our model by the same name) is a rectangular area which can be drawn on.
         this.background = new java.awt.Canvas();
-        this.background.setSize(50,50);
+        this.background.setSize(25,25);
         //this.background.setBounds(model.getDimensions()[0],model.getDimensions()[2],50,50);
         this.background.setBackground(new Color(128,0,128));
 

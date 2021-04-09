@@ -24,6 +24,7 @@ public class BuilderTest {
     @Test
     public void testShapeCount() {
         assertEquals(3,canvas1.getAllShapes().size());
+        assertEquals(190,canvas1.getShape("disk1").getPosition(1));
     }
 
 

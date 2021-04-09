@@ -56,6 +56,12 @@ public abstract class AbstractPattern implements Pattern {
   //  }
   }
 
+ // private int[] tween(int t1, int t2, int a, int b) {
+ //   int[] returnValues = new int[t2-t1];
+
+  //  return 0;
+
+ // }
 
   @Override
   public void change(Integer frame1, Integer frame2, Integer[] startValues, Integer[] endValues) {
@@ -68,28 +74,6 @@ public abstract class AbstractPattern implements Pattern {
       throw new IllegalArgumentException("End time must be greater than start time");
     }
 
-    int time = frame2 - frame1;
-
-    for (int i = frame1; i <= frame2; i++) {
-      this.pattern.put(i, startValues);
-    }
-
-    for (int i = frame1; i < frame2; i++) {
-      int alteredFrameNumber = i - frame1;
-      Integer[] updatedFrame = new Integer[endValues.length];
-
-      for (int j = 0; j < endValues.length; j++) {
-
-        double difference = endValues[j] - startValues[j];
-
-        double increment = difference / time;
-
-        double changeFactor = alteredFrameNumber * increment;
-
-        updatedFrame[j] = (int) (pattern.get(i)[j] + changeFactor);
-      }
-      this.pattern.replace(i, updatedFrame);
-    }
   }
 
   /**
