@@ -17,11 +17,14 @@ import java.util.Map;
 
 public class BuilderTest {
     Canvas canvas1;
+    Canvas canvas2;
 
     @Before
     public void setUp() throws IOException {
         BufferedReader reader = new BufferedReader((new FileReader("src/testText")));
         canvas1 = AnimationReader.parseFile(reader, new CanvasImpl.Builder());
+        BufferedReader reader2 = new BufferedReader((new FileReader("src/toh-12.txt")));
+        canvas2 = AnimationReader.parseFile(reader2, new CanvasImpl.Builder());
     }
 
     @Test
