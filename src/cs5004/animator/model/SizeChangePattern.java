@@ -47,7 +47,10 @@ public class SizeChangePattern extends AbstractPattern {
             this.pattern.put(i, new int[]{newLength, newWidth});
         }
 
-        if (frame1 > this.earliestChangeFrame) {
+        if (this.earliestChangeFrame == 0) {
+            this.earliestChangeFrame = frame1;
+        }
+        if (frame1 < this.earliestChangeFrame) {
             this.earliestChangeFrame = frame1;
         }
 

@@ -23,7 +23,6 @@ public class TextView implements View {
    * @param canvas Canvas object to get the information to display from.
    */
   public TextView(Appendable output, Canvas canvas) {
-
     this.output = output;
     this.canvas = canvas;
     this.shapes = canvas.getShapeMap();
@@ -43,23 +42,30 @@ public class TextView implements View {
     //width 50, height 100, and color {255,255,255}.\n" for each shape and append it to createString.
     for (Map.Entry<String, Shape> e : shapes.entrySet()) {
       String createString = "Create "; //"Create "
-      createString += e.getValue().toString() + " "; //"rectangle "
+      Shape shape = e.getValue();
 
       if (e.getValue() instanceof Rectangle) {
+        //rectangle
+        createString += "rectangle ";
         //"R with corner at (200,200), "
-        createString += String.format("%s with corner at (%d,%d), ", e.getKey(), e.getValue().getPosition(0)[0], e.getValue().getPosition(0)[1]);
+        createString += String.format("%s with corner at (%d,%d), ", e.getKey(),
+                shape.getPosition(shape.getAppearTime())[0], shape.getPosition(shape.getAppearTime())[1]);
         //width 50, height 100, and color.\n"
-        createString += String.format("width %d, height %d, and color {%d, %d, %d}.\n", e.getValue().getSize(0)[0],
-                e.getValue().getSize(0)[1],e.getValue().getColor(0)[0],e.getValue().getColor(0)[1],
-                e.getValue().getColor(0)[2]);
+        createString += String.format("width %d, height %d, and color {%d, %d, %d}.\n", shape.getSize(shape.getAppearTime())[0],
+                shape.getSize(shape.getAppearTime())[1],shape.getColor(shape.getAppearTime())[0],shape.getColor(shape.getAppearTime())[1],
+               shape.getColor(shape.getAppearTime())[2]);
       }
       if (e.getValue() instanceof Oval) {
+        //oval
+        createString += "oval ";
         //"C with center at (500,100), "
-        createString += String.format("%s with center at (%d,%d), ", e.getKey(), e.getValue().getPosition(0)[0], e.getValue().getPosition(0)[1]);
+        createString += String.format("%s with center at (%d,%d), ", e.getKey(),
+                shape.getPosition(shape.getAppearTime())[0], shape.getPosition(shape.getAppearTime())[1]);
         //radius 60 and height 30\n"
-        createString += String.format("radius %d and %d, and color {%d,%d,%d}.\n", e.getValue().getSize(0)[0],
-                e.getValue().getSize(0)[1],e.getValue().getColor(0)[0],e.getValue().getColor(0)[1],
-                e.getValue().getColor(0)[2]);
+        createString += String.format("radius %d and %d, and color {%d,%d,%d}.\n", shape.getSize(shape.getAppearTime())[0],
+                shape.getSize(shape.getAppearTime())[1],shape.getColor(shape.getAppearTime())[0],
+                shape.getColor(shape.getAppearTime())[1],
+                shape.getColor(shape.getAppearTime())[2]);
       }
       allCreates += createString;
     }
@@ -70,7 +76,7 @@ public class TextView implements View {
     String allAppears = "";
     for (Map.Entry<String, Shape> e : shapes.entrySet()) {
       String appearString = "";
-      //appearString += e.getKey() + String.format(" appears at time t=%d and disappears at time t=%d.\n", e.getValue().getAppearTime(), e.getValue().getDisappearTime());
+      appearString += e.getKey() + String.format(" appears at time t=%d and disappears at time t=%d.\n", e.getValue().getAppearTime(), e.getValue().getDisappearTime());
       allAppears += appearString;
     }
     allAppears += "\n"; //add extra newline to separate from next section.

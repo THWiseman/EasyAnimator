@@ -54,6 +54,15 @@ public abstract class AbstractShape implements Shape {
     if(size.earliestChangeFrame > appearTime) {
       appearTime = size.earliestChangeFrame;
     }
+    if(color.earliestChangeFrame < appearTime) {
+      appearTime = color.earliestChangeFrame;
+    }
+    if(move.earliestChangeFrame < appearTime) {
+      appearTime = move.earliestChangeFrame;
+    }
+    if(size.earliestChangeFrame < appearTime) {
+      appearTime = size.earliestChangeFrame;
+    }
     return appearTime;
   }
 

@@ -18,7 +18,7 @@ public class TextViewTest {
 
     @Before
     public void setUp() throws FileNotFoundException {
-        BufferedReader reader = new BufferedReader((new FileReader("src/testText")));
+        BufferedReader reader = new BufferedReader((new FileReader("src/toh-3.txt")));
         canvas1 = AnimationReader.parseFile(reader, new CanvasImpl.Builder());
         BufferedReader reader2 = new BufferedReader((new FileReader("src/toh-12.txt")));
         canvas2 = AnimationReader.parseFile(reader2, new CanvasImpl.Builder());
@@ -27,7 +27,7 @@ public class TextViewTest {
     @Test
     public void testTextView() {
         TextView text = new TextView(System.out,canvas1);
-        //assertEquals("",text.getStringDescription());
+        assertEquals("",text.getStringDescription());
     }
 }
 

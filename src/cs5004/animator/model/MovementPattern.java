@@ -37,10 +37,12 @@ public class MovementPattern extends AbstractPattern {
       int newY = tween(frame1, frame2, startValues[1], endValues[1], i);
       this.pattern.put(i, new int[]{newX, newY});
     }
-    if (frame1 > this.earliestChangeFrame) {
+    if (this.earliestChangeFrame == 0) {
       this.earliestChangeFrame = frame1;
     }
-
+    if (frame1 < this.earliestChangeFrame) {
+      this.earliestChangeFrame = frame1;
+    }
     if (frame2 > this.latestChangeFrame) {
       this.latestChangeFrame = frame2;
     }
