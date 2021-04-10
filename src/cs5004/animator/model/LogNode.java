@@ -1,6 +1,7 @@
 package cs5004.animator.model;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public class LogNode implements Comparable<LogNode> {
   private final int frame1;
@@ -30,8 +31,31 @@ public class LogNode implements Comparable<LogNode> {
       this.changeNotes = "changes color from RGB" + Arrays.toString(startValues) + " to RGB"
           + Arrays.toString(endValues) + ", from time t=" + frame1 + " to t=" + frame2;
     }
-
   }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    LogNode logNode = (LogNode) o;
+    return getFrame1() == logNode.getFrame1() && getFrame2() == logNode.getFrame2()
+        && getChangeNotes().equals(logNode.getChangeNotes()) && getType() == logNode.getType()
+        && Arrays.equals(getStartValues(), logNode.getStartValues()) && Arrays
+        .equals(getEndValues(), logNode.getEndValues());
+  }
+
+  @Override
+  public int hashCode() {
+    int result = Objects.hash(getFrame1(), getFrame2(), getChangeNotes(), getType());
+    result = 31 * result + Arrays.hashCode(getStartValues());
+    result = 31 * result + Arrays.hashCode(getEndValues());
+    return result;
+  }
+
 
   public int getFrame1() {
     return this.frame1;
@@ -57,7 +81,6 @@ public class LogNode implements Comparable<LogNode> {
         return updatedFrame;
     }
 
-
   public int[] getEndValues() {
     int[] updatedFrame = new int[endValues.length];
     for (int i = 0; i < endValues.length; i++) {
@@ -65,7 +88,6 @@ public class LogNode implements Comparable<LogNode> {
     }
     return updatedFrame;
   }
-
 
   @Override
   public int compareTo(LogNode o) {

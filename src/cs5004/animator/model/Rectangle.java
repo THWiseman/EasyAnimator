@@ -38,15 +38,6 @@ public class Rectangle extends AbstractShape {
     return new Rectangle(this.color, this.move, this.size);
   }
 
-  @Override
-  public List<LogNode> pullChangeLog() {
-    return null;
-  }
-
-  @Override
-  public String getChangeLog() {
-    return null;
-  }
 
   @Override
   public String toString() {

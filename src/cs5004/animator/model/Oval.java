@@ -37,11 +37,6 @@ public class Oval extends AbstractShape {
   }
 
   @Override
-  public List<LogNode> pullChangeLog() {
-    return null;
-  }
-
-  @Override
   public String toString() {
     return "oval";
   }

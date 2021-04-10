@@ -3,6 +3,7 @@ package cs5004.animator.model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * All shapes extend Abstract shape. By default, all shapes will simply query their patterns for
@@ -22,6 +23,7 @@ public abstract class AbstractShape implements Shape {
     changeLog.addAll(color.pullChangeLog());
     changeLog.addAll(move.pullChangeLog());
     changeLog.addAll(size.pullChangeLog());
+    changeLog = changeLog.stream().distinct().collect(Collectors.toList());
     Collections.sort(changeLog);
   }
 

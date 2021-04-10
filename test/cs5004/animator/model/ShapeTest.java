@@ -150,4 +150,15 @@ public class ShapeTest {
     assertEquals(copyRec.getAppearTime(), rec2.getAppearTime());
     assertEquals(copyRec.getDisappearTime(), rec2.getDisappearTime());
   }
+
+  @Test
+  public void testGetChangeLog() {
+    c2.change(1,100,new Integer[] {0,128,0}, new Integer[] {255,255,255});
+    m2.change(1,50,new Integer[] {50,100}, new Integer[] {200,200});
+    s2.change(1,100, new Integer[] {200,100}, new Integer[] {100,500});
+    rec2 = new Rectangle(c2, m2, s2);
+    assertEquals("changes color from RGB[0, 128, 0] to RGB[255, 255, 255], from time t=1 to t=100\n"
+        + "moves position from (50, 100) to (200, 200), from time t=1 to t=50\n"
+        + "changes dimensions from length 200 by width 100 to length 100 by width 500, from time t=1 to t=100", rec2.getChangeLog());
+  }
 }
