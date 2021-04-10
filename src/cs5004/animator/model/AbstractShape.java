@@ -14,9 +14,12 @@ public abstract class AbstractShape implements Shape {
   ColorPattern color;
   MovementPattern move;
   SizeChangePattern size;
-  private List<LogNode> changeLog = new ArrayList<>();
+  List<LogNode> changeLog = new ArrayList<>();
+  String shapeName;
 
-
+  public void updateShapeName(String shapeName) {
+    this.shapeName = shapeName;
+  }
 
   ////////////////////////////////////////////////////////
   private void updateChangeLog() {
@@ -25,6 +28,9 @@ public abstract class AbstractShape implements Shape {
     changeLog.addAll(size.pullChangeLog());
     changeLog = changeLog.stream().distinct().collect(Collectors.toList());
     Collections.sort(changeLog);
+    for (LogNode l : changeLog) {
+      l.addShapeName(shapeName);
+    }
   }
 
   public String getChangeLog() {

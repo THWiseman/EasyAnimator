@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import cs5004.animator.util.AnimationBuilder;
+import java.util.stream.Collectors;
 
 
 /**
@@ -44,6 +45,7 @@ public class CanvasImpl implements Canvas {
    */
   public CanvasImpl() {
     this.shapes = new HashMap<String, Shape>();
+    this.changeLog = new ArrayList<>();
     this.startTime = 0;
     this.endTime = 100;
     this.leftmostX = -100;
@@ -58,6 +60,7 @@ public class CanvasImpl implements Canvas {
     for (Map.Entry<String, Shape> e : shapes.entrySet()) {
       changeLog.addAll(e.getValue().pullChangeLog());
     }
+    changeLog = changeLog.stream().distinct().collect(Collectors.toList());
     Collections.sort(changeLog);
   }
 
@@ -347,6 +350,7 @@ public class CanvasImpl implements Canvas {
       this.colorPatterns.get(name).change(t1,t2,color1,color2);
       this.movementPatterns.get(name).change(t1,t2,pos1,pos2);
       this.sizeChangePatterns.get(name).change(t1,t2,size1,size2);
+      this.shapes.get(name).updateShapeName(name);
 
       return this;
     }

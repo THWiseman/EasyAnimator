@@ -29,5 +29,11 @@ public class TextViewTest {
         TextView text = new TextView(System.out,canvas1);
         assertEquals("",text.getStringDescription());
     }
+
+    @Test
+    public void testTextView2() {
+        TextView text = new TextView(System.out,canvas1);
+        assertEquals("", canvas1.getChangeLog());
+    }
 }
 

@@ -106,4 +106,6 @@ public interface Shape {
 
   public String getChangeLog();
 
+  public void updateShapeName(String shapeName);
+
 }

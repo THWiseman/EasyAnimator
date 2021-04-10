@@ -17,6 +17,14 @@ public class Oval extends AbstractShape {
     this.size = new SizeChangePattern();
   }
 
+
+  public Oval(String shapeName, ColorPattern color, MovementPattern move, SizeChangePattern size) {
+    this.color = color;
+    this.move = move;
+    this.size = size;
+    this.shapeName = shapeName;
+  }
+
   /**
    * Constructor for a oval where each pattern is provided as an argument. Overwrites the default
    * patterns.

@@ -10,6 +10,7 @@ public class LogNode implements Comparable<LogNode> {
   private PatternType type;
   private Integer[] startValues;
   private Integer[] endValues;
+  private String shapeName;
 
   public LogNode(PatternType type, Integer frame1, Integer frame2,
       Integer[] startValues, Integer[] endValues) {
@@ -33,6 +34,31 @@ public class LogNode implements Comparable<LogNode> {
     }
   }
 
+  ////////////////////////////////////////////////
+  public LogNode(String shapeName, PatternType type, Integer frame1, Integer frame2,
+      Integer[] startValues, Integer[] endValues) {
+    this.frame1 = frame1;
+    this.frame2 = frame2;
+    this.type = type;
+    this.startValues = startValues;
+    this.endValues = endValues;
+    this.shapeName = shapeName;
+
+    if (type == PatternType.SIZECHANGE) {
+      this.changeNotes = "changes dimensions from length " + startValues[0] + " by width "
+          + startValues[1] + " to length " + endValues[0] + " by width " + endValues[1]
+          + ", from time t=" + frame1 + " to t=" + frame2;
+    } else if (type == PatternType.MOVEMENT) {
+      this.changeNotes = "moves position from (" + startValues[0] + ", " + startValues[1]
+          + ") to (" + endValues[0] + ", " + endValues[1] + "), from time t=" + frame1 + " to t="
+          + frame2;
+    } else if (type == PatternType.COLOR) {
+      this.changeNotes = "changes color from RGB" + Arrays.toString(startValues) + " to RGB"
+          + Arrays.toString(endValues) + ", from time t=" + frame1 + " to t=" + frame2;
+    }
+  }
+  //////////////////////////////////////////////////
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -45,17 +71,17 @@ public class LogNode implements Comparable<LogNode> {
     return getFrame1() == logNode.getFrame1() && getFrame2() == logNode.getFrame2()
         && getChangeNotes().equals(logNode.getChangeNotes()) && getType() == logNode.getType()
         && Arrays.equals(getStartValues(), logNode.getStartValues()) && Arrays
-        .equals(getEndValues(), logNode.getEndValues());
+        .equals(getEndValues(), logNode.getEndValues()) && Objects
+        .equals(shapeName, logNode.shapeName);
   }
 
   @Override
   public int hashCode() {
-    int result = Objects.hash(getFrame1(), getFrame2(), getChangeNotes(), getType());
+    int result = Objects.hash(getFrame1(), getFrame2(), getChangeNotes(), getType(), shapeName);
     result = 31 * result + Arrays.hashCode(getStartValues());
     result = 31 * result + Arrays.hashCode(getEndValues());
     return result;
   }
-
 
   public int getFrame1() {
     return this.frame1;
@@ -92,5 +118,10 @@ public class LogNode implements Comparable<LogNode> {
   @Override
   public int compareTo(LogNode o) {
     return this.frame1 - o.getFrame1();
+  }
+
+  public void addShapeName(String shapeName) {
+    this.changeNotes = shapeName + " " + this.changeNotes;
+    this.shapeName = shapeName;
   }
 }

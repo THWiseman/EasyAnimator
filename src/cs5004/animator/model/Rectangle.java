@@ -16,6 +16,14 @@ public class Rectangle extends AbstractShape {
     this.move = new MovementPattern();
     this.size = new SizeChangePattern();
     this.color = new ColorPattern();
+    this.shapeName = "default";
+  }
+
+  public Rectangle(String shapeName, ColorPattern color, MovementPattern move, SizeChangePattern size) {
+    this.color = color;
+    this.move = move;
+    this.size = size;
+    this.shapeName = shapeName;
   }
 
   /**
