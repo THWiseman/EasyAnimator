@@ -27,22 +27,17 @@ public class Rectangle extends AbstractShape {
    * @param move       MovementPattern that will replace the default one.
    * @param size       SizeChangePattern that will replace the default one.
    * @param color      ColorPattern that will replace the default one.
-   * @param appearTime The frame at which the shape will appear.
-   * @param disappearTime The frame at which the shape will disappear.
    */
-  public Rectangle(ColorPattern color, MovementPattern move, SizeChangePattern size,
-      int appearTime, int disappearTime) {
+  public Rectangle(ColorPattern color, MovementPattern move, SizeChangePattern size) {
     this.color = color;
     this.move = move;
     this.size = size;
-    this.appearTime = appearTime;
-    this.disappearTime = disappearTime;
   }
 
 
   @Override
   public Rectangle copy() {
-    return new Rectangle(this.color, this.move, this.size, this.appearTime, this.disappearTime);
+    return new Rectangle(this.color, this.move, this.size);
   }
 
   @Override

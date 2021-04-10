@@ -39,13 +39,6 @@ public interface Shape {
    */
   boolean getVisibility(int time);
 
-  /**
-   * Changes the visibility pattern of the shape to the one provided.
-   *
-   * @param appearTime The frame at which the shape will become visible.
-   * @param disappearTime The frame at which the shape will disappear.
-   */
-  void setVisibility(int appearTime, int disappearTime);
 
   /**
    * Changes the color change pattern of the current shape to the one provided.
@@ -95,31 +88,6 @@ public interface Shape {
    * @return Shape that is a copy of the current shape object.
    */
   Shape copy();
-
-
-  /**
-   * Returns the time that the shape appears.
-   * @return Integer of the appear time.
-   */
-  int getAppearTime();
-
-  /**
-   * Returns the time that the shape disappears.
-   * @return Integer of the disappear time.
-   */
-  int getDisappearTime();
-
-  /**
-   * Changes the appear time to a new value.
-   * @param time integer of the time that the appear time should be set to.
-   */
-  void setAppearTime(int time);
-
-  /**
-   * Changes the disappear time to a new value.
-   * @param time integer of the time that the appear time should be set to.
-   */
-  void setDisappearTime(int time);
 
 
   public List<LogNode> pullChangeLog();

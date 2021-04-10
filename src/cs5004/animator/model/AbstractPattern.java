@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import cs5004.animator.model.PatternType;
 
 /**
  * This abstract class represents the qualities of a Shape as it changes over the course of

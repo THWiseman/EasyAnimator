@@ -252,7 +252,6 @@ public class CanvasImpl implements Canvas {
     private Map<String, SizeChangePattern> sizeChangePatterns = new HashMap<>();
     private Map<String, MovementPattern> movementPatterns = new HashMap<>();
     private Map<String, Shape> shapes = new HashMap<>(); //hashmap of all the shapes
-    //private Map<Integer, String> changeLog = new HashMap<>();
 
     @Override
     public Canvas build() {

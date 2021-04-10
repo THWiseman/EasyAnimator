@@ -1,5 +1,6 @@
 package cs5004.animator.model;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,8 +20,19 @@ public class ColorPattern extends AbstractPattern {
 
     @Override
     public void change(Integer frame1, Integer frame2, Integer[] startValues, Integer[] endValues) {
-        if (endValues.length != 3) {
-            throw new IllegalArgumentException("Values must be given as a three Integer array.");
+        if (endValues.length != 3 || frame1 < 0 || frame2 < frame1 || frame2 < 0) {
+            throw new IllegalArgumentException("Time must be greater than zero, and arrays must be" +
+                    "provided in a 3 value Integer[] array.");
+        }
+        for(int i : Arrays.asList(startValues)) {
+            if (i<0 || i >255) {
+                throw new IllegalArgumentException("Color values must be between 0 and 255.");
+            }
+        }
+        for(int i : Arrays.asList(endValues)) {
+            if (i<0 || i >255) {
+                throw new IllegalArgumentException("Color values must be between 0 and 255.");
+            }
         }
         if (frame1 == frame2) {
             this.pattern.put(frame1, new int[]{startValues[0], startValues[1], startValues[2]});
@@ -48,7 +60,11 @@ public class ColorPattern extends AbstractPattern {
         if (time < 0) {
             throw new IllegalArgumentException("Chosen frame must be greater than 0.");
         }
-        return this.pattern.get(time);
+        try {
+            return this.pattern.get(time);
+        } catch(NullPointerException e) {
+            return null;
+        }
     }
 
     //for testing purposes, delete later
@@ -65,10 +81,10 @@ public class ColorPattern extends AbstractPattern {
     @Override
     public String toString() {
         String str = "";
-        for (int i = 0; i <= this.pattern.size(); i++) {
-            str += "\n" + "Frame: " + i + ", R: " + pattern.get(i)[0] + ", G: " + pattern.get(i)[1] +
-                ", B: " + pattern.get(i)[2];
+        for (Map.Entry<Integer, int[]> e : this.pattern.entrySet()) {
+            str += "Frame: " + e.getKey() + ", R: " + e.getValue()[0] + ", G: " + e.getValue()[1] +
+                ", B: " + e.getValue()[2] + "\n";
         }
-        return str.substring(1);
+        return str.trim();
     }
 }

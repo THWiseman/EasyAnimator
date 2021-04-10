@@ -11,7 +11,7 @@ import org.junit.Test;
 
 /**
  * Test class for the Canvas interface.
- */
+*/
 
 public class CanvasImplTest {
   Canvas defaultCanvas;
@@ -20,11 +20,17 @@ public class CanvasImplTest {
 
   Shape rec1;
   Shape rec2;
+  Shape rec3;
   Shape ov1;
   Shape ov2;
+  Shape ov3;
   ColorPattern c1;
   MovementPattern m1;
   SizeChangePattern s1;
+
+  ColorPattern c2;
+  MovementPattern m2;
+  SizeChangePattern s2;
 
   @Before
   public void setUp() {
@@ -32,10 +38,19 @@ public class CanvasImplTest {
     m1 = new MovementPattern();
     s1 = new SizeChangePattern();
 
+    c2 = new ColorPattern();
+    c2.change(1,10, new Integer[] {1,2,3}, new Integer[]{100,150,200});
+    m2 = new MovementPattern();
+    m2.change(20,50,new Integer[] {100, 200}, new Integer[] {300,400});
+    s2 = new SizeChangePattern();
+    s2.change(100,200,new Integer[] {1,4}, new Integer[] {50,50});
+
     rec1 = new Rectangle();
-    rec2 = new Rectangle(c1, m1, s1, 0, 100);
+    rec2 = new Rectangle(c1, m1, s1);
+    rec3 = new Rectangle(c2,m2,s2);
     ov1 = new Oval();
-    ov2 = new Oval(c1, m1, s1, 0, 100);
+    ov2 = new Oval(c1, m1, s1);
+    ov3 = new Oval(c2,m1,s2);
 
     defaultCanvas = new CanvasImpl();
     small = new CanvasImpl(5);
@@ -44,17 +59,9 @@ public class CanvasImplTest {
     big.addShape(rec1, "1");
     big.addShape(rec2, "2");
     big.addShape(ov1, "3");
+    big.addShape(rec3, "4");
+    big.addShape(ov3,"5");
   }
-
-  @Test
-  public void testChangeLog() {
-    c1.change(20, 40, new Integer[] {40, 60, 80},new Integer[] {60,80,100});
-    m1.change(10, 20, new Integer[] {40, 60}, new Integer[] {40, 20});
-    s1.change(30, 60, new Integer[] {40, 60}, new Integer[] {10,10});
-    //this method needs to be updated so that the name of the shape can be put in the log
-    assertEquals("hello", big.getChangeLog());
-  }
-
 
   @Test (expected = IllegalArgumentException.class)
   public void testInvalidStartTime() {
@@ -121,27 +128,7 @@ public class CanvasImplTest {
     assertEquals(true, emptyStrings.equals(defaultCanvas.getAllShapeIDs()));
   }
 
-  @Test
-  public void testGetShapesAtTime() {
-    Shape testRec = new Rectangle(c1,m1,s1,50, 100);
-    Shape testOv = new Oval(c1,m1,s1,70, 100);
-    defaultCanvas.addShape(testRec,"1");
-    List<Shape> emptyList = new ArrayList<>();
-    List<Shape> shapeList = new ArrayList<>();
-    shapeList.add(testRec);
-    //test before and after shape disappears
-    assertEquals(emptyList,defaultCanvas.getShapesAtTime(25));
-    assertEquals(shapeList,defaultCanvas.getShapesAtTime(61));
 
-    //add oval and test again
-    defaultCanvas.addShape(testOv,"2");
-    assertEquals(emptyList,defaultCanvas.getShapesAtTime(0)); //start time
-    assertEquals(emptyList,defaultCanvas.getShapesAtTime(25));
-    assertEquals(shapeList,defaultCanvas.getShapesAtTime(62));
-    shapeList.add(testOv);
-    assertEquals(shapeList,defaultCanvas.getShapesAtTime(75));
-    assertEquals(shapeList,defaultCanvas.getShapesAtTime(100)); //end time
-  }
 
 
   @Test

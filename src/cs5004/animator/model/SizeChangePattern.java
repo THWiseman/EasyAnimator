@@ -1,5 +1,6 @@
 package cs5004.animator.model;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,8 +27,19 @@ public class SizeChangePattern extends AbstractPattern {
 
     @Override
     public void change(Integer frame1, Integer frame2, Integer[] startValues, Integer[] endValues) {
-        if (endValues.length != 2) {
-            throw new IllegalArgumentException("Values must be given as a two Integer array.");
+        if (endValues.length != 2 || frame1 < 0 || frame2 < frame1 || frame2 < 0) {
+            throw new IllegalArgumentException("Values must be given as a two Integer array." +
+                    "Frame 1 must be less than Frame 2 and both must be greater than 0.");
+        }
+        for (int i : Arrays.asList(startValues)) {
+            if (i < 0) {
+                throw new IllegalArgumentException("Length and width values must be zero or greater.");
+            }
+        }
+        for (int i : Arrays.asList(endValues)) {
+            if (i < 0) {
+                throw new IllegalArgumentException("Length and width values must be zero or greater.");
+            }
         }
         for (int i = frame1; i <= frame2; i++) {
             int newLength = tween(frame1, frame2, startValues[0], endValues[0], i);
@@ -38,9 +50,9 @@ public class SizeChangePattern extends AbstractPattern {
         super.changeTracker(PatternType.SIZECHANGE, frame1, frame2, startValues, endValues);
 
         /**
-        this.changeCount++;
-        changeLog.put(changeCount, String.format("changes from length:%d width%d at time %d to length:%d width%d at time %d", startValues[0],
-                startValues[1],frame1, endValues[0],endValues[1],frame2)); **/
+         this.changeCount++;
+         changeLog.put(changeCount, String.format("changes from length:%d width%d at time %d to length:%d width%d at time %d", startValues[0],
+         startValues[1],frame1, endValues[0],endValues[1],frame2)); **/
 
     }
 
@@ -49,7 +61,11 @@ public class SizeChangePattern extends AbstractPattern {
         if (time < 0) {
             throw new IllegalArgumentException("Chosen frame must be greater than 0.");
         }
-        return this.pattern.get(time);
+        try {
+            return this.pattern.get(time);
+        } catch (NullPointerException e) {
+            return null;
+        }
     }
 
 
@@ -61,6 +77,11 @@ public class SizeChangePattern extends AbstractPattern {
      */
     @Override
     public String toString() {
-        return "SizeChange object:\n" + this.pattern.toString();
+        String str = "";
+        for (Map.Entry<Integer, int[]> e : this.pattern.entrySet()) {
+            str += "Frame: " + e.getKey() + "  length: " + e.getValue()[0] + "  width: " + e.getValue()[1] + "\n";
+        }
+        return str.trim();
     }
+
 }

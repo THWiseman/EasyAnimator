@@ -79,19 +79,6 @@ public abstract class AbstractShape implements Shape {
     return this.color;
   }
 
-  @Override
-  public void setVisibility(int appearTime, int disappearTime) {
-    this.appearTime = appearTime;
-    this.disappearTime = disappearTime;
-  }
-
-  public int getAppearTime() {
-    return this.appearTime;
-  }
-
-  public int getDisappearTime() {
-    return this.disappearTime;
-  }
 
   @Override
   public void setSizeChangePattern(SizeChangePattern size) {
@@ -119,19 +106,5 @@ public abstract class AbstractShape implements Shape {
     return this.move;
   }
 
-  @Override
-  public void setAppearTime(int time) {
-    if(time < 0 || time >= this.disappearTime) {
-      throw new IllegalArgumentException("Appear time must be greater than zero and before the disappear time.");
-    }
-    this.appearTime = time;
-  }
 
-  @Override
-  public void setDisappearTime(int time) {
-    if(time < this.appearTime || time <= 0) {
-      throw new IllegalArgumentException("Disappear time must be greater than the appear time and greater than zero.");
-    }
-    this.disappearTime = time;
-  }
 }

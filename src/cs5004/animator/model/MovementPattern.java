@@ -1,5 +1,6 @@
 package cs5004.animator.model;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,6 +28,10 @@ public class MovementPattern extends AbstractPattern {
     if (endValues.length != 2) {
       throw new IllegalArgumentException("Values must be given as a two Integer array.");
     }
+    if(frame1 < 0 || frame2 < frame1 || frame2 < 0) {
+      throw new IllegalArgumentException("Frame 2 must be greater than frame 1, and both must be greater than zero.");
+    }
+
     for (int i = frame1; i <= frame2; i++) {
       int newX = tween(frame1, frame2, startValues[0], endValues[0], i);
       int newY = tween(frame1, frame2, startValues[1], endValues[1], i);
@@ -46,7 +51,11 @@ public class MovementPattern extends AbstractPattern {
     if (time < 0) {
       throw new IllegalArgumentException("Chosen frame must be greater than 0.");
     }
-    return this.pattern.get(time);
+    try {
+      return this.pattern.get(time);
+    } catch(NullPointerException e) {
+      return null;
+    }
   }
 
 
@@ -57,6 +66,10 @@ public class MovementPattern extends AbstractPattern {
    */
   @Override
   public String toString() {
-    return "MovementPattern object:\n" + this.pattern.toString();
+    String str = "";
+    for (Map.Entry<Integer, int[]> e : this.pattern.entrySet()) {
+      str += "Frame: " + e.getKey() + "  x: " + e.getValue()[0] + "  y: " + e.getValue()[1] + "\n";
+    }
+    return str.trim();
   }
 }

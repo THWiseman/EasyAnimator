@@ -70,7 +70,7 @@ public class TextView implements View {
     String allAppears = "";
     for (Map.Entry<String, Shape> e : shapes.entrySet()) {
       String appearString = "";
-      appearString += e.getKey() + String.format(" appears at time t=%d and disappears at time t=%d.\n", e.getValue().getAppearTime(), e.getValue().getDisappearTime());
+      //appearString += e.getKey() + String.format(" appears at time t=%d and disappears at time t=%d.\n", e.getValue().getAppearTime(), e.getValue().getDisappearTime());
       allAppears += appearString;
     }
     allAppears += "\n"; //add extra newline to separate from next section.
