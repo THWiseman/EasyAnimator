@@ -15,8 +15,7 @@ public abstract class AbstractShape implements Shape {
   SizeChangePattern size;
   private List<LogNode> changeLog = new ArrayList<>();
 
-  int appearTime;
-  int disappearTime;
+
 
   ////////////////////////////////////////////////////////
   private void updateChangeLog() {
@@ -44,6 +43,35 @@ public abstract class AbstractShape implements Shape {
 
 
   @Override
+  public int getAppearTime() {
+    int appearTime = 0;
+    if(color.earliestChangeFrame > appearTime) {
+      appearTime = color.earliestChangeFrame;
+    }
+    if(move.earliestChangeFrame > appearTime) {
+      appearTime = move.earliestChangeFrame;
+    }
+    if(size.earliestChangeFrame > appearTime) {
+      appearTime = size.earliestChangeFrame;
+    }
+    return appearTime;
+  }
+
+  @Override public int getDisappearTime() {
+      int disappearTime = 0;
+      if(color.latestChangeFrame > disappearTime) {
+        disappearTime = color.latestChangeFrame;
+      }
+      if(move.latestChangeFrame > disappearTime) {
+        disappearTime = move.latestChangeFrame;
+      }
+      if(size.latestChangeFrame > disappearTime) {
+        disappearTime = size.latestChangeFrame;
+      }
+      return disappearTime;
+  }
+
+  @Override
   public int[] getPosition(int time) {
     return move.get(time);
   }
@@ -60,7 +88,9 @@ public abstract class AbstractShape implements Shape {
 
   @Override
   public boolean getVisibility(int time) {
-    return time >= this.appearTime && time <= this.disappearTime;
+    int appearTime = this.getAppearTime();
+    int disappearTime = this.getDisappearTime();
+    return time >= appearTime && time <= disappearTime;
   }
 
   @Override

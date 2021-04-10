@@ -1,19 +1,17 @@
-/*
-package cs5004.animator.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+package cs5004.animator.model;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
 
-*/
+import static org.junit.Assert.*;
+
+
 /**
  * Test class for the Shape objects. Currently testing Rectangles and Ovals.
- *//*
+ */
 
 public class ShapeTest {
   Shape rec1;
@@ -33,23 +31,15 @@ public class ShapeTest {
 
   @Before
   public void setUp() {
-    rec1 = new Rectangle();
-    rec2 = new Rectangle(c1, m1, s1, 50,100);
-    ov1 = new Oval();
-    ov2 = new Oval(c1, m1, s1, 50, 100);
-    c2.change(50, 75, new Integer[] {230, 230, 230});
-    m2.change(50, 75, new Integer[] {50, 100});
-    s2.change(50, 75, new Integer[] {30, 100});
+    rec1 = new Rectangle(c1,m1,s1);
+    c2.change(1,100,new Integer[] {0,128,0}, new Integer[] {255,255,255});
+    m2.change(1,50,new Integer[] {50,100}, new Integer[] {200,200});
+    s2.change(1,100, new Integer[] {200,100}, new Integer[] {100,500});
+    rec2 = new Rectangle(c2, m2, s2);
+    ov1 = new Oval(c1,m1,s1);
+    ov2 = new Oval(c2, m2, s2);
   }
 
-  @Test
-  public void testChangeLog() {
-    c1.change(20, 40, new Integer[] {40, 60, 80});
-    m1.change(10, 20, new Integer[] {40, 60});
-    s1.change(30, 60, new Integer[] {40, 60});
-    //this method needs to be updated so that the name of the shape can be put in the log
-    assertEquals("hello", ov2.getChangeLog());
-  }
 
   @Test
   public void testGetPositionRec() {
@@ -58,10 +48,10 @@ public class ShapeTest {
     } catch (IllegalArgumentException e) {
       //test passes because frame must be positive.
     }
-    assertTrue(Arrays.equals(m1.get(0), rec2.getPosition(0)));
-    assertTrue(Arrays.equals(m1.get(1), rec2.getPosition(1)));
-    assertTrue(Arrays.equals(m1.get(50), rec2.getPosition(50)));
-    assertTrue(Arrays.equals(m1.get(100), rec2.getPosition(100)));
+    assertNull(rec2.getPosition(0));
+    assertTrue(Arrays.equals(m2.get(1), rec2.getPosition(1)));
+    assertTrue(Arrays.equals(m2.get(50), rec2.getPosition(50)));
+    assertTrue(Arrays.equals(m2.get(100), rec2.getPosition(100)));
   }
 
   @Test
@@ -71,10 +61,10 @@ public class ShapeTest {
     } catch (IllegalArgumentException e) {
       //test passes because frame must be positive.
     }
-    assertTrue(Arrays.equals(m1.get(0), ov2.getPosition(0)));
-    assertTrue(Arrays.equals(m1.get(1), ov2.getPosition(1)));
-    assertTrue(Arrays.equals(m1.get(50), ov2.getPosition(50)));
-    assertTrue(Arrays.equals(m1.get(100), ov2.getPosition(100)));
+    assertNull(ov2.getPosition(0));
+    assertTrue(Arrays.equals(m2.get(1), ov2.getPosition(1)));
+    assertTrue(Arrays.equals(m2.get(50), ov2.getPosition(50)));
+    assertTrue(Arrays.equals(m2.get(100), ov2.getPosition(100)));
   }
 
   @Test
@@ -84,10 +74,10 @@ public class ShapeTest {
     } catch (IllegalArgumentException e) {
       //test passes because frame must be positive.
     }
-    assertTrue(Arrays.equals(c1.get(0), rec2.getColor(0)));
-    assertTrue(Arrays.equals(c1.get(1), rec2.getColor(1)));
-    assertTrue(Arrays.equals(c1.get(50), rec2.getColor(50)));
-    assertTrue(Arrays.equals(c1.get(100), rec2.getColor(100)));
+    assertNull(rec2.getColor(0));
+    assertTrue(Arrays.equals(c2.get(1), rec2.getColor(1)));
+    assertTrue(Arrays.equals(c2.get(50), rec2.getColor(50)));
+    assertTrue(Arrays.equals(c2.get(100), rec2.getColor(100)));
   }
 
   @Test
@@ -97,10 +87,10 @@ public class ShapeTest {
     } catch (IllegalArgumentException e) {
       //test passes because frame must be positive.
     }
-    assertTrue(Arrays.equals(s1.get(0), rec2.getSize(0)));
-    assertTrue(Arrays.equals(s1.get(1), rec2.getSize(1)));
-    assertTrue(Arrays.equals(s1.get(50), rec2.getSize(50)));
-    assertTrue(Arrays.equals(s1.get(100), rec2.getSize(100)));
+    assertNull(rec2.getSize(0));
+    assertTrue(Arrays.equals(s2.get(1), rec2.getSize(1)));
+    assertTrue(Arrays.equals(s2.get(50), rec2.getSize(50)));
+    assertTrue(Arrays.equals(s2.get(100), rec2.getSize(100)));
   }
 
   @Test
@@ -111,33 +101,34 @@ public class ShapeTest {
       //test passes because frame must be positive.
     }
     assertEquals(false, rec2.getVisibility(0));
-    assertEquals(false, rec2.getVisibility(1));
+    assertEquals(true, rec2.getVisibility(1));
     assertEquals(true, rec2.getVisibility(70));
     assertEquals(true, rec2.getVisibility(100));
+    assertEquals(false,rec2.getVisibility(101));
   }
 
   @Test
   public void testSetGetColorPattern() {
-    assertEquals(c1.toString(), rec2.getColorPattern().toString());
-    assertNotEquals(c2.toString(), rec2.getColorPattern().toString());
-    rec2.setColorPattern(c2);
     assertEquals(c2.toString(), rec2.getColorPattern().toString());
     assertNotEquals(c1.toString(), rec2.getColorPattern().toString());
+    rec2.setColorPattern(c1);
+    assertEquals(c1.toString(), rec2.getColorPattern().toString());
+    assertNotEquals(c2.toString(), rec2.getColorPattern().toString());
   }
 
   @Test
   public void testSetGetMovementPattern() {
-    assertEquals(m1.toString(), rec2.getMovementPattern().toString());
-    assertNotEquals(m2.toString(), rec2.getMovementPattern().toString());
-    rec2.setMovementPattern(m2);
     assertEquals(m2.toString(), rec2.getMovementPattern().toString());
     assertNotEquals(m1.toString(), rec2.getMovementPattern().toString());
+    rec2.setMovementPattern(m1);
+    assertEquals(m1.toString(), rec2.getMovementPattern().toString());
+    assertNotEquals(m2.toString(), rec2.getMovementPattern().toString());
   }
 
   @Test
   public void testSetGetSizePattern() {
-    assertEquals(s1.toString(), rec2.getSizeChangePattern().toString());
-    assertNotEquals(s2.toString(), rec2.getSizeChangePattern().toString());
+    assertEquals(s2.toString(), rec2.getSizeChangePattern().toString());
+    assertNotEquals(s1.toString(), rec2.getSizeChangePattern().toString());
     rec2.setSizeChangePattern(s2);
     assertEquals(s2.toString(), rec2.getSizeChangePattern().toString());
     assertNotEquals(s1.toString(), rec2.getSizeChangePattern().toString());
@@ -145,14 +136,8 @@ public class ShapeTest {
 
   @Test
   public void testSetGetVisibility() {
-    assertEquals(50, rec2.getAppearTime());
+    assertEquals(1, rec2.getAppearTime());
     assertEquals(100, rec2.getDisappearTime());
-    assertEquals(0, rec1.getAppearTime());
-    assertEquals(100, rec1.getDisappearTime());
-
-    rec1.setVisibility(24, 56);
-    assertEquals(24, rec1.getAppearTime());
-    assertEquals(56, rec1.getDisappearTime());
   }
 
 
@@ -165,4 +150,4 @@ public class ShapeTest {
     assertEquals(copyRec.getAppearTime(), rec2.getAppearTime());
     assertEquals(copyRec.getDisappearTime(), rec2.getDisappearTime());
   }
-}*/
+}

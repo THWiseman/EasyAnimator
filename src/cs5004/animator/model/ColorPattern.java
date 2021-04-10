@@ -45,6 +45,15 @@ public class ColorPattern extends AbstractPattern {
             this.pattern.put(i, new int[]{newR, newG, newB});
         }
 
+        //these two if statements will be used to determine the shape appear/disappear time.
+        if (frame1 > this.earliestChangeFrame) {
+            this.earliestChangeFrame = frame1;
+        }
+
+        if (frame2 > this.latestChangeFrame) {
+            this.latestChangeFrame = frame2;
+        }
+
         super.changeTracker(PatternType.COLOR, frame1, frame2, startValues, endValues);
 
         /**

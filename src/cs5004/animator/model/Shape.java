@@ -39,6 +39,18 @@ public interface Shape {
    */
   boolean getVisibility(int time);
 
+  /**
+   * Returns the earliest frame (time) that the shape has ever had a change applied to it.
+   * @return Integer of the earliest frame the shape has ever changed. Returns 0 if the shape has never changed.
+   */
+  int getAppearTime();
+
+  /**
+   * Returns the latest frame (time) that the shape has ever had a change applied to it.
+   * @return Integer of the latest frame that the shape has ever changed. Returns 0 if the shape has never changed.
+   */
+  int getDisappearTime();
+
 
   /**
    * Changes the color change pattern of the current shape to the one provided.

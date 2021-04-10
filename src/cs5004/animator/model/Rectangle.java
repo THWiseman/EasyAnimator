@@ -16,8 +16,6 @@ public class Rectangle extends AbstractShape {
     this.move = new MovementPattern();
     this.size = new SizeChangePattern();
     this.color = new ColorPattern();
-    this.appearTime = 0;
-    this.disappearTime = 100;
   }
 
   /**

@@ -13,6 +13,9 @@ import cs5004.animator.model.PatternType;
 public abstract class AbstractPattern implements Pattern {
     int changeCount = 0;
     List<LogNode> changeLog = new ArrayList<>();
+    int earliestChangeFrame = 0; //will be updated whenever change() is called to keep track of the appear and
+    //and disappear time.
+    int latestChangeFrame = 0;
 
     /**
      * Given start/end times and start/end values, figures out what the value of something would be between those times.
