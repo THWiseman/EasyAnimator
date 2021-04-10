@@ -84,7 +84,17 @@ public class CanvasImpl implements Canvas {
 
   @Override
   public int getStartTime() {
-    return this.startTime;
+    int startTime = 0;
+    for (Shape s : this.getAllShapes()) {
+      if (startTime == 0) {
+        startTime = s.getAppearTime();
+      }
+      if (s.getAppearTime() < startTime) {
+        startTime = s.getAppearTime();
+      }
+
+    }
+    return startTime;
   }
 
   @Override
@@ -98,7 +108,16 @@ public class CanvasImpl implements Canvas {
 
   @Override
   public int getEndTime() {
-    return this.endTime;
+    int endTime = 0;
+    for(Shape s : this.getAllShapes()) {
+      if (endTime == 0) {
+        this.endTime = s.getDisappearTime();
+      }
+      if(s.getDisappearTime() > endTime) {
+        endTime = s.getDisappearTime();
+      }
+    }
+    return endTime;
   }
 
   @Override
