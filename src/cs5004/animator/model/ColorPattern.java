@@ -8,7 +8,6 @@ import java.util.Map;
  * Stores and/or calculates the color for a shape object given some time.
  */
 public class ColorPattern extends AbstractPattern {
-    private Map<Integer, int[]> pattern;
 
     /**
      * Constructs a new ColorPattern.
@@ -58,12 +57,6 @@ public class ColorPattern extends AbstractPattern {
 
         super.changeTracker(PatternType.COLOR, frame1, frame2, startValues, endValues);
 
-        /**
-        changeCount++;
-        this.changeLog.put(changeCount,
-                String.format("changes from RGB [%d, %d, %d] at time %d to RGB [%d, %d, %d] at time %d.",
-                        startValues[0], startValues[1], startValues[2], frame1, endValues[0], endValues[1], endValues[2], frame2));
-         **/
     }
 
     @Override
@@ -80,7 +73,7 @@ public class ColorPattern extends AbstractPattern {
 
     //for testing purposes, delete later
     public Map<Integer, int[]> getMap() {
-        return this.pattern;
+       return this.pattern;
     }
 
 

@@ -10,9 +10,6 @@ public class LogNodeTest {
   LogNode node2;
   LogNode node3;
 
-//  PatternType type, Integer frame1, Integer frame2,
-//  Integer[] startValues, Integer[] endValues
-
   @Before
   public void setup() {
     node1 = new LogNode(PatternType.COLOR, 0, 20, new Integer[] {20, 20, 20}, new Integer[] {40, 60, 80});
@@ -37,7 +34,7 @@ public class LogNodeTest {
   @Test
   public void testGetChangeNotes() {
     assertEquals("changes color from RGB[20, 20, 20] to RGB[40, 60, 80], from time t=0 to t=20", node1.getChangeNotes());
-    assertEquals("changes dimensions from length 20 by width 20 to length 40 by width 60, from time t=0 to t=20", node2.getChangeNotes());
+    assertEquals("changes dimensions from width 20 by height 20 to width 40 by height 60, from time t=0 to t=20", node2.getChangeNotes());
     assertEquals("moves position from (50, 50) to (60, 60), from time t=0 to t=20", node3.getChangeNotes());
   }
 

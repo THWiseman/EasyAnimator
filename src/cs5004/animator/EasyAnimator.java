@@ -14,7 +14,7 @@ public final class EasyAnimator {
     Canvas canvas1;
     BufferedReader reader = new BufferedReader((new FileReader("src/toh-12.txt")));
     canvas1 = AnimationReader.parseFile(reader, new CanvasImpl.Builder());
-    canvas1.setDimensions(0,600,0,600);
+    //canvas1.setDimensions(0,600,0,600);
     SwingView view = new SwingView(canvas1);
     view.go();
   }

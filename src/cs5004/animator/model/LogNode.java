@@ -20,8 +20,8 @@ public class LogNode implements Comparable<LogNode> {
     this.endValues = endValues;
 
     if (type == PatternType.SIZECHANGE) {
-      this.changeNotes = "changes dimensions from length " + startValues[0] + " by width "
-          + startValues[1] + " to length " + endValues[0] + " by width " + endValues[1]
+      this.changeNotes = "changes dimensions from width " + startValues[0] + " by height "
+          + startValues[1] + " to width " + endValues[0] + " by height " + endValues[1]
           + ", from time t=" + frame1 + " to t=" + frame2;
     } else if (type == PatternType.MOVEMENT) {
       this.changeNotes = "moves position from (" + startValues[0] + ", " + startValues[1]

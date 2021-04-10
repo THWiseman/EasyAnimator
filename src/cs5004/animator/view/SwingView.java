@@ -19,17 +19,17 @@ public class SwingView extends JFrame implements View {
         //to configure its attributes.
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("Easy Animator");
-        setLocation(200, 200);
+        //setLocation(200, 200);
         //setBounds(x,y,width,height) sets the dimensions of the window. x and y are the top left corner.
-        setBounds(model.getDimensions()[0], model.getDimensions()[2], model.getDimensions()[1], model.getDimensions()[3]);
+        setBounds(model.getDimensions()[0], model.getDimensions()[2], model.getDimensions()[1]+100, model.getDimensions()[3]+100);
     }
 
     private DrawPanel createDrawPanel() {
         //Create a panel to contain our drawing. This panel will be added to the JFrame.
         DrawPanel p = new DrawPanel(model);
-        p.setSize(600, 600);
-        p.setLocation(300, 300);
-        p.setBackground(Color.pink);
+        p.setSize(model.getDimensions()[1], model.getDimensions()[3]);
+        //p.setLocation(300, 300);
+        p.setBackground(Color.white);
         return p;
     }
 
@@ -43,9 +43,9 @@ public class SwingView extends JFrame implements View {
         Graphics g = this.getGraphics();
 
         //Paint the components of the JFrame to the screen.
-        paintComponents(g);
 
         DrawPanel p = createDrawPanel();
+        paintComponents(g);
 
         //Call the paint at time method of the DrawFrame to draw all shapes at the specified time.
         try {

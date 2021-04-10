@@ -17,8 +17,6 @@ public abstract class AbstractShape implements Shape {
   private List<LogNode> changeLog = new ArrayList<>();
 
 
-
-  ////////////////////////////////////////////////////////
   private void updateChangeLog() {
     changeLog.addAll(color.pullChangeLog());
     changeLog.addAll(move.pullChangeLog());
@@ -27,6 +25,7 @@ public abstract class AbstractShape implements Shape {
     Collections.sort(changeLog);
   }
 
+  @Override
   public String getChangeLog() {
     this.updateChangeLog();
     String str = "";
@@ -37,12 +36,11 @@ public abstract class AbstractShape implements Shape {
     return str.substring(1);
   }
 
+  @Override
   public List<LogNode> pullChangeLog() {
     this.updateChangeLog();
     return changeLog;
   }
-  ///////////////////////////////////////////////////////////
-
 
   @Override
   public int getAppearTime() {
@@ -104,8 +102,6 @@ public abstract class AbstractShape implements Shape {
     return time >= appearTime && time <= disappearTime;
   }
 
-  @Override
-  public abstract Shape copy();
 
   @Override
   public void setColorPattern(ColorPattern color) {

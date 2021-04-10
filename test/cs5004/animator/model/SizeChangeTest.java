@@ -1,7 +1,6 @@
 
 package cs5004.animator.model;
 
-import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -103,24 +102,24 @@ public class SizeChangeTest {
   public void testChangeLog() {
     pattern1.change(10, 20, new Integer[] {40, 60}, new Integer[] {30,40});
     pattern1.change(50, 70, new Integer[] {20, 30}, new Integer[] {50,60});
-    assertEquals("changes dimensions from length 40 by width 60 to length 30 by width 40, from time t=10 to t=20\n" +
-            "changes dimensions from length 20 by width 30 to length 50 by width 60, from time t=50 to t=70", pattern1.getChangeLog());
+    assertEquals("changes dimensions from width 40 by height 60 to width 30 by height 40, from time t=10 to t=20\n" +
+            "changes dimensions from width 20 by height 30 to width 50 by height 60, from time t=50 to t=70", pattern1.getChangeLog());
   }
 
 
   @Test
   public void testToString() {
     pattern1.change(1,10,new Integer[] {10,20}, new Integer[] {30,0});
-    assertEquals("Frame: 1  length: 10  width: 20\n" +
-            "Frame: 2  length: 12  width: 18\n" +
-            "Frame: 3  length: 14  width: 16\n" +
-            "Frame: 4  length: 16  width: 14\n" +
-            "Frame: 5  length: 18  width: 12\n" +
-            "Frame: 6  length: 20  width: 10\n" +
-            "Frame: 7  length: 22  width: 8\n" +
-            "Frame: 8  length: 24  width: 6\n" +
-            "Frame: 9  length: 26  width: 4\n" +
-            "Frame: 10  length: 30  width: 0", pattern1.toString());
+    assertEquals("Frame: 1  width: 10  height: 20\n" +
+            "Frame: 2  width: 12  height: 18\n" +
+            "Frame: 3  width: 14  height: 16\n" +
+            "Frame: 4  width: 16  height: 14\n" +
+            "Frame: 5  width: 18  height: 12\n" +
+            "Frame: 6  width: 20  height: 10\n" +
+            "Frame: 7  width: 22  height: 8\n" +
+            "Frame: 8  width: 24  height: 6\n" +
+            "Frame: 9  width: 26  height: 4\n" +
+            "Frame: 10  width: 30  height: 0", pattern1.toString());
   }
 
 }

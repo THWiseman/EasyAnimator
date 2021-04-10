@@ -10,41 +10,22 @@ import java.util.Map;
 public interface Canvas {
 
   /**
-   * Returns the start time of the animation. By default, this value will be zero.
+   * Returns the start time of the animation. By default, this value will be zero. Looks through all shapes for the
+   * earliest frame that they had a change applied.
    *
    * @return the start time of the animation.
    */
   int getStartTime();
 
-  /**
-   * Sets the start time of the animation. When a Canvas is first created, it will have a default
-   * start time of zero.
-   *
-   * @param time Integer of the time that you wish the animation to begin.
-   */
-  void setStartTime(int time);
 
   /**
-   * Returns the end time of the animation.
+   * Returns the end time of the animation. By default, this value will be zero. Looks through all shapes for the
+   * latest frame that they had a change applied.
    *
    * @return Integer of the time that the animation will end.
    */
   int getEndTime();
 
-  /**
-   * Changes the end time of the animation.
-   *
-   * @param time Integer of the time that you wish the animation to end.
-   */
-  void setEndTime(int time);
-
-  /**
-   * Returns a copy of the list of the shapes that are visible on the screen at time T.
-   *
-   * @param time Time of the animation that you wish to query.
-   * @return A list of every shape that will be visible at time.
-   */
-  List<Shape> getShapesAtTime(int time);
 
   /**
    * Returns a copy of the list of every shape present in the entire, independent of time.
@@ -101,11 +82,11 @@ public interface Canvas {
   int[] getDimensions();
 
 
+  /**
+   * Returns the map of all shapes that are in the canvas model.
+   * @return Map of all the shapes in the current canvas.
+   */
   Map<String,Shape> getShapeMap();
 
-
-  public String getChangeLog();
-
-  public List<LogNode> pullChangeLog();
 
 }

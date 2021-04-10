@@ -1,7 +1,5 @@
 package cs5004.animator.model;
 
-import java.util.List;
-
 /**
  * A rectangle is a 2D shape that has a length and width.
  */

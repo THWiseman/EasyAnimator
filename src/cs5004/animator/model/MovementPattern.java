@@ -8,14 +8,12 @@ import java.util.Map;
  * Stores and/or calculates the position for a shape object given some time.
  */
 public class MovementPattern extends AbstractPattern {
-  Map<Integer, int[]> pattern;
 
   /**
    * Constructs a new MovementPattern.
    */
   public MovementPattern() {
     this.pattern = new HashMap<Integer,int[]>();
-    //this.changeLog = new HashMap<Integer, String>();
   }
 
   //for testing purposes only, delete later.
@@ -49,10 +47,6 @@ public class MovementPattern extends AbstractPattern {
 
     super.changeTracker(PatternType.MOVEMENT, frame1, frame2, startValues, endValues);
 
-    /**
-    this.changeCount++;
-    changeLog.put(changeCount, String.format("changes from x:%d y%d at time %d to x:%d y%d at time %d", startValues[0],
-            startValues[1],frame1, endValues[0],endValues[1],frame2)); **/
   }
 
   @Override

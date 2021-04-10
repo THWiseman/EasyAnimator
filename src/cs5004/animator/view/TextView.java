@@ -1,10 +1,13 @@
 package cs5004.animator.view;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import cs5004.animator.model.Canvas;
-import cs5004.animator.model.Oval;
-import cs5004.animator.model.Rectangle;
 import cs5004.animator.model.Shape;
+import cs5004.animator.model.LogNode;
+import cs5004.animator.model.Rectangle;
+import cs5004.animator.model.Oval;
+
 
 /**
  * Text view of the Canvas model. Prints a string description of the canvas provided in
@@ -90,7 +93,10 @@ public class TextView implements View {
     String allChanges = "";
     for (Map.Entry<String, Shape> e : shapes.entrySet()) {
       if(e.getValue().getChangeLog()!="") {
-        allChanges += e.getKey() + " " + e.getValue().getChangeLog();
+        List<LogNode> changelog = e.getValue().pullChangeLog();
+        for(LogNode l : changelog) {
+          allChanges += e.getKey() + " " + l.getChangeNotes() + "\n";
+        }
       }
     }
     return allCreates + allAppears + allChanges;

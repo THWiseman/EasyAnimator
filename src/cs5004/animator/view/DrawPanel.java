@@ -49,6 +49,7 @@ public class DrawPanel extends JPanel {
         for (Shape s : this.shapes) {
             drawShape(g, s, time);
         }
+
     }
 
 

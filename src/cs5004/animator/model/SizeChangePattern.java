@@ -9,8 +9,6 @@ import java.util.Map;
  */
 public class SizeChangePattern extends AbstractPattern {
 
-    Map<Integer, int[]> pattern;
-
     /**
      * Constructs a new SizeChangePattern.
      */
@@ -59,12 +57,6 @@ public class SizeChangePattern extends AbstractPattern {
         }
 
         super.changeTracker(PatternType.SIZECHANGE, frame1, frame2, startValues, endValues);
-
-        /**
-         this.changeCount++;
-         changeLog.put(changeCount, String.format("changes from length:%d width%d at time %d to length:%d width%d at time %d", startValues[0],
-         startValues[1],frame1, endValues[0],endValues[1],frame2)); **/
-
     }
 
     @Override
@@ -90,7 +82,7 @@ public class SizeChangePattern extends AbstractPattern {
     public String toString() {
         String str = "";
         for (Map.Entry<Integer, int[]> e : this.pattern.entrySet()) {
-            str += "Frame: " + e.getKey() + "  length: " + e.getValue()[0] + "  width: " + e.getValue()[1] + "\n";
+            str += "Frame: " + e.getKey() + "  width: " + e.getValue()[0] + "  height: " + e.getValue()[1] + "\n";
         }
         return str.trim();
     }

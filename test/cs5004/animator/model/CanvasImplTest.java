@@ -63,39 +63,17 @@ public class CanvasImplTest {
     big.addShape(ov3,"5");
   }
 
-  @Test (expected = IllegalArgumentException.class)
-  public void testInvalidStartTime() {
-    small.setStartTime(-1);
-  }
-
-  @Test (expected = IllegalArgumentException.class)
-  public void testInvalidStartTime2() {
-    small.setStartTime(101);
-  }
-
-  @Test (expected = IllegalArgumentException.class)
-  public void testInvalidEndTime() {
-    small.setEndTime(-1);
-  }
-
-  @Test (expected = IllegalArgumentException.class)
-  public void testInvalidEndTime2() {
-    small.setEndTime(0);
-  }
 
   @Test
   public void testGetStartAndEndTime() {
     assertEquals(0, defaultCanvas.getStartTime());
-    assertEquals(100, defaultCanvas.getEndTime());
+    assertEquals(0, defaultCanvas.getEndTime());
     assertEquals(0, big.getStartTime());
     assertEquals(200, big.getEndTime());
     assertEquals(0, small.getStartTime());
-    assertEquals(5, small.getEndTime());
+    assertEquals(0, small.getEndTime());
 
-    small.setStartTime(4);
-    small.setEndTime(6);
-    assertEquals(4, small.getStartTime());
-    assertEquals(6, small.getEndTime());
+
   }
 
   @Test

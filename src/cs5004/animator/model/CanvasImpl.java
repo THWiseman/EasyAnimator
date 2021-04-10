@@ -15,7 +15,6 @@ import cs5004.animator.util.AnimationBuilder;
  */
 public class CanvasImpl implements Canvas {
   private Map<String, Shape> shapes;
-  private List<LogNode> changeLog;
   private int startTime;
   private int endTime;
   private int leftmostX;
@@ -30,11 +29,10 @@ public class CanvasImpl implements Canvas {
    */
   public CanvasImpl(int endTime) {
     this.shapes = new HashMap<String, Shape>();
-    this.changeLog = new ArrayList<>();
     this.startTime = 0;
     this.endTime = endTime;
-    this.leftmostX = -100;
-    this.topmostY = 100;
+    this.leftmostX = 0;
+    this.topmostY = 0;
     this.width = 200;
     this.height = 200;
   }
@@ -46,40 +44,11 @@ public class CanvasImpl implements Canvas {
     this.shapes = new HashMap<String, Shape>();
     this.startTime = 0;
     this.endTime = 100;
-    this.leftmostX = -100;
-    this.topmostY = 100;
+    this.leftmostX = 0;
+    this.topmostY = 0;
     this.width = 200;
     this.height = 200;
   }
-
-  ///////////////////////////////////////////////////////////////
-
-  private void updateChangeLog() {
-    for (Map.Entry<String, Shape> e : shapes.entrySet()) {
-      changeLog.addAll(e.getValue().pullChangeLog());
-    }
-    Collections.sort(changeLog);
-  }
-
-  public String getChangeLog() {
-    this.updateChangeLog();
-    String str = "";
-    for (int i = 0; i < changeLog.size(); i++) {
-
-      str += "\n" + changeLog.get(i).getChangeNotes();
-    }
-    try {
-      return str.substring(1);
-    } catch (StringIndexOutOfBoundsException e) {
-      return "";
-    }
-  }
-
-  public List<LogNode> pullChangeLog() {
-    this.updateChangeLog();
-    return this.changeLog;
-  }
-
 
 
   @Override
@@ -97,14 +66,6 @@ public class CanvasImpl implements Canvas {
     return startTime;
   }
 
-  @Override
-  public void setStartTime(int time) {
-    if (time < 0 || time >= this.endTime) {
-      throw new IllegalArgumentException("Time must be greater than zero" +
-              " and less than the end time.");
-    }
-    this.startTime = time;
-  }
 
   @Override
   public int getEndTime() {
@@ -120,24 +81,6 @@ public class CanvasImpl implements Canvas {
     return endTime;
   }
 
-  @Override
-  public void setEndTime(int time) {
-    if (time <= this.startTime || time <= 0) {
-      throw new IllegalArgumentException("End time must be greater than the start time.");
-    }
-    this.endTime = time;
-  }
-
-  @Override
-  public List<Shape> getShapesAtTime(int time) {
-    List<Shape> temp = new ArrayList<>();
-    for (Shape s : this.shapes.values()) {
-      if (s.getVisibility(time)) {
-        temp.add(s);
-      }
-    }
-    return temp;
-  }
 
   @Override
   public List<Shape> getAllShapes() {
@@ -279,7 +222,7 @@ public class CanvasImpl implements Canvas {
       //sets the dimensions of the new canvas. If the setBounds method was never called, uses
       //the default values.
       returnCanvas.setDimensions(leftmostX, width, topmostY, height);
-      returnCanvas.setEndTime(this.greatestEndTime);
+
 
       //for every shapeKey, get that shape from the "shapes" map and set its pattern
       //to its corresponding pattern in the patterns maps.

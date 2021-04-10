@@ -27,7 +27,7 @@ public interface Shape {
    * Returns the length and with of the shape at the specified time.
    *
    * @param time Integer of the time you wish to know the length and with of the shape.
-   * @return Int[2] length and width values of the shape.
+   * @return Int[2] width and height values of the shape.
    */
   int[] getSize(int time);
 
@@ -102,8 +102,16 @@ public interface Shape {
   Shape copy();
 
 
-  public List<LogNode> pullChangeLog();
+  /**
+   * Returns a list of LogNode which represents a history of all changes made to the shape.
+   * @return List of LogNode
+   */
+  List<LogNode> pullChangeLog();
 
-  public String getChangeLog();
+  /**
+   * Returns a string history of all changes made to the shape.
+   * @return String history of shape.
+   */
+  String getChangeLog();
 
 }
