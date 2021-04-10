@@ -1,53 +1,61 @@
 package cs5004.animator.view;
 
 import cs5004.animator.model.Canvas;
-import cs5004.animator.model.Rectangle;
-import cs5004.animator.model.Shape;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Map;
 
 public class SwingView extends JFrame implements View {
     private Canvas model;
-    private java.awt.Canvas background;
-    private JFrame frame;
-    private Map<String, Shape> shapes;
-    private Component[] shapeComponents;
-    private int hi;
+
 
     public SwingView(Canvas model) {
         //load in our model.
         this.model = model;
-
-        //The SwingView object is a "JFrame" which will be the entire window that opens. We can use JFrame methods
-        //to configure its attributes.
-        setBounds(model.getDimensions()[0],model.getDimensions()[2],model.getDimensions()[1],model.getDimensions()[3]);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setTitle("Easy Animator");
-        setLocation(200,200);
-
-        //Create a panel to contain our drawing. This panel will be added to the JFrame.
-        JPanel p = new JPanel();
-        p.setSize(50,50);
-
-        //A Canvas (not to be confused with our model by the same name) is a rectangular area which can be drawn on.
-        this.background = new java.awt.Canvas();
-        this.background.setSize(25,25);
-        //this.background.setBounds(model.getDimensions()[0],model.getDimensions()[2],50,50);
-        this.background.setBackground(new Color(128,0,128));
-
-        p.add(this.background);
-
-        this.add(p);
-
-        setVisible(true);
     }
 
+    private void setUp() {
+        //SwingView 'is a' "JFrame" which will be the entire window that opens. We can use JFrame methods
+        //to configure its attributes.
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setTitle("Easy Animator");
+        setLocation(200, 200);
+        //setBounds(x,y,width,height) sets the dimensions of the window. x and y are the top left corner.
+        setBounds(model.getDimensions()[0], model.getDimensions()[2], model.getDimensions()[1], model.getDimensions()[3]);
+    }
+
+    private DrawPanel createDrawPanel() {
+        //Create a panel to contain our drawing. This panel will be added to the JFrame.
+        DrawPanel p = new DrawPanel(model);
+        p.setSize(600, 600);
+        p.setLocation(300, 300);
+        p.setBackground(Color.pink);
+        return p;
+    }
 
     @Override
     public void go() {
+        setUp();
+        //make the JFrame visible
+        setVisible(true);
 
+        //get the Graphics Context of the JFrame
+        Graphics g = this.getGraphics();
+
+        //Paint the components of the JFrame to the screen.
+        paintComponents(g);
+
+        DrawPanel p = createDrawPanel();
+
+        //Call the paint at time method of the DrawFrame to draw all shapes at the specified time.
+        try {
+            for (int i = model.getStartTime(); i <= model.getEndTime(); i++) {
+                p.paintAtTime(g, i);
+                Thread.sleep(50);
+            }
+        } catch (InterruptedException e) {
+            throw new IllegalStateException("Error with Thread.sleep");
+        }
 
     }
 }
