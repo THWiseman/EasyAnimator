@@ -26,7 +26,7 @@ public class SVGView implements View {
   Appendable output;
   Canvas canvas;
   Map<String, Shape> shapes;
-  int speed = 10;
+  double speed = 10;
 
   public SVGView(Appendable output, Canvas canvas) throws IOException {
     this.output = output;
@@ -50,14 +50,11 @@ public class SVGView implements View {
   }
 
 
-
   public String docBuilder() {
- // String startTag = "<svg width=\"" + canvas.getDimensions()[0] + "\" height=\""
-   //   + canvas.getDimensions()[1] + "\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">\n";
     String startTag = "<svg width=\"1000\" height=\"1000\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">\n";
-  String endTag = "</svg>";
-  String doc = startTag + this.shapeBuilder() + endTag;
-  return doc;
+    String endTag = "</svg>";
+    String doc = startTag + this.shapeBuilder() + endTag;
+    return doc;
   }
 
 
@@ -109,8 +106,9 @@ public class SVGView implements View {
     StringBuilder str = new StringBuilder();
     List<LogNode> altered = shape.pullChangeLog();
 
-
-    altered = altered.stream().filter(l -> ((!Arrays.equals(l.getStartValues(), l.getEndValues()) && l.getType().equals(PatternType.COLOR)) )).collect(
+    altered = altered.stream().filter(
+        l -> ((!Arrays.equals(l.getStartValues(), l.getEndValues()) && l.getType()
+            .equals(PatternType.COLOR)))).collect(
         Collectors.toList());
 
     //for (LogNode l : altered) {
@@ -118,38 +116,36 @@ public class SVGView implements View {
     for (LogNode l : shape.pullChangeLog()) {
 
       if (l.getType() == PatternType.COLOR) {
-        if (Arrays.equals(l.getStartValues(), l.getEndValues())) {
-          str.append("");
-        } else {
-          str.append("      <animate attributeName=\"fill\" attributeType=\"CSS\" begin=\"")
-              .append(l.getFrame1() / speed).append("s\"").append(" end=\"")
-              .append(l.getFrame2() / speed)
-              .append("s\"").append(" from=\"rbg(")
-              .append(l.getStartValues()[0]).append(", ").append(l.getStartValues()[1]).append(", ")
-              .append(l.getStartValues()[2]).append(")\" to=\"rgb(").append(l.getEndValues()[0])
-              .append(", ")
-              .append(l.getEndValues()[1]).append(", ").append(l.getEndValues()[2])
-              .append(")\" fill=\"freeze\" />\n");
-        }
+        str.append("      <animate attributeName=\"fill\" attributeType=\"fill\" begin=\"")
+            .append(l.getFrame1() / speed).append("s\"").append(" dur=\"")
+            .append((l.getFrame2() - l.getFrame1()) / speed)
+            .append("s\"").append(" from=\"rgb(")
+            .append(l.getStartValues()[0]).append(", ").append(l.getStartValues()[1]).append(", ")
+            .append(l.getStartValues()[2]).append(")\" to=\"rgb(").append(l.getEndValues()[0])
+            .append(", ")
+            .append(l.getEndValues()[1]).append(", ").append(l.getEndValues()[2])
+            .append(")\" fill=\"freeze\" />\n");
 
       } else if (l.getType() == PatternType.MOVEMENT) {
-        str.append("      <animate attributeType=\"xml\" begin=\"").append(l.getFrame1()/speed).append("s\"")
-            .append(" end=\"").append(l.getFrame2()/speed).append("s\"")
+        str.append("      <animate attributeType=\"xml\" begin=\"").append(l.getFrame1() / speed)
+            .append("s\"")
+            .append(" dur=\"").append((l.getFrame2() - l.getFrame1()) / speed).append("s\"")
             .append(" attributeName=\"x\" from=\"").append(l.getStartValues()[0])
             .append("\" to=\"").append(l.getEndValues()[0]).append("\" fill=\"freeze\" />\n")
-            .append("      <animate attributeType=\"xml\" begin=\"").append(l.getFrame1()/speed).append("s\"")
-            .append(" end=\"").append(l.getFrame2()/speed).append("s\"")
+            .append("      <animate attributeType=\"xml\" begin=\"").append(l.getFrame1() / speed)
+            .append("s\"")
+            .append(" dur=\"").append((l.getFrame2() - l.getFrame1()) / speed).append("s\"")
             .append(" attributeName=\"y\" from=\"").append(l.getStartValues()[1])
             .append("\" to=\"").append(l.getEndValues()[1])
             .append("\" fill=\"freeze\" />\n");
 
       } else if (l.getType() == PatternType.SIZECHANGE) {
-        str.append("      <animate attributeType=\"xml\" begin=\"").append(l.getFrame1()/speed)
-            .append("s\"").append(" end=\"").append(l.getFrame2()/speed).append("s\"")
+        str.append("      <animate attributeType=\"xml\" begin=\"").append(l.getFrame1() / speed)
+            .append("s\"").append(" dur=\"").append((l.getFrame2() - l.getFrame1()) / speed).append("s\"")
             .append(" attributeName=\"width\" from=\"").append(l.getStartValues()[0])
             .append("\" to=\"").append(l.getEndValues()[0]).append("\" fill=\"freeze\" />\n")
-            .append("      <animate attributeType=\"xml\" begin=\"").append(l.getFrame1()/speed)
-            .append("s\"").append(" end=\"").append(l.getFrame2()/speed).append("s\"")
+            .append("      <animate attributeType=\"xml\" begin=\"").append(l.getFrame1() / speed)
+            .append("s\"").append(" dur=\"").append((l.getFrame2() - l.getFrame1()) / speed).append("s\"")
             .append(" attributeName=\"height\" from=\"")
             .append(l.getStartValues()[1]).append("\" to=\"").append(l.getEndValues()[1])
             .append("\" fill=\"freeze\" />\n");
@@ -177,5 +173,5 @@ class Main {
     SVGView SVG = new SVGView(System.out, canvas1);
     SVG.go();
 
-    }
   }
+}
