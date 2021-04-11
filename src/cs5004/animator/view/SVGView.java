@@ -94,7 +94,7 @@ public class SVGView implements View {
     List<LogNode> altered = shape.pullChangeLog();
 
 
-    altered = altered.stream().filter(l -> (!Arrays.equals(l.getStartValues(), l.getEndValues()))).collect(
+    altered = altered.stream().filter(l -> ((!Arrays.equals(l.getStartValues(), l.getEndValues()) && l.getType().equals(PatternType.COLOR)) )).collect(
         Collectors.toList());
 
     //for (LogNode l : altered) {
@@ -102,14 +102,19 @@ public class SVGView implements View {
     for (LogNode l : shape.pullChangeLog()) {
 
       if (l.getType() == PatternType.COLOR) {
-        str.append("      <animate attributeName=\"fill\" attributeType=\"CSS\" begin=\"")
-            .append(l.getFrame1()/speed).append("s\"").append(" end=\"").append(l.getFrame2()/speed)
-            .append("s\"").append(" from=\"rbg(")
-            .append(l.getStartValues()[0]).append(", ").append(l.getStartValues()[1]).append(", ")
-            .append(l.getStartValues()[2]).append(")\" to=\"rgb(").append(l.getEndValues()[0])
-            .append(", ")
-            .append(l.getEndValues()[1]).append(", ").append(l.getEndValues()[2])
-            .append(")\" fill=\"freeze\" />\n");
+        if (Arrays.equals(l.getStartValues(), l.getEndValues())) {
+          str.append("");
+        } else {
+          str.append("      <animate attributeName=\"fill\" attributeType=\"CSS\" begin=\"")
+              .append(l.getFrame1() / speed).append("s\"").append(" end=\"")
+              .append(l.getFrame2() / speed)
+              .append("s\"").append(" from=\"rbg(")
+              .append(l.getStartValues()[0]).append(", ").append(l.getStartValues()[1]).append(", ")
+              .append(l.getStartValues()[2]).append(")\" to=\"rgb(").append(l.getEndValues()[0])
+              .append(", ")
+              .append(l.getEndValues()[1]).append(", ").append(l.getEndValues()[2])
+              .append(")\" fill=\"freeze\" />\n");
+        }
 
       } else if (l.getType() == PatternType.MOVEMENT) {
         str.append("      <animate attributeType=\"xml\" begin=\"").append(l.getFrame1()/speed).append("s\"")
