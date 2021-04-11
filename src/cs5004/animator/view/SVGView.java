@@ -32,7 +32,13 @@ public class SVGView implements View {
     this.output = output;
     this.canvas = canvas;
     this.shapes = canvas.getShapeMap();
+  }
 
+  public SVGView(Appendable output, Canvas canvas, double speed) throws IOException {
+    this.output = output;
+    this.canvas = canvas;
+    this.shapes = canvas.getShapeMap();
+    this.speed = speed;
   }
 
 
@@ -80,7 +86,7 @@ public class SVGView implements View {
       } else if (shape.getValue() instanceof Oval) {
         str.append("   <ellipse id=\"").append(shape.getKey()).append("\" cx=\"")
             .append(shape.getValue().getPosition(shape.getValue().getAppearTime())[0])
-            .append("\"c y=\"")
+            .append("\" cy=\"")
             .append(shape.getValue().getPosition(shape.getValue().getAppearTime())[1])
             .append("\" rx=\"")
             .append(shape.getValue().getSize(shape.getValue().getAppearTime())[0])
@@ -165,7 +171,7 @@ class Main {
     Canvas canvas1;
     BufferedReader reader = null;
     try {
-      reader = new BufferedReader((new FileReader("src/toh-3.txt")));
+      reader = new BufferedReader((new FileReader("src/toh-8.txt")));
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     }

@@ -12,7 +12,7 @@ import java.io.IOException;
 public final class EasyAnimator {
   public static void main(String[] args) throws IOException{
     Canvas canvas1;
-    BufferedReader reader = new BufferedReader((new FileReader("src/toh-3.txt")));
+    BufferedReader reader = new BufferedReader((new FileReader("src/big-bang-big-crunch.txt")));
     canvas1 = AnimationReader.parseFile(reader, new CanvasImpl.Builder());
     SwingView view = new SwingView(canvas1);
     view.go();
