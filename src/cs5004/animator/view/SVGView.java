@@ -7,7 +7,12 @@ import cs5004.animator.model.Oval;
 import cs5004.animator.model.PatternType;
 import cs5004.animator.model.Rectangle;
 import cs5004.animator.model.Shape;
+import cs5004.animator.util.AnimationReader;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,13 +32,24 @@ public class SVGView implements View {
     this.output = output;
     this.canvas = canvas;
     this.shapes = canvas.getShapeMap();
+
   }
 
-  // Creates a FileWriter
- // FileWriter file = new FileWriter("view.svg");
 
- // <svg width="700" height="500" version="1.1"
-//  xmlns="http://www.w3.org/2000/svg">
+  @Override
+  public void go() {
+    String svgText = this.docBuilder();
+    try {
+      FileWriter write = new FileWriter("view.svg");
+      BufferedWriter output = new BufferedWriter(write);
+      output.write(svgText);
+      output.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+
 
   public String docBuilder() {
  // String startTag = "<svg width=\"" + canvas.getDimensions()[0] + "\" height=\""
@@ -144,8 +160,22 @@ public class SVGView implements View {
     return str.toString();
   }
 
-  @Override
-  public void go() {
 
-  }
 }
+
+class Main {
+
+  public static void main(String args[]) throws IOException {
+    Canvas canvas1;
+    BufferedReader reader = null;
+    try {
+      reader = new BufferedReader((new FileReader("src/toh-3.txt")));
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
+    canvas1 = AnimationReader.parseFile(reader, new CanvasImpl.Builder());
+    SVGView SVG = new SVGView(System.out, canvas1);
+    SVG.go();
+
+    }
+  }
