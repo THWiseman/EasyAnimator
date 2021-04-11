@@ -12,45 +12,40 @@ public class DrawPanel extends JPanel {
 
     cs5004.animator.model.Canvas canvas;
     java.util.List<Shape> shapes;
+    int time = 1;
+
 
     public DrawPanel(Canvas canvas) {
         this.canvas = canvas;
         this.shapes = canvas.getAllShapes();
     }
 
-    public void drawShape(Graphics g, Shape shape, int time) {
-        Graphics g2d = (Graphics2D) g;
+    public void setTime(int time) {
+        this.time = time;
+    }
 
+
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        setBackground(Color.WHITE);
+
+        for(Shape shape : this.shapes) {
         //shape attributes
         Color color = new Color(shape.getColor(time)[0], shape.getColor(time)[1], shape.getColor(time)[2]);
-        g2d.setColor(color);
+        g.setColor(color);
         int xPos = shape.getPosition(time)[0];
         int yPos = shape.getPosition(time)[1];
         int shapeWidth = shape.getSize(time)[0];
         int shapeHeight = shape.getSize(time)[1];
 
-        //JPanel attributes. Might need them to align the animation with the panel properly.
-        Dimension size = getSize();
-        int width = size.width;
-        int height = size.height;
-        int x = getX();
-        int y = getY();
-
         if(shape instanceof Rectangle) {
-            g2d.fillRect(xPos, yPos,shapeWidth,shapeHeight);
+            g.fillRect(xPos, yPos,shapeWidth,shapeHeight);
         }
         if(shape instanceof Oval) {
-            g2d.fillOval(x +xPos,y + yPos,shapeWidth,shapeHeight);
+            g.fillOval(xPos,yPos,shapeWidth,shapeHeight);
         }
     }
 
-    public void paintAtTime(Graphics g, int time) {
-        super.paintComponent(g);
-        for (Shape s : this.shapes) {
-            drawShape(g, s, time);
-        }
-
     }
-
-
 }

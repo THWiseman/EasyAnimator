@@ -204,10 +204,10 @@ public class CanvasImpl implements Canvas {
 
   public static final class Builder implements AnimationBuilder<Canvas> {
     //default values for a Canvas are a coordinate plane from -100 to 100 for both x and y.
-    private int leftmostX = -100;
-    private int topmostY = 100;
-    private int width = 200;
-    private int height = 200;
+    private int leftmostX;
+    private int topmostY;
+    private int width;
+    private int height;
     private int greatestEndTime = 0;
     private Map<String, ColorPattern> colorPatterns = new HashMap<>(); //these hashmaps store the patterns
     //for all shapes that are being built.
