@@ -29,6 +29,7 @@ public class SVGTest {
   @Test
   public void testBuildAnimation() throws IOException {
     SVGView SVG = new SVGView(System.out, canvas1);
+    //assertEquals("hello", );
     assertEquals("hello", SVG.buildAnimation(canvas1.getShape("disk1")));
   }
 
@@ -37,6 +38,12 @@ public class SVGTest {
     SVGView SVG = new SVGView(System.out, canvas1);
     //assertEquals("i", canvas1.getShapeMap());
     assertEquals("hello", SVG.shapeBuilder());
+  }
+
+  @Test
+  public void testDocBuilder() throws IOException {
+    SVGView SVG = new SVGView(System.out, canvas1);
+    assertEquals("hello", SVG.docBuilder());
   }
 
 }
