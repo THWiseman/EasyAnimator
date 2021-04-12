@@ -4,6 +4,8 @@ import cs5004.animator.model.Canvas;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class SwingView extends JFrame implements View {
     private Canvas model;
@@ -22,14 +24,18 @@ public class SwingView extends JFrame implements View {
         setPreferredSize(new Dimension(model.getDimensions()[1],model.getDimensions()[3]));
     }
 
-
     @Override
     public void go() {
+        System.out.println("need to use the other go method");
+    }
+
+    public void go(int tps) {
+        int ticksPerSecond = tps;
         setUp();
 
         //this panel is where the animation occurs.
         DrawPanel p = new DrawPanel(model);
-        p.setPreferredSize(new Dimension(model.getDimensions()[1]*2,model.getDimensions()[3]*2));
+        p.setPreferredSize(new Dimension(model.getDimensions()[1],model.getDimensions()[3]));
         //add the animation panel to a scrollable pane.
         JScrollPane pane = new JScrollPane(p);
         pane.setPreferredSize(p.getPreferredSize());
@@ -40,21 +46,24 @@ public class SwingView extends JFrame implements View {
                 +this.getInsets().right,model.getDimensions()[3]+this.getInsets().top + this.getInsets().bottom);
         //this.pack();
 
-        this.setVisible(true);
         //make the JFrame visible.
+        this.setVisible(true);
 
 
-        //Call the paint at time method of the DrawFrame to draw all shapes at the specified time.
-        try {
-            for (int i = model.getStartTime(); i <= model.getEndTime(); i++) {
-                p.setTime(i);
+        ActionListener taskPerformer = new ActionListener() {
+            int tick = 1;
+            int endTime = model.getEndTime();
+            public void actionPerformed(ActionEvent evt) {
+                if(tick >= endTime) {
+                    System.exit(0);
+                }
+                p.setTime(tick);
                 p.repaint();
-                System.out.println(String.format("X: %d Y: %d Width: %d Height: %d",this.getX(),this.getY(),this.getWidth(),this.getHeight()));
-                Thread.sleep(50);
+                tick++;
             }
-        } catch (InterruptedException e) {
-            throw new IllegalStateException("Error with Thread.sleep");
-        }
+        };
+        int delay = 1000/ticksPerSecond;
+        new Timer(delay,taskPerformer).start();
 
     }
 }
