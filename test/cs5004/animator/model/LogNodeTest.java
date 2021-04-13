@@ -6,6 +6,10 @@ import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * A JUnit test for the LogNode class. No invalid arguments should be able to be passed in,
+ * as they will be caught by the Patterns. Redundant tests included just to be safe.
+ */
 public class LogNodeTest {
   LogNode node1;
   LogNode node2;

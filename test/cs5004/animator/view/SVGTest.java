@@ -1,5 +1,5 @@
-
 package cs5004.animator.view;
+
 import cs5004.animator.model.*;
 import cs5004.animator.util.AnimationReader;
 import java.io.IOException;
@@ -15,7 +15,9 @@ import java.io.FileReader;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-
+/**
+ * A JUnit test for the SVGView class.
+ */
 public class SVGTest {
   Canvas canvas1;
   Canvas canvas2;

@@ -13,6 +13,11 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This class can be used to create an SVG animation from a given Canvas. This animation can be
+ * retrieved by writing an SVG interpretation of the animation to a given Appendable or directly
+ * to the console output.
+ */
 public class SVGView implements View {
 
   Appendable appendable;
@@ -20,17 +25,25 @@ public class SVGView implements View {
   Map<String, Shape> shapes;
   double speed = 10;
 
+  /**
+   * Creates a new SVGView object from a given Canvas, which can output to a given location.
+   * @param appendable The output of the animation.
+   * @param canvas The Canvas from which the animation will be built.
+   */
   public SVGView(Appendable appendable, Canvas canvas) {
     this.appendable = appendable;
     this.canvas = canvas;
     this.shapes = canvas.getShapeMap();
   }
 
+  /**
+   * Creates a new SVGView object from a given Canvas.
+   * @param canvas
+   */
   public SVGView(Canvas canvas) {
     this.canvas = canvas;
     this.shapes = canvas.getShapeMap();
   }
-
 
   @Override
   public void go() {
@@ -146,7 +159,6 @@ public class SVGView implements View {
     }
     return str.toString();
   }
-
 
   private String buildAnimation(Shape shape) {
     StringBuilder str = new StringBuilder();

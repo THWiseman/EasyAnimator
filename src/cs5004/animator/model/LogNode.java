@@ -3,6 +3,10 @@ package cs5004.animator.model;
 import java.util.Arrays;
 import java.util.Objects;
 
+/**
+ * This class represents and stores the data of a single animation, and is stored within the
+ * ChangeLog.
+ */
 public class LogNode implements Comparable<LogNode> {
   private final int frame1;
   private final int frame2;
@@ -11,6 +15,14 @@ public class LogNode implements Comparable<LogNode> {
   private final Integer[] startValues;
   private final Integer[] endValues;
 
+  /**
+   * Constructs a new LogNode object.
+   * @param type the type of Pattern that is changing.
+   * @param frame1 the starting frame of the animation.
+   * @param frame2 the ending frame of the animation
+   * @param startValues the values of the Pattern at the beginning of the animation.
+   * @param endValues the values of the Pattern at the end of the animation.
+   */
   public LogNode(PatternType type, Integer frame1, Integer frame2,
       Integer[] startValues, Integer[] endValues) {
     if (frame1 < -1) {
@@ -68,22 +80,42 @@ public class LogNode implements Comparable<LogNode> {
     return this.frame1 - o.getFrame1();
   }
 
+  /**
+   * Returns the starting frame of the animation.
+   * @return the starting frame of the animation.
+   */
   public int getFrame1() {
     return this.frame1;
   }
 
+  /**
+   * Returns the ending frame of the animation.
+   * @return the ending frame of the animation.
+   */
   public int getFrame2() {
     return this.frame2;
   }
 
+  /**
+   * Returns a String that describes the animation taking place.
+   * @return the String descriptor of the animation.
+   */
   public String getChangeNotes() {
     return this.changeNotes;
   }
 
+  /**
+   * Returns the type of Pattern that this animation refers to.
+   * @return the type of Pattern that this animation refers to.
+   */
   public PatternType getType() {
     return this.type;
   }
 
+  /**
+   * Returns the values of the Pattern at the beginning of the animation.
+   * @return the values of the Pattern at the beginning of the animation.
+   */
   public int[] getStartValues() {
     int[] updatedFrame = new int[startValues.length];
         for (int i = 0; i < startValues.length; i++) {
@@ -92,6 +124,10 @@ public class LogNode implements Comparable<LogNode> {
         return updatedFrame;
     }
 
+  /**
+   * Returns the values of the Pattern at the end of the animation.
+   * @return the values of the Pattern at the end of the animation.
+   */
   public int[] getEndValues() {
     int[] updatedFrame = new int[endValues.length];
     for (int i = 0; i < endValues.length; i++) {
