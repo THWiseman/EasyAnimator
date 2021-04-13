@@ -105,21 +105,46 @@ public class ColorPattern extends AbstractPattern {
         for (Integer i : times) {
             positions.add(this.pattern.get(i));
         }
-        int i = 0;
-        int j = 0;
-        for (i = 0; i < times.size(); i++) {
+
+
+        str.add(String.format("starts at color RGB[%d,%d,%d] at time %d",positions.get(0)[0],positions.get(0)[1],positions.get(0)[2],times.get(0)));
+
+        int i = 1;
+        int j = 1;
+        //for i less than the size of the list
+        while (i < times.size()-1) {
             int[] firstValue = positions.get(i);
-            int[] secondValue = positions.get(i);
+            int[] secondValue = positions.get(j);
+            System.out.print(String.format("%d, %d",i,j));
 
-            while(Arrays.equals(firstValue,secondValue) &&j<times.size()-1) {
+            //if element i is equal to element i+1, figure out how long they stay the same for.
+            if(Arrays.equals(positions.get(i),positions.get(i+1))){
+                //increment j until secondValue no longer equals first value.
+                while(Arrays.equals(firstValue,secondValue) &&j<times.size()-1) {
+                    j++;
+                    secondValue = positions.get(j);
+                }
+                //The map has not changed from time i to time j.
+                str.add(String.format("stays color  {%d, %d, %d} from time %d to %d.",
+                        firstValue[0],firstValue[1],firstValue[2],i,j));
                 j++;
-                secondValue = positions.get(j);
+                i=j;
+                continue;
             }
+            //if element i is NOT equal to element i+1, the color is changing. Figure out how long the change lasts,
+            //and record that change.
+            if(!Arrays.equals(positions.get(i),positions.get(i+1))) {
+                while (!Arrays.equals(firstValue, secondValue) && j < times.size() - 1) {
+                    j++;
+                    secondValue = positions.get(j);
+                }
 
-            str.add(String.format("changes color from %d,%d,%d to %d,%d,%d from time %d to %d",
-                    firstValue[0],firstValue[1],firstValue[2], secondValue[0], secondValue[1],secondValue[2],i,j));
+                str.add(String.format("changes color from {%d, %d, %d} to {%d, %d, %d} from time %d to %d", firstValue[0],
+                        firstValue[1], firstValue[2], secondValue[0], secondValue[1], secondValue[2], i, j));
 
-            i=j;
+                j++;
+                i=j;
+            }
 
         }
         return str;

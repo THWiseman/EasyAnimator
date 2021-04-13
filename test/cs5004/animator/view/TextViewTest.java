@@ -275,7 +275,8 @@ public class TextViewTest {
 
     @Test
     public void testColorDescription() {
-        assertEquals("",canvas2.getAllShapes().get(0).getColorPattern().getTextDescription().toString());
+        String test = canvas2.getAllShapes().get(0).getColorPattern().getTextDescription().toString();
+        assertEquals("",test);
     }
 }
 
