@@ -29,7 +29,7 @@ public class SVGTest {
   public void setUp() {
     BufferedReader reader = null;
     try {
-      reader = new BufferedReader((new FileReader("resources/testText")));
+      reader = new BufferedReader((new FileReader("resources/toh-3.txt")));
     } catch (FileNotFoundException e) {
       System.out.println("No file passed");
     }
