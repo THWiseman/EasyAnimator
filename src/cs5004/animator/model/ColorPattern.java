@@ -1,8 +1,6 @@
 package cs5004.animator.model;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Stores and/or calculates the color for a shape object given some time.
@@ -90,5 +88,40 @@ public class ColorPattern extends AbstractPattern {
                 ", B: " + e.getValue()[2] + "\n";
         }
         return str.trim();
+    }
+
+    public List<String> getTextDescription() {
+        List<String> str = new ArrayList<>();
+        //get a list of all the times in the hashmap and sort it.
+        List<Integer> times = new ArrayList<>();
+        for (Integer i : this.pattern.keySet()) {
+            times.add(i);
+        }
+        Collections.sort(times);
+
+        //get a list of all the int[] in the hashmap. It should be in sorted order by time since we got it by using
+        //the sorted times list.
+        List<int[]> positions = new ArrayList<>();
+        for (Integer i : times) {
+            positions.add(this.pattern.get(i));
+        }
+        int i = 0;
+        int j = 0;
+        for (i = 0; i < times.size(); i++) {
+            int[] firstValue = positions.get(i);
+            int[] secondValue = positions.get(i);
+
+            while(Arrays.equals(firstValue,secondValue) &&j<times.size()-1) {
+                j++;
+                secondValue = positions.get(j);
+            }
+
+            str.add(String.format("changes color from %d,%d,%d to %d,%d,%d from time %d to %d",
+                    firstValue[0],firstValue[1],firstValue[2], secondValue[0], secondValue[1],secondValue[2],i,j));
+
+            i=j;
+
+        }
+        return str;
     }
 }

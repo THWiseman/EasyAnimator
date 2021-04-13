@@ -272,5 +272,10 @@ public class TextViewTest {
         testTextView.go(10,"Hi");
         assertEquals(testTextView.getStringDescription(), Files.readString(Paths.get("Hi")));
     }
+
+    @Test
+    public void testColorDescription() {
+        assertEquals("",canvas2.getAllShapes().get(0).getColorPattern().getTextDescription().toString());
+    }
 }
 

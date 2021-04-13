@@ -105,10 +105,6 @@ public final class EasyAnimator {
                 view.go(tps, outputFileName);
                 System.exit(0);
             }
-
-            //parse output file name
-            //try/catch to create output file using the 'tps' variable.
-            //make sure SVG view calls System.exit(0) upon successful completion.
         }
 
         //Text view

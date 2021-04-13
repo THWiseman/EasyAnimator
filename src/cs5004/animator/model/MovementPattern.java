@@ -1,8 +1,6 @@
 package cs5004.animator.model;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Stores and/or calculates the position for a shape object given some time.
@@ -74,5 +72,40 @@ public class MovementPattern extends AbstractPattern {
       str += "Frame: " + e.getKey() + "  x: " + e.getValue()[0] + "  y: " + e.getValue()[1] + "\n";
     }
     return str.trim();
+  }
+
+  private List<String>  getTextDescription() {
+    List<String> str = new ArrayList<>();
+    //get a list of all the times in the hashmap and sort it.
+    List<Integer> times = new ArrayList<>();
+    for (Integer i : this.pattern.keySet()) {
+      times.add(i);
+    }
+    Collections.sort(times);
+
+    //get a list of all the int[] in the hashmap. It should be in sorted order by time since we got it by using
+    //the sorted times list.
+    List<int[]> positions = new ArrayList<>();
+    for (Integer i : times) {
+      positions.add(this.pattern.get(i));
+    }
+    int i = 0;
+    int j = 0;
+    for (i = 0; i < times.size(); i++) {
+      int[] firstValue = positions.get(i);
+      int[] secondValue = positions.get(i);
+
+      while(Arrays.equals(firstValue,secondValue)) {
+        j++;
+        secondValue = positions.get(j);
+      }
+
+      str.add(String.format("moves from %d,%d to %d,%d from time %d to %d",firstValue[0],firstValue[1],secondValue[0],
+              secondValue[1],i,j));
+      j++;
+      i = j;
+
+    }
+    return str;
   }
 }
