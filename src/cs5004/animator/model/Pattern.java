@@ -10,7 +10,9 @@ public interface Pattern {
 
 
   /**
-   * Fills in values to the HashMap of the Pattern.
+   * All patterns store information about a particular shape property in a private Hashmap. This change method updates
+   * their internal hashmap by interpolating values between the start/end value over the times between the start/end
+   * time.
    * @param frame1 Initial Time
    * @param frame2 End Time
    * @param startValues Array of starting values.

@@ -5,9 +5,11 @@ import cs5004.animator.util.AnimationReader;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import static org.junit.Assert.assertEquals;
 
@@ -24,6 +26,7 @@ public class TextViewTest {
         canvas2 = AnimationReader.parseFile(reader2, new CanvasImpl.Builder());
     }
 
+    //test for accurate output
     @Test
     public void testTextView() {
         TextView text = new TextView(System.out,canvas1);
@@ -185,6 +188,89 @@ public class TextViewTest {
                 "disk2 changes color from RGB[0, 255, 0] to RGB[0, 255, 0], from time t=225 to t=302\n" +
                 "disk2 moves position from (467, 210) to (467, 210), from time t=225 to t=302\n" +
                 "disk2 changes dimensions from width 65 by height 30 to width 65 by height 30, from time t=225 to t=302\n",text.getStringDescription());
+    }
+
+    //test passing in a string builder as appendable.
+    @Test
+    public void testAppendableWrite() {
+        Appendable testAppendable = new StringBuilder();
+        TextView testTextView = new TextView(testAppendable,canvas1);
+        testTextView.go();
+        assertEquals(testTextView.getStringDescription(),testAppendable.toString());
+    }
+
+    //test passing in a string builder as appendable
+    //this test takes a long time to run because it uses a big file.
+    //@Test
+    public void testAppendableWrite2() {
+        Appendable testAppendable = new StringBuilder();
+        TextView testTextView = new TextView(testAppendable,canvas2);
+        testTextView.go();
+        String appendableOutput = testAppendable.toString();
+        assertEquals(testTextView.getStringDescription(),appendableOutput);
+    }
+
+    //test passing in a file writer as appendable and actually reading that file again.
+    @Test
+    public void testWriteFile() throws IOException {
+        File newFile = new File("testTextView.txt");
+        FileWriter write = new FileWriter(newFile);
+        BufferedWriter output = new BufferedWriter(write);
+        TextView testTextView = new TextView(output,canvas1);
+        testTextView.go();
+        output.close();
+        assertEquals(testTextView.getStringDescription(), Files.readString(Paths.get("testTextView.txt")));
+    }
+
+    //make sure exception is thrown with illegal speed
+    @Test (expected = IllegalArgumentException.class)
+    public void testInvalidGo() throws IOException {
+        File newFile = new File("testTextView.txt");
+        FileWriter write = new FileWriter(newFile);
+        BufferedWriter output = new BufferedWriter(write);
+        TextView testTextView = new TextView(output,canvas1);
+        testTextView.go(0);
+        output.close();
+    }
+
+    //make sure exception is thrown with illegal speed but legal filepath
+    @Test (expected = IllegalArgumentException.class)
+    public void testInvalidGo2() throws IOException {
+        File newFile = new File("testTextView.txt");
+        FileWriter write = new FileWriter(newFile);
+        BufferedWriter output = new BufferedWriter(write);
+        TextView testTextView = new TextView(output,canvas1);
+        testTextView.go(-1, "hi");
+        output.close();
+    }
+
+    //test writing to a file and reading it again with the string file path in go.
+    @Test
+    public void testWriteFileNamedHi() throws IOException {
+        TextView testTextView = new TextView(canvas1);
+        testTextView.go("Hi");
+        assertEquals(testTextView.getStringDescription(), Files.readString(Paths.get("Hi")));
+    }
+
+    @Test
+    public void testWriteFileNamedHi2() throws IOException {
+        TextView testTextView = new TextView(canvas1);
+        testTextView.go(10,"Hi");
+        assertEquals(testTextView.getStringDescription(), Files.readString(Paths.get("Hi")));
+    }
+
+    @Test
+    public void testWriteFileNamedHi3() throws IOException {
+        TextView testTextView = new TextView(canvas2);
+        testTextView.go("Hi");
+        assertEquals(testTextView.getStringDescription(), Files.readString(Paths.get("Hi")));
+    }
+
+    @Test
+    public void testWriteFileNamedHi4() throws IOException {
+        TextView testTextView = new TextView(canvas2);
+        testTextView.go(10,"Hi");
+        assertEquals(testTextView.getStringDescription(), Files.readString(Paths.get("Hi")));
     }
 }
 

@@ -33,6 +33,16 @@ public class TextView implements View {
     this.shapes = canvas.getShapeMap();
   }
 
+  /**
+   * Constructor for the TextView. System.out will be used as the default output.
+   * @param canvas
+   */
+  public TextView(Canvas canvas) {
+    this.output = System.out;
+    this.canvas = canvas;
+    this.shapes = canvas.getShapeMap();
+  }
+
 
   /**
    * Returns a string that looks something like this:
@@ -40,7 +50,7 @@ public class TextView implements View {
    * Create oval C with center at (500,100), radius 60 and 30, and color {128,0,240}.
    * @return
    */
-  public String getStringDescription() {
+   String getStringDescription() {
     String allCreates = "";
 
     //this for loop will create a string like "Create rectangle R with corner at (200,200),
@@ -109,30 +119,35 @@ public class TextView implements View {
     try {
      output.append(this.getStringDescription());
     } catch (IOException e) {
-      throw new IllegalStateException("Appendable error");
+      throw new IllegalStateException("Appendable error.");
     }
   }
 
   @Override
   public void go(int tps) {
+     if(tps < 1) {
+       throw new IllegalArgumentException("Ticks per second must be 1 or greater.");
+     }
     try {
       output.append(this.getStringDescription());
     } catch (IOException e) {
-      throw new IllegalStateException("Appendable error");
+      throw new IllegalStateException("Appendable error.");
     }
   }
 
   @Override
   public void go(int tps, String filepath) {
+    if(tps < 1) {
+      throw new IllegalArgumentException("Ticks per second must be 1 or greater.");
+    }
     try {
       FileWriter write = new FileWriter(filepath);
       BufferedWriter output = new BufferedWriter(write);
       output.write(getStringDescription());
       output.close();
     } catch (IOException e) {
-      e.printStackTrace();
+      throw new IllegalStateException("Error writing to file.");
     }
-    System.exit(0);
   }
 
 
@@ -144,9 +159,8 @@ public class TextView implements View {
       output.write(getStringDescription());
       output.close();
     } catch (IOException e) {
-      e.printStackTrace();
+      throw new IllegalStateException("Error writing to file.");
     }
-    System.exit(0);
   }
 
 }
