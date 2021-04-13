@@ -40,7 +40,6 @@ public class SVGView implements View {
   }
 
 
-
   @Override
   public void go() {
     String svgText = this.docBuilder();
@@ -49,11 +48,15 @@ public class SVGView implements View {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    System.exit(0);
+   // System.exit(0);
   }
 
   @Override
   public void go(int tps) {
+    if (tps < 1) {
+      throw new IllegalArgumentException("Ticks per second must be an integer 1 or greater");
+    }
+
     this.speed = tps;
     String svgText = this.docBuilder();
     try {
@@ -61,11 +64,15 @@ public class SVGView implements View {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    System.exit(0);
+   // System.exit(0);
   }
 
   @Override
   public void go(int tps, String filepath) {
+    if (tps < 1) {
+      throw new IllegalArgumentException("Ticks per second must be an integer 1 or greater");
+    }
+
     this.speed = tps;
     File file = new File("./" + File.separator + "resources" + File.separator + filepath);
     String svgText = this.docBuilder();
@@ -77,7 +84,7 @@ public class SVGView implements View {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    System.exit(0);
+   // System.exit(0);
   }
 
   @Override
@@ -93,11 +100,11 @@ public class SVGView implements View {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    System.exit(0);
+  //  System.exit(0);
   }
 
 
-  public String docBuilder() {
+  private String docBuilder() {
     String startTag = "<svg width=\"1000\" height=\"1000\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">\n";
     String endTag = "</svg>";
     String doc = startTag + this.shapeBuilder() + endTag;
@@ -105,7 +112,7 @@ public class SVGView implements View {
   }
 
 
-  public String shapeBuilder() {
+  private String shapeBuilder() {
     StringBuilder str = new StringBuilder();
     String endTag = "";
     for (Map.Entry<String, Shape> shape : shapes.entrySet()) {
@@ -149,16 +156,9 @@ public class SVGView implements View {
   }
 
 
-  public String buildAnimation(Shape shape) {
+  private String buildAnimation(Shape shape) {
     StringBuilder str = new StringBuilder();
     List<LogNode> altered = shape.pullChangeLog();
-
-    altered = altered.stream().filter(
-        l -> ((!Arrays.equals(l.getStartValues(), l.getEndValues()) && l.getType()
-            .equals(PatternType.COLOR)))).collect(
-        Collectors.toList());
-
-    //for (LogNode l : altered) {
 
     for (LogNode l : shape.pullChangeLog()) {
 
@@ -188,11 +188,13 @@ public class SVGView implements View {
 
       } else if (l.getType() == PatternType.SIZECHANGE) {
         str.append("      <animate attributeType=\"xml\" begin=\"").append(l.getFrame1() / speed)
-            .append("s\"").append(" dur=\"").append((l.getFrame2() - l.getFrame1()) / speed).append("s\"")
+            .append("s\"").append(" dur=\"").append((l.getFrame2() - l.getFrame1()) / speed)
+            .append("s\"")
             .append(" attributeName=\"width\" from=\"").append(l.getStartValues()[0])
             .append("\" to=\"").append(l.getEndValues()[0]).append("\" fill=\"freeze\" />\n")
             .append("      <animate attributeType=\"xml\" begin=\"").append(l.getFrame1() / speed)
-            .append("s\"").append(" dur=\"").append((l.getFrame2() - l.getFrame1()) / speed).append("s\"")
+            .append("s\"").append(" dur=\"").append((l.getFrame2() - l.getFrame1()) / speed)
+            .append("s\"")
             .append(" attributeName=\"height\" from=\"")
             .append(l.getStartValues()[1]).append("\" to=\"").append(l.getEndValues()[1])
             .append("\" fill=\"freeze\" />\n");
@@ -202,13 +204,11 @@ public class SVGView implements View {
     }
     return str.toString();
   }
-
-
 }
-
+/**
 class Main {
 
-  public static void main(String args[]) throws IOException {
+  public static void main(String args[]) {
     Canvas canvas1;
     BufferedReader reader = null;
     try {
@@ -222,3 +222,4 @@ class Main {
 
   }
 }
+**/

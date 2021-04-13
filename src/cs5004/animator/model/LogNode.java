@@ -13,6 +13,13 @@ public class LogNode implements Comparable<LogNode> {
 
   public LogNode(PatternType type, Integer frame1, Integer frame2,
       Integer[] startValues, Integer[] endValues) {
+    if (frame1 < -1) {
+      throw new IllegalArgumentException("Starting frame must be an integer 0 or greater.");
+    }
+    if (frame2 < frame1) {
+      throw new IllegalArgumentException("Ending frame must be greater than or equal to starting frame.");
+    }
+
     this.frame1 = frame1;
     this.frame2 = frame2;
     this.type = type;
