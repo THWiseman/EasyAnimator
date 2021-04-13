@@ -1,25 +1,17 @@
 package cs5004.animator.view;
 
 import cs5004.animator.model.Canvas;
-import cs5004.animator.model.CanvasImpl;
 import cs5004.animator.model.LogNode;
 import cs5004.animator.model.Oval;
 import cs5004.animator.model.PatternType;
 import cs5004.animator.model.Rectangle;
 import cs5004.animator.model.Shape;
-import cs5004.animator.util.AnimationReader;
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class SVGView implements View {
 
@@ -205,21 +197,3 @@ public class SVGView implements View {
     return str.toString();
   }
 }
-/**
-class Main {
-
-  public static void main(String args[]) {
-    Canvas canvas1;
-    BufferedReader reader = null;
-    try {
-      reader = new BufferedReader((new FileReader("resources/toh-8.txt")));
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    }
-    canvas1 = AnimationReader.parseFile(reader, new CanvasImpl.Builder());
-    SVGView SVG = new SVGView(canvas1);
-    SVG.go(10, "view.svg");
-
-  }
-}
-**/
