@@ -2,6 +2,7 @@ package cs5004.animator.view;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import cs5004.animator.model.Canvas;
@@ -9,6 +10,7 @@ import cs5004.animator.model.Shape;
 import cs5004.animator.model.LogNode;
 import cs5004.animator.model.Rectangle;
 import cs5004.animator.model.Oval;
+import java.util.stream.Collectors;
 
 
 /**
@@ -105,7 +107,7 @@ public class TextView implements View {
     String allChanges = "";
     for (Map.Entry<String, Shape> e : shapes.entrySet()) {
       if(e.getValue().getChangeLog()!="") {
-        List<LogNode> changelog = e.getValue().pullChangeLog();
+        List<LogNode> changelog = e.getValue().pullChangeLog();//.stream().filter(l -> Arrays.equals(l.getStartValues(), l.getEndValues())).collect(Collectors.toList());
         for(LogNode l : changelog) {
           allChanges += e.getKey() + " " + l.getChangeNotes() + "\n";
         }
