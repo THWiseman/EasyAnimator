@@ -26,9 +26,43 @@ public class SwingView extends JFrame implements View {
 
     @Override
     public void go() {
-        System.out.println("need to use the other go method");
+        int ticksPerSecond = 1;
+        setUp();
+
+        //this panel is where the animation occurs.
+        DrawPanel p = new DrawPanel(model);
+        p.setPreferredSize(new Dimension(model.getDimensions()[1],model.getDimensions()[3]));
+        //add the animation panel to a scrollable pane.
+        JScrollPane pane = new JScrollPane(p);
+        pane.setPreferredSize(p.getPreferredSize());
+        pane.setVisible(true);
+        //add the scrollable pane to the JFrame
+        this.add(pane);
+        this.setBounds(model.getDimensions()[0],model.getDimensions()[2],model.getDimensions()[1]+this.getInsets().left
+            +this.getInsets().right,model.getDimensions()[3]+this.getInsets().top + this.getInsets().bottom);
+        //this.pack();
+
+        //make the JFrame visible.
+        this.setVisible(true);
+
+
+        ActionListener taskPerformer = new ActionListener() {
+            int tick = 1;
+            int endTime = model.getEndTime();
+            public void actionPerformed(ActionEvent evt) {
+                if(tick >= endTime) {
+                    System.exit(0);
+                }
+                p.setTime(tick);
+                p.repaint();
+                tick++;
+            }
+        };
+        int delay = 1000/ticksPerSecond;
+        new Timer(delay,taskPerformer).start();
     }
 
+    @Override
     public void go(int tps) {
         int ticksPerSecond = tps;
         setUp();
@@ -64,6 +98,81 @@ public class SwingView extends JFrame implements View {
         };
         int delay = 1000/ticksPerSecond;
         new Timer(delay,taskPerformer).start();
+    }
 
+    @Override
+    public void go(int tps, String filepath) {
+        int ticksPerSecond = tps;
+        setUp();
+
+        //this panel is where the animation occurs.
+        DrawPanel p = new DrawPanel(model);
+        p.setPreferredSize(new Dimension(model.getDimensions()[1],model.getDimensions()[3]));
+        //add the animation panel to a scrollable pane.
+        JScrollPane pane = new JScrollPane(p);
+        pane.setPreferredSize(p.getPreferredSize());
+        pane.setVisible(true);
+        //add the scrollable pane to the JFrame
+        this.add(pane);
+        this.setBounds(model.getDimensions()[0],model.getDimensions()[2],model.getDimensions()[1]+this.getInsets().left
+            +this.getInsets().right,model.getDimensions()[3]+this.getInsets().top + this.getInsets().bottom);
+        //this.pack();
+
+        //make the JFrame visible.
+        this.setVisible(true);
+
+
+        ActionListener taskPerformer = new ActionListener() {
+            int tick = 1;
+            int endTime = model.getEndTime();
+            public void actionPerformed(ActionEvent evt) {
+                if(tick >= endTime) {
+                    System.exit(0);
+                }
+                p.setTime(tick);
+                p.repaint();
+                tick++;
+            }
+        };
+        int delay = 1000/ticksPerSecond;
+        new Timer(delay,taskPerformer).start();
+    }
+
+    @Override
+    public void go(String filepath) {
+        int ticksPerSecond = 1;
+        setUp();
+
+        //this panel is where the animation occurs.
+        DrawPanel p = new DrawPanel(model);
+        p.setPreferredSize(new Dimension(model.getDimensions()[1],model.getDimensions()[3]));
+        //add the animation panel to a scrollable pane.
+        JScrollPane pane = new JScrollPane(p);
+        pane.setPreferredSize(p.getPreferredSize());
+        pane.setVisible(true);
+        //add the scrollable pane to the JFrame
+        this.add(pane);
+        this.setBounds(model.getDimensions()[0],model.getDimensions()[2],model.getDimensions()[1]+this.getInsets().left
+            +this.getInsets().right,model.getDimensions()[3]+this.getInsets().top + this.getInsets().bottom);
+        //this.pack();
+
+        //make the JFrame visible.
+        this.setVisible(true);
+
+
+        ActionListener taskPerformer = new ActionListener() {
+            int tick = 1;
+            int endTime = model.getEndTime();
+            public void actionPerformed(ActionEvent evt) {
+                if(tick >= endTime) {
+                    System.exit(0);
+                }
+                p.setTime(tick);
+                p.repaint();
+                tick++;
+            }
+        };
+        int delay = 1000/ticksPerSecond;
+        new Timer(delay,taskPerformer).start();
     }
 }

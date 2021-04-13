@@ -23,19 +23,19 @@ import java.util.stream.Collectors;
 
 public class SVGView implements View {
 
-  Appendable output;
+  Appendable appendable;
   Canvas canvas;
   Map<String, Shape> shapes;
   double speed = 10;
 
-  public SVGView(Appendable output, Canvas canvas) throws IOException {
-    this.output = output;
+  public SVGView(Appendable appendable, Canvas canvas) throws IOException {
+    this.appendable = appendable;
     this.canvas = canvas;
     this.shapes = canvas.getShapeMap();
   }
 
-  public SVGView(Appendable output, Canvas canvas, double speed) throws IOException {
-    this.output = output;
+  public SVGView(Appendable appendable, Canvas canvas, double speed) throws IOException {
+    this.appendable = appendable;
     this.canvas = canvas;
     this.shapes = canvas.getShapeMap();
     this.speed = speed;
@@ -46,6 +46,18 @@ public class SVGView implements View {
   public void go() {
     String svgText = this.docBuilder();
     try {
+      appendable.append(svgText);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    System.exit(0);
+  }
+
+  @Override
+  public void go(int tps) {
+    this.speed = tps;
+    String svgText = this.docBuilder();
+    try {
       FileWriter write = new FileWriter("view.svg");
       BufferedWriter output = new BufferedWriter(write);
       output.write(svgText);
@@ -53,6 +65,37 @@ public class SVGView implements View {
     } catch (IOException e) {
       e.printStackTrace();
     }
+    System.exit(0);
+  }
+
+  @Override
+  public void go(int tps, String filepath) {
+    this.speed = tps;
+    String svgText = this.docBuilder();
+    try {
+      FileWriter write = new FileWriter(filepath);
+      BufferedWriter output = new BufferedWriter(write);
+      output.write(svgText);
+      output.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    System.exit(0);
+  }
+
+  @Override
+  public void go(String filepath) {
+    this.speed = 1;
+    String svgText = this.docBuilder();
+    try {
+      FileWriter write = new FileWriter(filepath);
+      BufferedWriter output = new BufferedWriter(write);
+      output.write(svgText);
+      output.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    System.exit(0);
   }
 
 
@@ -171,7 +214,7 @@ class Main {
     Canvas canvas1;
     BufferedReader reader = null;
     try {
-      reader = new BufferedReader((new FileReader("src/toh-8.txt")));
+      reader = new BufferedReader((new FileReader("src/toh-3.txt")));
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     }

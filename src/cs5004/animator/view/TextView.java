@@ -1,4 +1,6 @@
 package cs5004.animator.view;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -109,6 +111,42 @@ public class TextView implements View {
     } catch (IOException e) {
       throw new IllegalStateException("Appendable error");
     }
+  }
+
+  @Override
+  public void go(int tps) {
+    try {
+      output.append(this.getStringDescription());
+    } catch (IOException e) {
+      throw new IllegalStateException("Appendable error");
+    }
+  }
+
+  @Override
+  public void go(int tps, String filepath) {
+    try {
+      FileWriter write = new FileWriter(filepath);
+      BufferedWriter output = new BufferedWriter(write);
+      output.write(getStringDescription());
+      output.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    System.exit(0);
+  }
+
+
+  @Override
+  public void go(String filepath) {
+    try {
+      FileWriter write = new FileWriter(filepath);
+      BufferedWriter output = new BufferedWriter(write);
+      output.write(getStringDescription());
+      output.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    System.exit(0);
   }
 
 }
