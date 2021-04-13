@@ -1,6 +1,7 @@
 package cs5004.animator.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -59,7 +60,7 @@ public abstract class AbstractPattern implements Pattern {
     //used to update ChangeLog as changes are made.
     void changeTracker(PatternType type, Integer frame1, Integer frame2,
         Integer[] startValues, Integer[] endValues) {
-        changeLog.add(new LogNode(type, frame1, frame2, startValues, endValues));
+            changeLog.add(new LogNode(type, frame1, frame2, startValues, endValues));
     }
 
 }
