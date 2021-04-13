@@ -3,6 +3,7 @@ package cs5004.animator;
 import cs5004.animator.model.Canvas;
 import cs5004.animator.model.CanvasImpl;
 import cs5004.animator.util.AnimationReader;
+import cs5004.animator.view.SVGView;
 import cs5004.animator.view.SwingView;
 
 import java.io.BufferedReader;
@@ -61,6 +62,14 @@ public final class EasyAnimator {
 
     //SVG view
     if(typeOfView.equals("svg")) {
+      if (outputFileName.equals("")) {
+        SVGView view = new SVGView(System.out, canvas1);
+        view.go(tps);
+      } else {
+        SVGView view = new SVGView(canvas1);
+        view.go(tps, outputFileName);
+      }
+
       //parse output file name
       //try/catch to create output file using the 'tps' variable.
       //make sure SVG view calls System.exit(0) upon successful completion.

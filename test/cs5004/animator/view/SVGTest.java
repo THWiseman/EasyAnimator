@@ -22,27 +22,27 @@ public class SVGTest {
 
   @Before
   public void setUp() throws FileNotFoundException {
-    BufferedReader reader = new BufferedReader((new FileReader("src/toh-8.txt")));
+    BufferedReader reader = new BufferedReader((new FileReader("resources/toh-8.txt")));
     canvas1 = AnimationReader.parseFile(reader, new CanvasImpl.Builder());
   }
 
   @Test
   public void testBuildAnimation() throws IOException {
-    SVGView SVG = new SVGView(System.out, canvas1);
+    SVGView SVG = new SVGView(canvas1);
     //assertEquals("hello", );
 //    assertEquals("hello", SVG.buildAnimation(canvas1.getShape("disk1")));
   }
 
   @Test
   public void testShapeBuilder() throws IOException {
-    SVGView SVG = new SVGView(System.out, canvas1);
+    SVGView SVG = new SVGView(canvas1);
     //assertEquals("i", canvas1.getShapeMap());
  //   assertEquals("hello", SVG.shapeBuilder());
   }
 
   @Test
   public void testDocBuilder() throws IOException {
-    SVGView SVG = new SVGView(System.out, canvas1, 20);
+    SVGView SVG = new SVGView(canvas1);
     assertEquals("hello", SVG.docBuilder());
   }
 

@@ -28,18 +28,17 @@ public class SVGView implements View {
   Map<String, Shape> shapes;
   double speed = 10;
 
-  public SVGView(Appendable appendable, Canvas canvas) throws IOException {
+  public SVGView(Appendable appendable, Canvas canvas) {
     this.appendable = appendable;
     this.canvas = canvas;
     this.shapes = canvas.getShapeMap();
   }
 
-  public SVGView(Appendable appendable, Canvas canvas, double speed) throws IOException {
-    this.appendable = appendable;
+  public SVGView(Canvas canvas) {
     this.canvas = canvas;
     this.shapes = canvas.getShapeMap();
-    this.speed = speed;
   }
+
 
 
   @Override
@@ -58,10 +57,7 @@ public class SVGView implements View {
     this.speed = tps;
     String svgText = this.docBuilder();
     try {
-      FileWriter write = new FileWriter("view.svg");
-      BufferedWriter output = new BufferedWriter(write);
-      output.write(svgText);
-      output.close();
+      appendable.append(svgText);
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -71,9 +67,10 @@ public class SVGView implements View {
   @Override
   public void go(int tps, String filepath) {
     this.speed = tps;
+    File file = new File("./" + File.separator + "resources" + File.separator + filepath);
     String svgText = this.docBuilder();
     try {
-      FileWriter write = new FileWriter(filepath);
+      FileWriter write = new FileWriter(file);
       BufferedWriter output = new BufferedWriter(write);
       output.write(svgText);
       output.close();
@@ -86,9 +83,10 @@ public class SVGView implements View {
   @Override
   public void go(String filepath) {
     this.speed = 1;
+    File file = new File("./" + File.separator + "resources" + File.separator + filepath);
     String svgText = this.docBuilder();
     try {
-      FileWriter write = new FileWriter(filepath);
+      FileWriter write = new FileWriter(file);
       BufferedWriter output = new BufferedWriter(write);
       output.write(svgText);
       output.close();
@@ -214,13 +212,13 @@ class Main {
     Canvas canvas1;
     BufferedReader reader = null;
     try {
-      reader = new BufferedReader((new FileReader("src/toh-3.txt")));
+      reader = new BufferedReader((new FileReader("resources/toh-8.txt")));
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     }
     canvas1 = AnimationReader.parseFile(reader, new CanvasImpl.Builder());
-    SVGView SVG = new SVGView(System.out, canvas1);
-    SVG.go();
+    SVGView SVG = new SVGView(canvas1);
+    SVG.go(10, "view.svg");
 
   }
 }
