@@ -21,9 +21,9 @@ public class BuilderTest {
 
     @Before
     public void setUp() throws IOException {
-        BufferedReader reader = new BufferedReader((new FileReader("src/testText")));
+        BufferedReader reader = new BufferedReader((new FileReader("resources/testText")));
         canvas1 = AnimationReader.parseFile(reader, new CanvasImpl.Builder());
-        BufferedReader reader2 = new BufferedReader((new FileReader("src/toh-12.txt")));
+        BufferedReader reader2 = new BufferedReader((new FileReader("resources/toh-12.txt")));
         canvas2 = AnimationReader.parseFile(reader2, new CanvasImpl.Builder());
     }
 
@@ -80,7 +80,7 @@ public class BuilderTest {
 
     @Test
     public void testShapeExists() throws FileNotFoundException {
-        BufferedReader reader = new BufferedReader((new FileReader("src/toh-3.txt")));
+        BufferedReader reader = new BufferedReader((new FileReader("resources/toh-3.txt")));
         Canvas canvas2 = AnimationReader.parseFile(reader, new CanvasImpl.Builder());
         assertNotNull(canvas2);
         assertNotNull(canvas2.getShape("disk3"));
@@ -91,7 +91,7 @@ public class BuilderTest {
 
     @Test
     public void testFunctionalBuilder() throws FileNotFoundException {
-        BufferedReader reader = new BufferedReader((new FileReader("src/toh-3.txt")));
+        BufferedReader reader = new BufferedReader((new FileReader("resources/toh-3.txt")));
         Canvas canvas2 = AnimationReader.parseFile(reader, new CanvasImpl.Builder());
         Map<Integer, int[]> colorMap = canvas2.getShape("disk3").getColorPattern().getMap();
         for(Map.Entry<Integer, int[]> i : colorMap.entrySet()) {

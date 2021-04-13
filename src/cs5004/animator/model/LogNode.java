@@ -7,9 +7,9 @@ public class LogNode implements Comparable<LogNode> {
   private final int frame1;
   private final int frame2;
   private String changeNotes;
-  private PatternType type;
-  private Integer[] startValues;
-  private Integer[] endValues;
+  private final PatternType type;
+  private final Integer[] startValues;
+  private final Integer[] endValues;
 
   public LogNode(PatternType type, Integer frame1, Integer frame2,
       Integer[] startValues, Integer[] endValues) {
@@ -63,6 +63,10 @@ public class LogNode implements Comparable<LogNode> {
     return result;
   }
 
+  @Override
+  public int compareTo(LogNode o) {
+    return this.frame1 - o.getFrame1();
+  }
 
   public int getFrame1() {
     return this.frame1;
@@ -96,8 +100,4 @@ public class LogNode implements Comparable<LogNode> {
     return updatedFrame;
   }
 
-  @Override
-  public int compareTo(LogNode o) {
-    return this.frame1 - o.getFrame1();
-  }
 }
