@@ -29,7 +29,7 @@ public class SVGTest {
   public void setUp() {
     BufferedReader reader = null;
     try {
-      reader = new BufferedReader((new FileReader("resources/toh-3.txt")));
+      reader = new BufferedReader((new FileReader("resources/testText")));
     } catch (FileNotFoundException e) {
       System.out.println("No file passed");
     }
@@ -67,11 +67,8 @@ public class SVGTest {
     svg.go(20);
     assertEquals("<svg width=\"1000\" height=\"1000\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">\n"
         + "   <rect id=\"disk1\" x=\"190\" y=\"180\" width=\"20\" height=\"30\" fill=\"rgb(0,49,90)\" visibility=\"visible\" >\n"
-        + "      <animate attributeName=\"fill\" attributeType=\"fill\" begin=\"0.05s\" dur=\"0.45s\" from=\"rgb(0, 49, 90)\" to=\"rgb(0, 49, 90)\" fill=\"freeze\" />\n"
         + "      <animate attributeType=\"xml\" begin=\"0.05s\" dur=\"0.45s\" attributeName=\"x\" from=\"190\" to=\"80\" fill=\"freeze\" />\n"
         + "      <animate attributeType=\"xml\" begin=\"0.05s\" dur=\"0.45s\" attributeName=\"y\" from=\"180\" to=\"180\" fill=\"freeze\" />\n"
-        + "      <animate attributeType=\"xml\" begin=\"0.05s\" dur=\"0.45s\" attributeName=\"width\" from=\"20\" to=\"20\" fill=\"freeze\" />\n"
-        + "      <animate attributeType=\"xml\" begin=\"0.05s\" dur=\"0.45s\" attributeName=\"height\" from=\"30\" to=\"30\" fill=\"freeze\" />\n"
         + "      <animate attributeName=\"fill\" attributeType=\"fill\" begin=\"0.5s\" dur=\"2.0s\" from=\"rgb(20, 100, 120)\" to=\"rgb(60, 70, 80)\" fill=\"freeze\" />\n"
         + "      <animate attributeType=\"xml\" begin=\"0.5s\" dur=\"2.0s\" attributeName=\"x\" from=\"200\" to=\"20\" fill=\"freeze\" />\n"
         + "      <animate attributeType=\"xml\" begin=\"0.5s\" dur=\"2.0s\" attributeName=\"y\" from=\"200\" to=\"30\" fill=\"freeze\" />\n"
@@ -88,11 +85,8 @@ public class SVGTest {
     svg.go(20);
     assertEquals("<svg width=\"1000\" height=\"1000\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">\n"
         + "   <ellipse id=\"disk1\" cx=\"190\" cy=\"180\" rx=\"20\" ry=\"30\" fill=\"rgb(0,49,90)\" visibility=\"visible\" >\n"
-        + "      <animate attributeName=\"fill\" attributeType=\"fill\" begin=\"0.05s\" dur=\"0.45s\" from=\"rgb(0, 49, 90)\" to=\"rgb(0, 49, 90)\" fill=\"freeze\" />\n"
         + "      <animate attributeType=\"xml\" begin=\"0.05s\" dur=\"0.45s\" attributeName=\"x\" from=\"190\" to=\"80\" fill=\"freeze\" />\n"
         + "      <animate attributeType=\"xml\" begin=\"0.05s\" dur=\"0.45s\" attributeName=\"y\" from=\"180\" to=\"180\" fill=\"freeze\" />\n"
-        + "      <animate attributeType=\"xml\" begin=\"0.05s\" dur=\"0.45s\" attributeName=\"width\" from=\"20\" to=\"20\" fill=\"freeze\" />\n"
-        + "      <animate attributeType=\"xml\" begin=\"0.05s\" dur=\"0.45s\" attributeName=\"height\" from=\"30\" to=\"30\" fill=\"freeze\" />\n"
         + "      <animate attributeName=\"fill\" attributeType=\"fill\" begin=\"0.5s\" dur=\"2.0s\" from=\"rgb(20, 100, 120)\" to=\"rgb(60, 70, 80)\" fill=\"freeze\" />\n"
         + "      <animate attributeType=\"xml\" begin=\"0.5s\" dur=\"2.0s\" attributeName=\"x\" from=\"200\" to=\"20\" fill=\"freeze\" />\n"
         + "      <animate attributeType=\"xml\" begin=\"0.5s\" dur=\"2.0s\" attributeName=\"y\" from=\"200\" to=\"30\" fill=\"freeze\" />\n"
@@ -115,11 +109,8 @@ public class SVGTest {
     }
     assertEquals("<svg width=\"1000\" height=\"1000\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">\n"
         + "   <rect id=\"disk1\" x=\"190\" y=\"180\" width=\"20\" height=\"30\" fill=\"rgb(0,49,90)\" visibility=\"visible\" >\n"
-        + "      <animate attributeName=\"fill\" attributeType=\"fill\" begin=\"0.05s\" dur=\"0.45s\" from=\"rgb(0, 49, 90)\" to=\"rgb(0, 49, 90)\" fill=\"freeze\" />\n"
         + "      <animate attributeType=\"xml\" begin=\"0.05s\" dur=\"0.45s\" attributeName=\"x\" from=\"190\" to=\"80\" fill=\"freeze\" />\n"
         + "      <animate attributeType=\"xml\" begin=\"0.05s\" dur=\"0.45s\" attributeName=\"y\" from=\"180\" to=\"180\" fill=\"freeze\" />\n"
-        + "      <animate attributeType=\"xml\" begin=\"0.05s\" dur=\"0.45s\" attributeName=\"width\" from=\"20\" to=\"20\" fill=\"freeze\" />\n"
-        + "      <animate attributeType=\"xml\" begin=\"0.05s\" dur=\"0.45s\" attributeName=\"height\" from=\"30\" to=\"30\" fill=\"freeze\" />\n"
         + "      <animate attributeName=\"fill\" attributeType=\"fill\" begin=\"0.5s\" dur=\"2.0s\" from=\"rgb(20, 100, 120)\" to=\"rgb(60, 70, 80)\" fill=\"freeze\" />\n"
         + "      <animate attributeType=\"xml\" begin=\"0.5s\" dur=\"2.0s\" attributeName=\"x\" from=\"200\" to=\"20\" fill=\"freeze\" />\n"
         + "      <animate attributeType=\"xml\" begin=\"0.5s\" dur=\"2.0s\" attributeName=\"y\" from=\"200\" to=\"30\" fill=\"freeze\" />\n"
