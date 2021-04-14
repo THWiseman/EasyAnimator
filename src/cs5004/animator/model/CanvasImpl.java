@@ -69,16 +69,16 @@ public class CanvasImpl implements Canvas {
 
   @Override
   public int getEndTime() {
-    int endTime = 0;
-    for(Shape s : this.getAllShapes()) {
-      if (endTime == 0) {
-        this.endTime = s.getDisappearTime();
-      }
-      if(s.getDisappearTime() > endTime) {
-        endTime = s.getDisappearTime();
-      }
-    }
-    return endTime;
+    return this.endTime;
+//    for(Shape s : this.getAllShapes()) {
+//      if (endTime == 0) {
+//        this.endTime = s.getDisappearTime();
+//      }
+//      if(s.getDisappearTime() > endTime) {
+//        endTime = s.getDisappearTime();
+//      }
+//    }
+//    return endTime;
   }
 
 
@@ -218,7 +218,7 @@ public class CanvasImpl implements Canvas {
     @Override
     public Canvas build() {
       //create a new canvas
-      Canvas returnCanvas = new CanvasImpl();
+      Canvas returnCanvas = new CanvasImpl(this.greatestEndTime);
       //sets the dimensions of the new canvas. If the setBounds method was never called, uses
       //the default values.
       returnCanvas.setDimensions(leftmostX, width, topmostY, height);

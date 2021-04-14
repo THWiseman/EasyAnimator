@@ -40,6 +40,10 @@ class DrawPanel extends JPanel {
 
         for (Shape shape : this.shapes) {
             //shape attributes
+            if(shape.getColor(time)==null) {
+                continue;
+            }
+            System.out.println(String.format("%d",time));
             Color color = new Color(shape.getColor(time)[0], shape.getColor(time)[1], shape.getColor(time)[2]);
             g.setColor(color);
             int xPos = shape.getPosition(time)[0];

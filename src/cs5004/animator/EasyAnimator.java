@@ -119,10 +119,10 @@ public final class EasyAnimator {
           }
 
         }
-
-        JOptionPane.showMessageDialog(JOptionPane.getRootFrame(),"-view argument must be 'visual', 'text' or " +
-                "'svg'.");
-        System.exit(-1);
+        if(!typeOfView.equals("text") && !typeOfView.equals("svg") && !typeOfView.equals("visual")) {
+            JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "-view argument must be 'visual', 'text' or " +
+                    "'svg'.");
+        }
 
     }
 
