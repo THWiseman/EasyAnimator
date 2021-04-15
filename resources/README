@@ -8,9 +8,14 @@ nature of the input files, we slightly changed the way 'change' was implemented.
 initialized to default values, and the 'change' function now takes in both starting and ending values,
 rather than just ending values. This makes parsing the input files much simpler.
 
-2.) We added the concept of a 'Log Node' to our model. This object is used to keep track of changes
-to the model over time. This proved very useful in generating a text view as it it sortable,
-filterable, and can be customized to track any aspect of shapes changing over time.
+2.) Patterns now also contain an ArrayList called a ChangeLog, which
+acts as a directory of a Shape's animations. Every time change() is called, the new changeTracker()
+method is also called, which logs all of the data about the change() into the ChangeLog. The
+ChangeLog stores this data in an object called LogNode, which has getters for all of its fields, but
+no setters, as once a change() has been made to the animation, it should not be able to be altered.
+This feature was added to our model to make it easier for the TextView and the SVGView to pull data
+from each individual animation, as for these two Views it is not necessary to be able to access
+the state of the animation at any given frame as it is in the SwingView.
 
 
 View explanation:
@@ -45,4 +50,17 @@ methods and associated log entries, and then concatenates all that information i
 summary of the animation. Then, when go() is called, that method is used to generate some sort of output.
 Depending on the parameters passed into go(), the TextView will either output its string into the appendable
 it was constructed with or into a new file that it creates with a provided filepath. It ignores all references
-to speed as those are not relevant to the text view. 
+to speed as those are not relevant to the text view.
+
+SVG View Implementation:
+The SVGView works by writing a String to either a file it creates in the resources directory, or
+directly to the console. This String is formatted in SVG code to produce the given animation when
+opened in a web browser. To do this, the SVGView relies on three helper methods. The first,
+docBuilder(), creates a String with the opening SVG tag, and the closing tag. It then appends the
+contents of the next helper method, shapeBuilder() in between the two. ShapeBuilder() iterates
+through the list of Shapes in the given Canvas, and creates a String formatted in SVG that will
+initialize them, and an end tag to close them. In between these two tags, it calls the final
+method, buildAnimation(), and appends its results to the String. BuildAnimation() iterates through
+changeLog of the Shape passed to it, and creates a String describing each element in its changeLog,
+formatted in SVG. The end result of these three helper methods is a String that when written to a
+document and subsequently opened in a web browser, produces a working SVG animation.
