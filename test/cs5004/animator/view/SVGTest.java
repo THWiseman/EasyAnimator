@@ -101,11 +101,12 @@ public class SVGTest {
     public void testFile() throws IOException {
         SVGView svg = new SVGView(canvas1);
         svg.go(20, "viewTest.svg");
-        Path filePath = Path.of("resources/viewTest.svg");
+        Path filePath = Path.of("viewTest.svg");
         String test = "";
         try {
             test = Files.readString(filePath);
         } catch (IOException e) {
+            fail("exception should not have been thrown");
             System.out.println("No file passed");
         }
         assertEquals("<svg width=\"1000\" height=\"1000\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">\n"
@@ -121,5 +122,29 @@ public class SVGTest {
                 + "</svg>", Files.readString(filePath));
     }
 
+    @Test
+    public void testFileNoSpeed() throws IOException {
+        SVGView svg = new SVGView(canvas1);
+        svg.go("viewTest.svg");
+        Path filePath = Path.of("viewTest.svg");
+        String test = "";
+        try {
+            test = Files.readString(filePath);
+        } catch (IOException e) {
+            fail("exception should not have been thrown");
+            System.out.println("No file passed");
+        }
+        assertEquals("<svg width=\"1000\" height=\"1000\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">\n"
+            + "   <rect id=\"disk1\" x=\"190\" y=\"180\" width=\"20\" height=\"30\" fill=\"rgb(0,49,90)\" visibility=\"visible\" >\n"
+            + "      <animate attributeType=\"xml\" begin=\"1.0s\" dur=\"9.0s\" attributeName=\"x\" from=\"190\" to=\"80\" fill=\"freeze\" />\n"
+            + "      <animate attributeType=\"xml\" begin=\"1.0s\" dur=\"9.0s\" attributeName=\"y\" from=\"180\" to=\"180\" fill=\"freeze\" />\n"
+            + "      <animate attributeName=\"fill\" attributeType=\"fill\" begin=\"10.0s\" dur=\"40.0s\" from=\"rgb(20, 100, 120)\" to=\"rgb(60, 70, 80)\" fill=\"freeze\" />\n"
+            + "      <animate attributeType=\"xml\" begin=\"10.0s\" dur=\"40.0s\" attributeName=\"x\" from=\"200\" to=\"20\" fill=\"freeze\" />\n"
+            + "      <animate attributeType=\"xml\" begin=\"10.0s\" dur=\"40.0s\" attributeName=\"y\" from=\"200\" to=\"30\" fill=\"freeze\" />\n"
+            + "      <animate attributeType=\"xml\" begin=\"10.0s\" dur=\"40.0s\" attributeName=\"width\" from=\"30\" to=\"40\" fill=\"freeze\" />\n"
+            + "      <animate attributeType=\"xml\" begin=\"10.0s\" dur=\"40.0s\" attributeName=\"height\" from=\"40\" to=\"50\" fill=\"freeze\" />\n"
+            + "   </rect>\n"
+            + "</svg>", Files.readString(filePath));
+    }
 
 }

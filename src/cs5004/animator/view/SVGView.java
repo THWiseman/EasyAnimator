@@ -77,10 +77,10 @@ public class SVGView implements View {
         }
 
         this.speed = tps;
-        File file = new File("./" + File.separator + "resources" + File.separator + filepath);
+       // File file = new File("./" + File.separator + "resources" + File.separator + filepath);
         String svgText = this.docBuilder();
         try {
-            FileWriter write = new FileWriter(file);
+            FileWriter write = new FileWriter(filepath); //  file);
             BufferedWriter output = new BufferedWriter(write);
             output.write(svgText);
             output.close();
@@ -93,10 +93,10 @@ public class SVGView implements View {
     @Override
     public void go(String filepath) {
         this.speed = 1;
-        File file = new File("./" + File.separator + "resources" + File.separator + filepath);
+     //   File file = new File("./" + File.separator + "resources" + File.separator + filepath);
         String svgText = this.docBuilder();
         try {
-            FileWriter write = new FileWriter(file);
+            FileWriter write = new FileWriter(filepath); //(file)
             BufferedWriter output = new BufferedWriter(write);
             output.write(svgText);
             output.close();
@@ -118,43 +118,46 @@ public class SVGView implements View {
     private String shapeBuilder() {
         StringBuilder str = new StringBuilder();
         String endTag = "";
-        for (Map.Entry<String, Shape> shape : shapes.entrySet()) {
-            if (shape.getValue() instanceof Rectangle) {
-                str.append("   <rect id=\"").append(shape.getKey()).append("\" x=\"")
-                        .append(shape.getValue().getPosition(shape.getValue().getAppearTime())[0])
-                        .append("\" y=\"")
-                        .append(shape.getValue().getPosition(shape.getValue().getAppearTime())[1])
-                        .append("\" width=\"")
-                        .append(shape.getValue().getSize(shape.getValue().getAppearTime())[0])
-                        .append("\" height=\"")
-                        .append(shape.getValue().getSize(shape.getValue().getAppearTime())[1])
-                        .append("\" fill=\"rgb(")
-                        .append(shape.getValue().getColor(shape.getValue().getAppearTime())[0]).append(",")
-                        .append(shape.getValue().getColor(shape.getValue().getAppearTime())[1]).append(",")
-                        .append(shape.getValue().getColor(shape.getValue().getAppearTime())[2])
-                        .append(")\" visibility=\"visible\" >\n");
+
+        for (String id : canvas.getOrderedShapeNames()) {
+            Shape shape = shapes.get(id);
+            if (shape instanceof Rectangle) {
+                str.append("   <rect id=\"").append(id).append("\" x=\"")
+                    .append(shape.getPosition(shape.getAppearTime())[0])
+                    .append("\" y=\"")
+                    .append(shape.getPosition(shape.getAppearTime())[1])
+                    .append("\" width=\"")
+                    .append(shape.getSize(shape.getAppearTime())[0])
+                    .append("\" height=\"")
+                    .append(shape.getSize(shape.getAppearTime())[1])
+                    .append("\" fill=\"rgb(")
+                    .append(shape.getColor(shape.getAppearTime())[0]).append(",")
+                    .append(shape.getColor(shape.getAppearTime())[1]).append(",")
+                    .append(shape.getColor(shape.getAppearTime())[2])
+                    .append(")\" visibility=\"visible\" >\n");
                 endTag = "   </rect>\n";
-            } else if (shape.getValue() instanceof Oval) {
-                str.append("   <ellipse id=\"").append(shape.getKey()).append("\" cx=\"")
-                        .append(shape.getValue().getPosition(shape.getValue().getAppearTime())[0])
-                        .append("\" cy=\"")
-                        .append(shape.getValue().getPosition(shape.getValue().getAppearTime())[1])
-                        .append("\" rx=\"")
-                        .append(shape.getValue().getSize(shape.getValue().getAppearTime())[0])
-                        .append("\" ry=\"")
-                        .append(shape.getValue().getSize(shape.getValue().getAppearTime())[1])
-                        .append("\" fill=\"rgb(")
-                        .append(shape.getValue().getColor(shape.getValue().getAppearTime())[0]).append(",")
-                        .append(shape.getValue().getColor(shape.getValue().getAppearTime())[1]).append(",")
-                        .append(shape.getValue().getColor(shape.getValue().getAppearTime())[2])
-                        .append(")\" visibility=\"visible\" >\n");
+            } else if (shape instanceof Oval) {
+                str.append("   <ellipse id=\"").append(id).append("\" cx=\"")
+                    .append(shape.getPosition(shape.getAppearTime())[0])
+                    .append("\" cy=\"")
+                    .append(shape.getPosition(shape.getAppearTime())[1])
+                    .append("\" rx=\"")
+                    .append(shape.getSize(shape.getAppearTime())[0])
+                    .append("\" ry=\"")
+                    .append(shape.getSize(shape.getAppearTime())[1])
+                    .append("\" fill=\"rgb(")
+                    .append(shape.getColor(shape.getAppearTime())[0]).append(",")
+                    .append(shape.getColor(shape.getAppearTime())[1]).append(",")
+                    .append(shape.getColor(shape.getAppearTime())[2])
+                    .append(")\" visibility=\"visible\" >\n");
                 endTag = "   </ellipse>\n";
             } else {
                 str.append("not working");
             }
-            str.append(buildAnimation(shape.getValue()));
+            str.append(buildAnimation(shape));
             str.append(endTag);
         }
+
         return str.toString();
     }
 
