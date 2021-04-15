@@ -1,0 +1,48 @@
+Changes to the model:
+Since the last assignment, we only had two significant changes to the model:
+
+1.) In our previous version of the model, our shapes were initialized to default values, and the
+'change' function was used to 'tween' them from their current value to a new value. This worked fine,
+as the shape could change instantly from one value to another if necessary. However, due to the
+nature of the input files, we slightly changed the way 'change' was implemented. Shapes are no longer
+initialized to default values, and the 'change' function now takes in both starting and ending values,
+rather than just ending values. This makes parsing the input files much simpler.
+
+2.) We added the concept of a 'Log Node' to our model. This object is used to keep track of changes
+to the model over time. This proved very useful in generating a text view as it it sortable,
+filterable, and can be customized to track any aspect of shapes changing over time.
+
+
+View explanation:
+
+We implemented text, visual, and SVG views. They all share a common "View" interface. Currently,
+this interface only has one method (although several overloaded variations are available.) The 'go'
+method starts a view. Each type of view implements this method differently, but it essentially
+allows speeds and output files to be specified (or left to default values) and allows the view
+to continue autonomously from the beginning to the end of its display behavior.
+
+Visual View Implementation:
+The visual view (called 'SwingView' in this project) extends the JFrame interface. It is constructed
+with a version of our model and then goes through some basic initial setup. It contains a customized
+JPanel (called DrawPanel in this project) that does the actual display of the animation. The draw panel
+is constructed with our model and only has two methods: setTime and an overridden 'paintComponent' method.
+Set time allows the user (in this case a JPanel) to set the interal time of the draw panel. The
+paintComponent method uses its internal time to draw data from our model and paint all relevant shapes
+to the panel at that time. Because of the way Java Swing works, whenever 'paint' or 'repaint' is called
+on that JFrame, it will display the model at that given time.
+
+The JFrame has a Timer linked to an Action Listener. When the Action Listener is called, it will increment
+current time of itself (and the DrawPanel) by one, and then call the repaint method on the draw panel. This
+will cause the DrawPanel to display the animation at the current time. It will continue to do this until
+the endTime of the model is reached, at which point the ActionListener will do nothing. The timer will call
+that action listener repeatedly after a specified delay. This specified delay is calculated by the 'speed'
+parameter that the user can input.
+
+Text View Implementation:
+The text view is constructed with a version of our model and an optional appendable. Its primary method is
+'getStringDescription' which gathers information about all shapes in the model through their various getter
+methods and associated log entries, and then concatenates all that information into a nicely formatted string
+summary of the animation. Then, when go() is called, that method is used to generate some sort of output.
+Depending on the parameters passed into go(), the TextView will either output its string into the appendable
+it was constructed with or into a new file that it creates with a provided filepath. It ignores all references
+to speed as those are not relevant to the text view. 
