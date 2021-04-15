@@ -7,6 +7,7 @@ import cs5004.animator.model.Shape;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Collections;
 
 /**
@@ -17,6 +18,7 @@ import java.util.Collections;
 class DrawPanel extends JPanel {
 
     cs5004.animator.model.Canvas canvas;
+    java.util.List<String> orderedShapeNames;
     java.util.List<Shape> shapes;
     java.util.List<Shape> shapeReverse;
     int time = 1;
@@ -27,9 +29,11 @@ class DrawPanel extends JPanel {
      */
     public DrawPanel(Canvas canvas) {
         this.canvas = canvas;
-        this.shapes = canvas.getAllShapes();
-        this.shapeReverse = this.shapes;
-        Collections.reverse(this.shapeReverse);
+        this.orderedShapeNames = canvas.getOrderedShapeNames();
+        this.shapes = new ArrayList<>();
+        for(String s : this.orderedShapeNames) {
+            shapes.add(canvas.getShapeMap().get(s));
+        }
     }
 
     void setTime(int time) {
@@ -42,7 +46,7 @@ class DrawPanel extends JPanel {
         super.paintComponent(g);
         setBackground(Color.WHITE);
 
-        for (Shape shape : this.shapeReverse) {
+        for (Shape shape : this.shapes) {
             //shape attributes
             if(shape.getColor(time)==null) {
                 continue;
