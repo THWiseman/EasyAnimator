@@ -45,4 +45,4 @@ methods and associated log entries, and then concatenates all that information i
 summary of the animation. Then, when go() is called, that method is used to generate some sort of output.
 Depending on the parameters passed into go(), the TextView will either output its string into the appendable
 it was constructed with or into a new file that it creates with a provided filepath. It ignores all references
-to speed as those are not relevant to the text view. 
+to speed as those are not relevant to the text view.
