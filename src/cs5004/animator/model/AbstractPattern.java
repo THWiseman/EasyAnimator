@@ -19,10 +19,11 @@ public abstract class AbstractPattern implements Pattern {
 
     /**
      * Given start/end times and start/end values, figures out what the value of something would be between those times.
-     * @param t1 Initial Time
-     * @param t2 Ending Time
-     * @param startValue Known starting value.
-     * @param endValue Known ending value.
+     *
+     * @param t1          Initial Time
+     * @param t2          Ending Time
+     * @param startValue  Known starting value.
+     * @param endValue    Known ending value.
      * @param desiredTime Time for which you wish to calculate the unknown value.
      * @return The value of the desiredTime.
      */
@@ -37,9 +38,9 @@ public abstract class AbstractPattern implements Pattern {
         if (desiredTime == t2) {
             return endValue;
         }
-        int totalTime = t2-t1;
-        double step = (endValue-startValue)/totalTime;
-        double answer = startValue + (step*(desiredTime-t1));
+        int totalTime = t2 - t1;
+        double step = (endValue - startValue) / totalTime;
+        double answer = startValue + (step * (desiredTime - t1));
         return (int) Math.round(answer);
     }
 
@@ -59,7 +60,7 @@ public abstract class AbstractPattern implements Pattern {
 
     //used to update ChangeLog as changes are made.
     void changeTracker(PatternType type, Integer frame1, Integer frame2,
-        Integer[] startValues, Integer[] endValues) {
+                       Integer[] startValues, Integer[] endValues) {
         if (!Arrays.equals(startValues, endValues)) {
             changeLog.add(new LogNode(type, frame1, frame2, startValues, endValues));
         }

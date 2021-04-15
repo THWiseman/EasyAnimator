@@ -18,7 +18,7 @@ public class SwingTest {
     public void setUp() throws FileNotFoundException {
         BufferedReader reader = new BufferedReader((new FileReader("resources/toh-3.txt")));
         canvas1 = AnimationReader.parseFile(reader, new CanvasImpl.Builder());
-        canvas1.setDimensions(200,600,200,600);
+        canvas1.setDimensions(200, 600, 200, 600);
 
     }
 

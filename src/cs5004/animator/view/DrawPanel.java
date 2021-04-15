@@ -8,7 +8,6 @@ import cs5004.animator.model.Shape;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * This class can display a JPanel view of a Canvas for any given time. It must be constructed with a Canvas.
@@ -20,23 +19,26 @@ class DrawPanel extends JPanel {
     cs5004.animator.model.Canvas canvas;
     java.util.List<String> orderedShapeNames;
     java.util.List<Shape> shapes;
-    java.util.List<Shape> shapeReverse;
     int time = 1;
 
     /**
      * Constructor for the draw panel. Must pass in a valid Canvas object.
+     *
      * @param canvas
      */
     public DrawPanel(Canvas canvas) {
         this.canvas = canvas;
         this.orderedShapeNames = canvas.getOrderedShapeNames();
         this.shapes = new ArrayList<>();
-        for(String s : this.orderedShapeNames) {
+        for (String s : this.orderedShapeNames) {
             shapes.add(canvas.getShapeMap().get(s));
         }
     }
 
     void setTime(int time) {
+        if (time < 1) {
+            throw new IllegalArgumentException("Time must be greater than zero.");
+        }
         this.time = time;
     }
 
@@ -48,7 +50,7 @@ class DrawPanel extends JPanel {
 
         for (Shape shape : this.shapes) {
             //shape attributes
-            if(shape.getColor(time)==null) {
+            if (shape.getColor(time) == null) {
                 continue;
             }
             Color color = new Color(shape.getColor(time)[0], shape.getColor(time)[1], shape.getColor(time)[2]);

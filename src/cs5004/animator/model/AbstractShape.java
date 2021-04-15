@@ -11,137 +11,138 @@ import java.util.stream.Collectors;
  * here.
  */
 public abstract class AbstractShape implements Shape {
-  ColorPattern color;
-  MovementPattern move;
-  SizeChangePattern size;
-  private List<LogNode> changeLog = new ArrayList<>();
+    ColorPattern color;
+    MovementPattern move;
+    SizeChangePattern size;
+    private List<LogNode> changeLog = new ArrayList<>();
 
 
-  private void updateChangeLog() {
-    changeLog.addAll(color.pullChangeLog());
-    changeLog.addAll(move.pullChangeLog());
-    changeLog.addAll(size.pullChangeLog());
-    changeLog = changeLog.stream().distinct().collect(Collectors.toList());
-    Collections.sort(changeLog);
-  }
-
-  @Override
-  public String getChangeLog() {
-    this.updateChangeLog();
-    String str = "";
-    for (int i = 0; i < changeLog.size(); i++) {
-
-      str += "\n" + changeLog.get(i).getChangeNotes();
+    private void updateChangeLog() {
+        changeLog.addAll(color.pullChangeLog());
+        changeLog.addAll(move.pullChangeLog());
+        changeLog.addAll(size.pullChangeLog());
+        changeLog = changeLog.stream().distinct().collect(Collectors.toList());
+        Collections.sort(changeLog);
     }
-    return str.substring(1);
-  }
 
-  @Override
-  public List<LogNode> pullChangeLog() {
-    this.updateChangeLog();
-    return changeLog;
-  }
+    @Override
+    public String getChangeLog() {
+        this.updateChangeLog();
+        String str = "";
+        for (int i = 0; i < changeLog.size(); i++) {
 
-  @Override
-  public int getAppearTime() {
-    int appearTime = 0;
-    if(color.earliestChangeFrame > appearTime) {
-      appearTime = color.earliestChangeFrame;
+            str += "\n" + changeLog.get(i).getChangeNotes();
+        }
+        return str.substring(1);
     }
-    if(move.earliestChangeFrame > appearTime) {
-      appearTime = move.earliestChangeFrame;
+
+    @Override
+    public List<LogNode> pullChangeLog() {
+        this.updateChangeLog();
+        return changeLog;
     }
-    if(size.earliestChangeFrame > appearTime) {
-      appearTime = size.earliestChangeFrame;
+
+    @Override
+    public int getAppearTime() {
+        int appearTime = 0;
+        if (color.earliestChangeFrame > appearTime) {
+            appearTime = color.earliestChangeFrame;
+        }
+        if (move.earliestChangeFrame > appearTime) {
+            appearTime = move.earliestChangeFrame;
+        }
+        if (size.earliestChangeFrame > appearTime) {
+            appearTime = size.earliestChangeFrame;
+        }
+        if (color.earliestChangeFrame < appearTime) {
+            appearTime = color.earliestChangeFrame;
+        }
+        if (move.earliestChangeFrame < appearTime) {
+            appearTime = move.earliestChangeFrame;
+        }
+        if (size.earliestChangeFrame < appearTime) {
+            appearTime = size.earliestChangeFrame;
+        }
+        return appearTime;
     }
-    if(color.earliestChangeFrame < appearTime) {
-      appearTime = color.earliestChangeFrame;
+
+    @Override
+    public int getDisappearTime() {
+        int disappearTime = 0;
+        if (color.latestChangeFrame > disappearTime) {
+            disappearTime = color.latestChangeFrame;
+        }
+        if (move.latestChangeFrame > disappearTime) {
+            disappearTime = move.latestChangeFrame;
+        }
+        if (size.latestChangeFrame > disappearTime) {
+            disappearTime = size.latestChangeFrame;
+        }
+        return disappearTime;
     }
-    if(move.earliestChangeFrame < appearTime) {
-      appearTime = move.earliestChangeFrame;
+
+    @Override
+    public int[] getPosition(int time) {
+        return move.get(time);
     }
-    if(size.earliestChangeFrame < appearTime) {
-      appearTime = size.earliestChangeFrame;
+
+    @Override
+    public int[] getColor(int time) {
+        return color.get(time);
     }
-    return appearTime;
-  }
 
-  @Override public int getDisappearTime() {
-      int disappearTime = 0;
-      if(color.latestChangeFrame > disappearTime) {
-        disappearTime = color.latestChangeFrame;
-      }
-      if(move.latestChangeFrame > disappearTime) {
-        disappearTime = move.latestChangeFrame;
-      }
-      if(size.latestChangeFrame > disappearTime) {
-        disappearTime = size.latestChangeFrame;
-      }
-      return disappearTime;
-  }
-
-  @Override
-  public int[] getPosition(int time) {
-    return move.get(time);
-  }
-
-  @Override
-  public int[] getColor(int time) {
-    return color.get(time);
-  }
-
-  @Override
-  public int[] getSize(int time) {
-    return size.get(time);
-  }
-
-  @Override
-  public boolean getVisibility(int time) {
-    int appearTime = this.getAppearTime();
-    int disappearTime = this.getDisappearTime();
-    return time >= appearTime && time <= disappearTime;
-  }
-
-
-  @Override
-  public void setColorPattern(ColorPattern color) {
-    if (color == null) {
-      throw new IllegalArgumentException("Pattern cannot be null.");
+    @Override
+    public int[] getSize(int time) {
+        return size.get(time);
     }
-    this.color = color;
-  }
 
-  @Override
-  public ColorPattern getColorPattern() {
-    return this.color;
-  }
-
-
-  @Override
-  public void setSizeChangePattern(SizeChangePattern size) {
-    if (size == null) {
-      throw new IllegalArgumentException("Pattern cannot be null.");
+    @Override
+    public boolean getVisibility(int time) {
+        int appearTime = this.getAppearTime();
+        int disappearTime = this.getDisappearTime();
+        return time >= appearTime && time <= disappearTime;
     }
-    this.size = size;
-  }
 
-  @Override
-  public SizeChangePattern getSizeChangePattern() {
-    return this.size;
-  }
 
-  @Override
-  public void setMovementPattern(MovementPattern move) {
-    if (move == null) {
-      throw new IllegalArgumentException("Pattern cannot be null.");
+    @Override
+    public void setColorPattern(ColorPattern color) {
+        if (color == null) {
+            throw new IllegalArgumentException("Pattern cannot be null.");
+        }
+        this.color = color;
     }
-    this.move = move;
-  }
 
-  @Override
-  public MovementPattern getMovementPattern() {
-    return this.move;
-  }
+    @Override
+    public ColorPattern getColorPattern() {
+        return this.color;
+    }
+
+
+    @Override
+    public void setSizeChangePattern(SizeChangePattern size) {
+        if (size == null) {
+            throw new IllegalArgumentException("Pattern cannot be null.");
+        }
+        this.size = size;
+    }
+
+    @Override
+    public SizeChangePattern getSizeChangePattern() {
+        return this.size;
+    }
+
+    @Override
+    public void setMovementPattern(MovementPattern move) {
+        if (move == null) {
+            throw new IllegalArgumentException("Pattern cannot be null.");
+        }
+        this.move = move;
+    }
+
+    @Override
+    public MovementPattern getMovementPattern() {
+        return this.move;
+    }
 
 
 }

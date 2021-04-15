@@ -49,8 +49,10 @@ public class SwingView extends JFrame implements View {
         pane.setVisible(true);
         //add the scrollable pane to the JFrame
         this.add(pane);
-        this.setBounds(model.getDimensions()[0], model.getDimensions()[2], model.getDimensions()[1] + this.getInsets().left
-                + this.getInsets().right, model.getDimensions()[3] + this.getInsets().top + this.getInsets().bottom);
+        this.setBounds(model.getDimensions()[0], model.getDimensions()[2], model.getDimensions()[1]
+                        + this.getInsets().left
+                        + this.getInsets().right,
+                model.getDimensions()[3] + this.getInsets().top + this.getInsets().bottom);
         //this.pack();
 
         //make the JFrame visible.
@@ -93,8 +95,10 @@ public class SwingView extends JFrame implements View {
         pane.setVisible(true);
         //add the scrollable pane to the JFrame
         this.add(pane);
-        this.setBounds(model.getDimensions()[0], model.getDimensions()[2], model.getDimensions()[1] + this.getInsets().left
-                + this.getInsets().right, model.getDimensions()[3] + this.getInsets().top + this.getInsets().bottom);
+        this.setBounds(model.getDimensions()[0], model.getDimensions()[2],
+                model.getDimensions()[1] + this.getInsets().left
+                        + this.getInsets().right, model.getDimensions()[3]
+                        + this.getInsets().top + this.getInsets().bottom);
         //this.pack();
 
         //make the JFrame visible.
@@ -139,8 +143,10 @@ public class SwingView extends JFrame implements View {
         pane.setVisible(true);
         //add the scrollable pane to the JFrame
         this.add(pane);
-        this.setBounds(model.getDimensions()[0], model.getDimensions()[2], model.getDimensions()[1] + this.getInsets().left
-                + this.getInsets().right, model.getDimensions()[3] + this.getInsets().top + this.getInsets().bottom);
+        this.setBounds(model.getDimensions()[0], model.getDimensions()[2],
+                model.getDimensions()[1] + this.getInsets().left
+                        + this.getInsets().right, model.getDimensions()[3]
+                        + this.getInsets().top + this.getInsets().bottom);
         //this.pack();
 
         //make the JFrame visible.
@@ -183,8 +189,10 @@ public class SwingView extends JFrame implements View {
         pane.setVisible(true);
         //add the scrollable pane to the JFrame
         this.add(pane);
-        this.setBounds(model.getDimensions()[0], model.getDimensions()[2], model.getDimensions()[1] + this.getInsets().left
-                + this.getInsets().right, model.getDimensions()[3] + this.getInsets().top + this.getInsets().bottom);
+        this.setBounds(model.getDimensions()[0], model.getDimensions()[2],
+                model.getDimensions()[1] + this.getInsets().left
+                        + this.getInsets().right, model.getDimensions()[3]
+                        + this.getInsets().top + this.getInsets().bottom);
         //this.pack();
 
         //make the JFrame visible.
