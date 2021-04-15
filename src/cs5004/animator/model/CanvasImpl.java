@@ -21,6 +21,7 @@ public class CanvasImpl implements Canvas {
   private int topmostY;
   private int width;
   private int height;
+  private List<String> orderedShapeNames;
 
   /**
    * Constructor for the Canvas implementation.
@@ -70,15 +71,6 @@ public class CanvasImpl implements Canvas {
   @Override
   public int getEndTime() {
     return this.endTime;
-//    for(Shape s : this.getAllShapes()) {
-//      if (endTime == 0) {
-//        this.endTime = s.getDisappearTime();
-//      }
-//      if(s.getDisappearTime() > endTime) {
-//        endTime = s.getDisappearTime();
-//      }
-//    }
-//    return endTime;
   }
 
 
@@ -160,6 +152,15 @@ public class CanvasImpl implements Canvas {
   }
 
   @Override
+  public List<String> getOrderedShapeNames() {
+    return this.orderedShapeNames;
+  }
+
+  void setOrderedShapeNames(List<String> shapeNames) {
+    this.orderedShapeNames = shapeNames;
+  }
+
+  @Override
   public int hashCode() {
     String hashString = "";
     for (String s : this.shapes.keySet()) {
@@ -209,6 +210,7 @@ public class CanvasImpl implements Canvas {
     private int width;
     private int height;
     private int greatestEndTime = 0;
+    private List<String> orderedShapeNames = new ArrayList<>();
     private Map<String, ColorPattern> colorPatterns = new HashMap<>(); //these hashmaps store the patterns
     //for all shapes that are being built.
     private Map<String, SizeChangePattern> sizeChangePatterns = new HashMap<>();
@@ -218,7 +220,7 @@ public class CanvasImpl implements Canvas {
     @Override
     public Canvas build() {
       //create a new canvas
-      Canvas returnCanvas = new CanvasImpl(this.greatestEndTime);
+      CanvasImpl returnCanvas = new CanvasImpl(this.greatestEndTime);
       //sets the dimensions of the new canvas. If the setBounds method was never called, uses
       //the default values.
       returnCanvas.setDimensions(leftmostX, width, topmostY, height);
@@ -236,6 +238,7 @@ public class CanvasImpl implements Canvas {
       for (Map.Entry<String, Shape> entry : shapes.entrySet()) {
         returnCanvas.addShape(entry.getValue(), entry.getKey());
       }
+      returnCanvas.setOrderedShapeNames(this.orderedShapeNames);
       //returns the constructed CanvasImpl object.
       return returnCanvas;
     }
@@ -258,6 +261,7 @@ public class CanvasImpl implements Canvas {
       this.colorPatterns.put(name,new ColorPattern());
       this.sizeChangePatterns.put(name, new SizeChangePattern());
       this.movementPatterns.put(name, new MovementPattern());
+      this.orderedShapeNames.add(name);
 
       if (type.toUpperCase().equals("RECTANGLE")) {
         newShape = new Rectangle();

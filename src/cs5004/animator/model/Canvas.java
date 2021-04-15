@@ -88,5 +88,11 @@ public interface Canvas {
    */
   Map<String,Shape> getShapeMap();
 
+  /**
+   * Returns a list of the shape names in the order that they were created.
+   * @return List of string of all the shape names.
+   */
+  List<String> getOrderedShapeNames();
+
 
 }
