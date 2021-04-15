@@ -91,7 +91,6 @@ public final class EasyAnimator {
         if (typeOfView.equals("visual")) {
             SwingView view = new SwingView(canvas1);
             view.go(tps);
-            //this view will call System.exit(0) after the animation is complete.
         }
 
         //SVG view
