@@ -11,19 +11,20 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 public class SwingTest {
-    Canvas canvas1;
+
+  Canvas canvas1;
 
 
-    @Before
-    public void setUp() throws FileNotFoundException {
-        BufferedReader reader = new BufferedReader((new FileReader("resources/toh-3.txt")));
-        canvas1 = AnimationReader.parseFile(reader, new CanvasImpl.Builder());
-        canvas1.setDimensions(200, 600, 200, 600);
+  @Before
+  public void setUp() throws FileNotFoundException {
+    BufferedReader reader = new BufferedReader((new FileReader("resources/toh-3.txt")));
+    canvas1 = AnimationReader.parseFile(reader, new CanvasImpl.Builder());
+    canvas1.setDimensions(200, 600, 200, 600);
 
-    }
+  }
 
-    @Test
-    public void testView() throws InterruptedException {
-        SwingView view = new SwingView(canvas1);
-    }
+  @Test
+  public void testView() throws InterruptedException {
+    SwingView view = new SwingView(canvas1);
+  }
 }

@@ -6,7 +6,10 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 
 /**
@@ -14,6 +17,7 @@ import static org.junit.Assert.*;
  */
 
 public class ShapeTest {
+
   Shape rec1;
   Shape rec2;
   Oval ov1;
@@ -31,12 +35,12 @@ public class ShapeTest {
 
   @Before
   public void setUp() {
-    rec1 = new Rectangle(c1,m1,s1);
-    c2.change(1,100,new Integer[] {0,128,0}, new Integer[] {255,255,255});
-    m2.change(1,50,new Integer[] {50,100}, new Integer[] {200,200});
-    s2.change(1,100, new Integer[] {200,100}, new Integer[] {100,500});
+    rec1 = new Rectangle(c1, m1, s1);
+    c2.change(1, 100, new Integer[]{0, 128, 0}, new Integer[]{255, 255, 255});
+    m2.change(1, 50, new Integer[]{50, 100}, new Integer[]{200, 200});
+    s2.change(1, 100, new Integer[]{200, 100}, new Integer[]{100, 500});
     rec2 = new Rectangle(c2, m2, s2);
-    ov1 = new Oval(c1,m1,s1);
+    ov1 = new Oval(c1, m1, s1);
     ov2 = new Oval(c2, m2, s2);
   }
 
@@ -104,7 +108,7 @@ public class ShapeTest {
     assertEquals(true, rec2.getVisibility(1));
     assertEquals(true, rec2.getVisibility(70));
     assertEquals(true, rec2.getVisibility(100));
-    assertEquals(false,rec2.getVisibility(101));
+    assertEquals(false, rec2.getVisibility(101));
   }
 
   @Test
@@ -153,12 +157,15 @@ public class ShapeTest {
 
   @Test
   public void testGetChangeLog() {
-    c2.change(1,100,new Integer[] {0,128,0}, new Integer[] {255,255,255});
-    m2.change(1,50,new Integer[] {50,100}, new Integer[] {200,200});
-    s2.change(1,100, new Integer[] {200,100}, new Integer[] {100,500});
+    c2.change(1, 100, new Integer[]{0, 128, 0}, new Integer[]{255, 255, 255});
+    m2.change(1, 50, new Integer[]{50, 100}, new Integer[]{200, 200});
+    s2.change(1, 100, new Integer[]{200, 100}, new Integer[]{100, 500});
     rec2 = new Rectangle(c2, m2, s2);
-    assertEquals("changes color from RGB[0, 128, 0] to RGB[255, 255, 255], from time t=1 to t=100\n" +
-            "moves position from (50, 100) to (200, 200), from time t=1 to t=50\n" +
-            "changes dimensions from width 200 by height 100 to width 100 by height 500, from time t=1 to t=100", rec2.getChangeLog());
+    assertEquals(
+        "changes color from RGB[0, 128, 0] to RGB[255, 255, 255], from time t=1 to t=100\n"
+            + "moves position from (50, 100) to (200, 200), from time t=1 to t=50\n"
+            + "changes dimensions from width 200 by height 100 to width 100 by height 500,"
+            + " from time t=1 to t=100",
+        rec2.getChangeLog());
   }
 }

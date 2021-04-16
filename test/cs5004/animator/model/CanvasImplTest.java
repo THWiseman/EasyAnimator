@@ -11,9 +11,10 @@ import org.junit.Test;
 
 /**
  * Test class for the Canvas interface.
-*/
+ */
 
 public class CanvasImplTest {
+
   Canvas defaultCanvas;
   Canvas small;
   Canvas big;
@@ -39,18 +40,18 @@ public class CanvasImplTest {
     s1 = new SizeChangePattern();
 
     c2 = new ColorPattern();
-    c2.change(1,10, new Integer[] {1,2,3}, new Integer[]{100,150,200});
+    c2.change(1, 10, new Integer[]{1, 2, 3}, new Integer[]{100, 150, 200});
     m2 = new MovementPattern();
-    m2.change(20,50,new Integer[] {100, 200}, new Integer[] {300,400});
+    m2.change(20, 50, new Integer[]{100, 200}, new Integer[]{300, 400});
     s2 = new SizeChangePattern();
-    s2.change(100,200,new Integer[] {1,4}, new Integer[] {50,50});
+    s2.change(100, 200, new Integer[]{1, 4}, new Integer[]{50, 50});
 
     rec1 = new Rectangle();
     rec2 = new Rectangle(c1, m1, s1);
-    rec3 = new Rectangle(c2,m2,s2);
+    rec3 = new Rectangle(c2, m2, s2);
     ov1 = new Oval();
     ov2 = new Oval(c1, m1, s1);
-    ov3 = new Oval(c2,m1,s2);
+    ov3 = new Oval(c2, m1, s2);
 
     defaultCanvas = new CanvasImpl();
     small = new CanvasImpl(5);
@@ -60,18 +61,18 @@ public class CanvasImplTest {
     big.addShape(rec2, "2");
     big.addShape(ov1, "3");
     big.addShape(rec3, "4");
-    big.addShape(ov3,"5");
+    big.addShape(ov3, "5");
   }
 
 
   @Test
   public void testGetStartAndEndTime() {
     assertEquals(0, defaultCanvas.getStartTime());
-    assertEquals(0, defaultCanvas.getEndTime());
+    assertEquals(100, defaultCanvas.getEndTime());
     assertEquals(0, big.getStartTime());
     assertEquals(200, big.getEndTime());
     assertEquals(0, small.getStartTime());
-    assertEquals(0, small.getEndTime());
+    assertEquals(5, small.getEndTime());
 
 
   }
@@ -83,7 +84,6 @@ public class CanvasImplTest {
     List<String> emptyStrings = new ArrayList<>();
     assertEquals(true, emptyShapes.equals(defaultCanvas.getAllShapes()));
     assertEquals(true, emptyStrings.equals(defaultCanvas.getAllShapeIDs()));
-
 
     //add one shape and test
     defaultCanvas.addShape(rec1, "1");
@@ -105,8 +105,6 @@ public class CanvasImplTest {
     assertEquals(true, emptyShapes.equals(defaultCanvas.getAllShapes()));
     assertEquals(true, emptyStrings.equals(defaultCanvas.getAllShapeIDs()));
   }
-
-
 
 
   @Test
@@ -206,13 +204,13 @@ public class CanvasImplTest {
 
   @Test
   public void testGetShape() {
-    assertEquals(rec1,small.getShape("1"));
+    assertEquals(rec1, small.getShape("1"));
     assertEquals(rec1, big.getShape("1"));
     assertEquals(rec2, big.getShape("2"));
     assertEquals(ov1, big.getShape("3"));
   }
 
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testGetShapeThrow() {
     small.getShape("30");
   }
