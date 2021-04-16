@@ -91,17 +91,7 @@ public class TextViewTest {
     testTextView.run();
     assertEquals(testTextView.getStringDescription(), testAppendable.toString());
   }
-
-  //test passing in a string builder as appendable
-  //this test takes a long time to run because it uses a big file.
-  //@Test
-  public void testAppendableWrite2() {
-    Appendable testAppendable = new StringBuilder();
-    TextView testTextView = new TextView(testAppendable, canvas2);
-    testTextView.run();
-    String appendableOutput = testAppendable.toString();
-    assertEquals(testTextView.getStringDescription(), appendableOutput);
-  }
+  
 
   //test passing in a file writer as appendable and actually reading that file again.
   @Test

@@ -98,12 +98,8 @@ public class BuilderTest {
     BufferedReader reader = new BufferedReader((new FileReader("resources/toh-3.txt")));
     Canvas canvas2 = AnimationReader.parseFile(reader, new CanvasImpl.Builder());
     Map<Integer, int[]> colorMap = canvas2.getShape("disk3").getColorPattern().getMap();
-    for (Map.Entry<Integer, int[]> i : colorMap.entrySet()) {
-      System.out.print(i.getKey());
-      System.out.println(Arrays.toString(i.getValue()));
-    }
-    //assertEquals("", canvas2.getShape("disk1").getColorPattern().getMap().toString());
-
+    assertEquals(1, canvas2.getStartTime());
+    assertEquals(302,canvas2.getEndTime());
   }
 
 
