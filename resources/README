@@ -21,10 +21,13 @@ the state of the animation at any given frame as it is in the SwingView.
 View explanation:
 
 We implemented text, visual, and SVG views. They all share a common "View" interface. Currently,
-this interface only has one method (although several overloaded variations are available.) The 'go'
+this interface only has one method (although several overloaded variations are available.) The 'run'
 method starts a view. Each type of view implements this method differently, but it essentially
 allows speeds and output files to be specified (or left to default values) and allows the view
-to continue autonomously from the beginning to the end of its display behavior.
+to continue autonomously from the beginning to the end of its display behavior. We chose to implement
+an overloaded run method so that all views could implement the same interface (despite their differences)
+while also being able to pass in specific parameters when necessary. Because of this implementation, all views
+can handle being passed any combination of speed and output file paths with their own internal implementation.
 
 Visual View Implementation:
 The visual view (called 'SwingView' in this project) extends the JFrame interface. It is constructed

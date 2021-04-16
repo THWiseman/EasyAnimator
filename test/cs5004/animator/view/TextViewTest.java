@@ -91,7 +91,7 @@ public class TextViewTest {
     testTextView.run();
     assertEquals(testTextView.getStringDescription(), testAppendable.toString());
   }
-  
+
 
   //test passing in a file writer as appendable and actually reading that file again.
   @Test
