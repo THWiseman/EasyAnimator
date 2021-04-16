@@ -28,8 +28,8 @@ public class SwingView extends JFrame implements View {
   }
 
   private void setUp() {
-    //SwingView 'is a' "JFrame" which will be the entire window that opens. We can use JFrame methods
-    //to configure its attributes.
+    //SwingView 'is a' "JFrame" which will be the entire window that opens.
+    //We can use JFrame methods to configure its attributes.
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     setTitle("Easy Animator");
     setPreferredSize(new Dimension(model.getDimensions()[1], model.getDimensions()[3]));

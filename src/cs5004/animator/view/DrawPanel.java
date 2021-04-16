@@ -5,9 +5,10 @@ import cs5004.animator.model.Oval;
 import cs5004.animator.model.Rectangle;
 import cs5004.animator.model.Shape;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.ArrayList;
+import javax.swing.JPanel;
 
 /**
  * This class can display a JPanel view of a Canvas for any given time. It must be constructed with

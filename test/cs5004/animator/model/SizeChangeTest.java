@@ -104,9 +104,9 @@ public class SizeChangeTest {
     pattern1.change(10, 20, new Integer[]{40, 60}, new Integer[]{30, 40});
     pattern1.change(50, 70, new Integer[]{20, 30}, new Integer[]{50, 60});
     assertEquals(
-        "changes dimensions from width 40 by height 60 to width 30 by height 40, from time t=10 to t=20\n"
-            +
-            "changes dimensions from width 20 by height 30 to width 50 by height 60, from time t=50 to t=70",
+        "changes dimensions from width 40 by height 60 to width 30 by height 40,"
+            + " from time t=10 to t=20\n" + "changes dimensions from width 20 by height 30 "
+            + "to width 50 by height 60, from time t=50 to t=70",
         pattern1.getChangeLog());
   }
 
