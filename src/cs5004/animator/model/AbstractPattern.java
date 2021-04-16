@@ -45,7 +45,11 @@ public abstract class AbstractPattern implements Pattern {
     return (int) Math.round(answer);
   }
 
-
+  /**
+   * Returns a string that is a history of all changes made to this pattern.
+   *
+   * @return String history of this pattern.
+   */
   public String getChangeLog() {
     String str = "";
     for (int i = 0; i < changeLog.size(); i++) {
@@ -55,6 +59,11 @@ public abstract class AbstractPattern implements Pattern {
     return str.substring(1);
   }
 
+  /**
+   * Returns a list of LogNodes which represent a history of all changes made to this pattern.
+   *
+   * @return List of LogNode.
+   */
   public List<LogNode> pullChangeLog() {
     return this.changeLog;
   }
