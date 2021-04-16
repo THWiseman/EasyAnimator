@@ -25,7 +25,7 @@ this interface only has one method (although several overloaded variations are a
 method starts a view. Each type of view implements this method differently, but it essentially
 allows speeds and output files to be specified (or left to default values) and allows the view
 to continue autonomously from the beginning to the end of its display behavior. We chose to implement
-an overloaded run method so that all views could implement the same interface (despite their differences)
+an overloaded run() method so that all views could implement the same interface (despite their differences)
 while also being able to pass in specific parameters when necessary. Because of this implementation, all views
 can handle being passed any combination of speed and output file paths with their own internal implementation.
 
