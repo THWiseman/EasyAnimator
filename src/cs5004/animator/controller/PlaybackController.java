@@ -6,11 +6,12 @@ import java.util.Scanner;
 
 public class PlaybackController {
   private Canvas model;
-  private PlaybackView view = new PlaybackView();
+  private PlaybackView view;
 
 
   public PlaybackController(Canvas canvas) {
     this.model = canvas;
+    this.view = new PlaybackView(this.model);
   }
 
   public String processCommand(String command) {

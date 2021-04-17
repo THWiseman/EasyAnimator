@@ -5,6 +5,7 @@ import cs5004.animator.model.CanvasImpl;
 import cs5004.animator.util.AnimationReader;
 import cs5004.animator.view.SVGView;
 import cs5004.animator.view.SwingView;
+import cs5004.animator.view.PlaybackView;
 import cs5004.animator.view.TextView;
 
 import java.io.BufferedReader;
@@ -89,8 +90,10 @@ public final class EasyAnimator {
 
     //Visual View
     if (typeOfView.equals("visual")) {
-      SwingView view = new SwingView(canvas1);
-      view.run(tps);
+
+      //SwingView view = new SwingView(canvas1);
+      PlaybackView view = new PlaybackView(canvas1);
+      view.autoRefresh();
     }
 
     //SVG view
