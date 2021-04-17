@@ -10,6 +10,10 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The PlaybackController creates its own JFrame view and handles events that happen within that view. It has
+ * many different buttons that allow the user to manipulate the animation in some way.
+ */
 public class PlaybackController implements ActionListener {
     private Canvas model;
     private PlaybackView view;
@@ -38,6 +42,10 @@ public class PlaybackController implements ActionListener {
     Timer timer = new Timer(delay, autoRefresh);
 
 
+    /**
+     * Constructor for the PlaybackController. It takes in a model to display as a parameter.
+     * @param canvas Model to display.
+     */
     public PlaybackController(Canvas canvas) {
         this.model = canvas;
         this.view = new PlaybackView(this.model, this);
@@ -46,6 +54,12 @@ public class PlaybackController implements ActionListener {
         this.loopButton = view.getLoopButton();
     }
 
+    /**
+     * Will perform the appropriate command when a String of that command is passed in. This is tightly coupled with the
+     * action listener of this controller.
+     * @param command String of the command to be performed
+     * @return String of all the commands that this controller performed during its life.
+     */
     public String processCommand(String command) {
         StringBuilder output = new StringBuilder();
         Scanner input = new Scanner(command);
@@ -110,6 +124,7 @@ public class PlaybackController implements ActionListener {
                     Integer[] colorValues = motionPane.getColorValues();
                     Integer[] sizeValues = motionPane.getSizeValues();
                     Integer[] positionValues = motionPane.getPositionValues();
+                    String shapeToChange = motionPane.getShapeName();
                     for(int i = 0; i<6;i++) {
                         System.out.println(colorValues[i]);
                     }
@@ -121,8 +136,8 @@ public class PlaybackController implements ActionListener {
                     break;
                 case "RemoveShape":
                     System.out.println("Remove Shape");
-                    SingleBoxPrompt removeShapePrompt = new SingleBoxPrompt("Remove Shape", "Enter the unique name of the shape you with to remove.");
-                    String shapeName = removeShapePrompt.getInput();
+                    RemoveShapePane removeShapePrompt = new RemoveShapePane();
+                    String shapeToRemove = removeShapePrompt.getInput();
                     output.append("Remove Shape");
                     break;
                 case "SaveFile":
@@ -143,16 +158,30 @@ public class PlaybackController implements ActionListener {
         return output.toString();
     }
 
+    /**
+     * The action listener portion of this command. In the current implementation, this action listener is hooked up
+     * to all the buttons in the view.
+     * @param e Action event from a button.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         this.processCommand(e.getActionCommand());
     }
 
+    /**
+     * This creates a popup text box that asks the user for one line of input. It is constructed with a string for the
+     * title and a string for the prompt.
+     */
     private class SingleBoxPrompt {
         JPanel pane = new JPanel();
         JTextField userInputBox = new JTextField(3);
 
-        public SingleBoxPrompt(String title, String prompt) {
+        /**
+         * Constructor for a text box prompt.
+         * @param title String that you with the title of the tex tbox to be.
+         * @param prompt String that you want the prompt next to the text box to be.
+         */
+         SingleBoxPrompt(String title, String prompt) {
             pane.setLayout(new GridLayout(1,2,2,2));
             pane.add(new JLabel(prompt));
             pane.add(userInputBox);
@@ -162,9 +191,28 @@ public class PlaybackController implements ActionListener {
         String getInput() {
             return userInputBox.getText();
         }
-
     }
 
+    private class RemoveShapePane {
+        JPanel pane = new JPanel();
+        String[] shapeNames = model.getAllShapeIDs().toArray(new String[0]);
+        JComboBox shapeDropDown = new JComboBox(shapeNames);
+
+        RemoveShapePane() {
+            pane.setLayout(new GridLayout(1,2,2,2));
+            pane.add(new JLabel("Select witch shape you with to remove:"));
+            pane.add(shapeDropDown);
+            JOptionPane.showConfirmDialog(pane, pane, "Remove Shape", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        String getInput() {
+            return (String) shapeDropDown.getSelectedItem();
+        }
+    }
+
+    /**
+     * Creates a popup prompt that asks the user for a shape name and shape type. Shape types are in a dropdown menu.
+     */
     private class AddShapePane {
         JPanel pane = new JPanel();
         JTextField shapeNameField = new JTextField(3);
@@ -193,8 +241,13 @@ public class PlaybackController implements ActionListener {
         }
     }
 
+    /**
+     * Creates a text box that asks the user for a shape name starting and ending values for that shape's transformation.
+     */
     private class AddMotionPane {
         JPanel pane = new JPanel();
+        String[] shapeNames = model.getAllShapeIDs().toArray(new String[0]);
+        JComboBox shapeDropDown = new JComboBox(shapeNames);
         JTextField startingColor = new JTextField(3);
         JTextField endingColor = new JTextField(3);
         JTextField startingPosition = new JTextField(3);
@@ -203,8 +256,8 @@ public class PlaybackController implements ActionListener {
         JTextField endingSize = new JTextField(3);
 
 
-        public AddMotionPane() {
-            pane.setLayout(new GridLayout(3, 3, 2, 2));
+        AddMotionPane() {
+            pane.setLayout(new GridLayout(4, 3, 2, 2));
             pane.add(new JLabel("Enter starting and ending colors in the form 'r,g,b'"));
             pane.add(startingColor);
             pane.add(endingColor);
@@ -216,6 +269,9 @@ public class PlaybackController implements ActionListener {
 
             pane.add(startingSize);
             pane.add(endingSize);
+
+            pane.add(new JLabel("Select witch shape you with to add motion to:"));
+            pane.add(shapeDropDown);
 
            JOptionPane.showConfirmDialog(pane, pane, "Add Motion", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
         }
@@ -254,6 +310,10 @@ public class PlaybackController implements ActionListener {
                 sizeValues[i+2] = Integer.parseInt(endingValues[i]);
             }
             return sizeValues;
+        }
+
+        String getShapeName() {
+            return (String) shapeDropDown.getSelectedItem();
         }
     }
 
