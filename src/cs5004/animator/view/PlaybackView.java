@@ -16,12 +16,18 @@ public class PlaybackView extends JFrame {
   private int endTime; //don't want to ever go past this time.
   private int ticksPerSecond = 1;
   DrawPanel p;
-  private JPanel buttonPanel;
-  private JPanel buttonPanelExtra;
-  private JButton playButton,pauseButton, restartButton, slowButton, fastButton, loopButton;
-  private JButton addShape,addMotion,removeShape,loadFile,saveFile;
+  private JPanel buttonPanelBottom;
+  private JPanel buttonPanelRight;
+  private JButton playButton,pauseButton, restartButton, slowButton, fastButton,
+          loopButton, addShape,addMotion,removeShape,loadFile,saveFile;
+  private PlaybackController controller;
 
-  public PlaybackView(Canvas model) {
+  public PlaybackView(Canvas model, PlaybackController controller) {
+
+    //load in our model and controller
+    this.model = model;
+    this.endTime = model.getEndTime();
+    this.controller = controller;
 
     //set up some  basic parameters for our JFrame Window.
     setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -29,64 +35,8 @@ public class PlaybackView extends JFrame {
     setPreferredSize(new Dimension(model.getDimensions()[1], model.getDimensions()[3]));
     this.setLayout(new BorderLayout());
 
-    //set up a buttonPanel to contain our buttons
-    buttonPanel = new JPanel();
-    buttonPanel.setLayout(new FlowLayout());
-    this.add(buttonPanel, BorderLayout.SOUTH);
-
-    //lets add some buttons to the button panel.
-    playButton = new JButton("Play");
-    playButton.setActionCommand("Play");
-    buttonPanel.add(playButton);
-
-    pauseButton = new JButton("Pause");
-    pauseButton.setActionCommand("Pause");
-    buttonPanel.add(pauseButton);
-
-    restartButton = new JButton("Restart");
-    restartButton.setActionCommand("Restart");
-    buttonPanel.add(restartButton);
-
-    slowButton = new JButton("Slower");
-    slowButton.setActionCommand("Slower");
-    buttonPanel.add(slowButton);
-
-    fastButton = new JButton("Faster");
-    fastButton.setActionCommand("Faster");
-    buttonPanel.add(fastButton);
-
-    loopButton = new JButton("Looping: OFF");
-    loopButton.setActionCommand("Loop");
-    buttonPanel.add(loopButton);
-
-    //create the right button panel for the extra credit buttons
-    buttonPanelExtra = new JPanel();
-    buttonPanelExtra.setLayout(new GridLayout(5,1));
-    this.add(buttonPanelExtra, BorderLayout.EAST);
-
-    addShape = new JButton("Add Shape");
-    addShape.setActionCommand("Add Shape");
-    buttonPanelExtra.add(addShape);
-
-    addMotion = new JButton("Add Motion");
-    addMotion.setActionCommand("Add Motion");
-    buttonPanelExtra.add(addMotion);
-
-    removeShape = new JButton("Remove Shape");
-    removeShape.setActionCommand("Remove Shape");
-    buttonPanelExtra.add(removeShape);
-
-    loadFile = new JButton("Load File");
-    loadFile.setActionCommand("Load File");
-    buttonPanelExtra.add(loadFile);
-
-    saveFile = new JButton("Save File");
-    saveFile.setActionCommand("Save File");
-    buttonPanelExtra.add(saveFile);
-
-    //load in our model.
-    this.model = model;
-    this.endTime = model.getEndTime();
+    setUpButtonPanelBottom();
+    setUpButtonPanelRight();
 
     //for now, let's initialize both the time and ticksPerSecond to one. We can change them later.
     this.time = 1;
@@ -117,14 +67,80 @@ public class PlaybackView extends JFrame {
     }
   }
 
-  //sets up the buttons that we already added to the window to have action listeners.
-  public void setActionListeners(ActionListener buttonListener) {
-    playButton.addActionListener(buttonListener);
-    pauseButton.addActionListener(buttonListener);
-    restartButton.addActionListener(buttonListener);
-    slowButton.addActionListener(buttonListener);
-    fastButton.addActionListener(buttonListener);
-    loopButton.addActionListener(buttonListener);
+
+  private void setUpButtonPanelBottom() {
+    //set up a buttonPanel to contain our buttons
+    buttonPanelBottom = new JPanel();
+    buttonPanelBottom.setLayout(new FlowLayout());
+    this.add(buttonPanelBottom, BorderLayout.SOUTH);
+
+    //lets add some buttons to the button panel.
+    playButton = new JButton("Play");
+    playButton.setActionCommand("Play");
+    buttonPanelBottom.add(playButton);
+
+    pauseButton = new JButton("Pause");
+    pauseButton.setActionCommand("Pause");
+    buttonPanelBottom.add(pauseButton);
+
+    restartButton = new JButton("Restart");
+    restartButton.setActionCommand("Restart");
+    buttonPanelBottom.add(restartButton);
+
+    slowButton = new JButton("Slower");
+    slowButton.setActionCommand("Slower");
+    buttonPanelBottom.add(slowButton);
+
+    fastButton = new JButton("Faster");
+    fastButton.setActionCommand("Faster");
+    buttonPanelBottom.add(fastButton);
+
+    loopButton = new JButton("Looping: OFF");
+    loopButton.setActionCommand("Loop");
+    buttonPanelBottom.add(loopButton);
+
+    playButton.addActionListener(controller);
+    pauseButton.addActionListener(controller);
+    restartButton.addActionListener(controller);
+    slowButton.addActionListener(controller);
+    fastButton.addActionListener(controller);
+    loopButton.addActionListener(controller);
+
+
+  }
+
+  private void setUpButtonPanelRight() {
+    //create the right button panel for the extra credit buttons
+    buttonPanelRight = new JPanel();
+    buttonPanelRight.setLayout(new GridLayout(5,1));
+    this.add(buttonPanelRight, BorderLayout.EAST);
+
+    addShape = new JButton("Add Shape");
+    addShape.setActionCommand("AddShape");
+    buttonPanelRight.add(addShape);
+
+    addMotion = new JButton("Add Motion");
+    addMotion.setActionCommand("AddMotion");
+    buttonPanelRight.add(addMotion);
+
+    removeShape = new JButton("Remove Shape");
+    removeShape.setActionCommand("RemoveShape");
+    buttonPanelRight.add(removeShape);
+
+    loadFile = new JButton("Load File");
+    loadFile.setActionCommand("LoadFile");
+    buttonPanelRight.add(loadFile);
+
+    saveFile = new JButton("Save File");
+    saveFile.setActionCommand("SaveFile");
+    buttonPanelRight.add(saveFile);
+
+    addShape.addActionListener(controller);
+    addMotion.addActionListener(controller);
+    removeShape.addActionListener(controller);
+    saveFile.addActionListener(controller);
+    loadFile.addActionListener(controller);
+
   }
 
   public JButton getLoopButton() {
