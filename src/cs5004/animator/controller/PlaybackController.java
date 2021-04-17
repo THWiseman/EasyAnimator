@@ -121,14 +121,20 @@ public class PlaybackController implements ActionListener {
                     break;
                 case "RemoveShape":
                     System.out.println("Remove Shape");
+                    SingleBoxPrompt removeShapePrompt = new SingleBoxPrompt("Remove Shape", "Enter the unique name of the shape you with to remove.");
+                    String shapeName = removeShapePrompt.getInput();
                     output.append("Remove Shape");
                     break;
                 case "SaveFile":
                     System.out.println("Save File");
+                    SingleBoxPrompt savePrompt = new SingleBoxPrompt("Save File", "Enter the file path of where you wish to save the current animation.");
+                    String savePath = savePrompt.getInput();
                     output.append("Save File");
                     break;
                 case "LoadFile":
                     System.out.println("Load File");
+                    SingleBoxPrompt loadPrompt = new SingleBoxPrompt("Load File", "Enter the file path of the animation you wish to load.");
+                    String loadPath = loadPrompt.getInput();
                     output.append("Load File");
                     break;
             }
@@ -140,6 +146,23 @@ public class PlaybackController implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         this.processCommand(e.getActionCommand());
+    }
+
+    private class SingleBoxPrompt {
+        JPanel pane = new JPanel();
+        JTextField userInputBox = new JTextField(3);
+
+        public SingleBoxPrompt(String title, String prompt) {
+            pane.setLayout(new GridLayout(1,2,2,2));
+            pane.add(new JLabel(prompt));
+            pane.add(userInputBox);
+            JOptionPane.showConfirmDialog(pane, pane, title, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        String getInput() {
+            return userInputBox.getText();
+        }
+
     }
 
     private class AddShapePane {
@@ -161,7 +184,7 @@ public class PlaybackController implements ActionListener {
             shapeDropDown = new JComboBox(shapeTypes);
             pane.add(shapeDropDown);
 
-            JOptionPane.showConfirmDialog(pane, pane, "Please fill all the fields", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showConfirmDialog(pane, pane, "Add Shape", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 
         }
 
@@ -194,7 +217,7 @@ public class PlaybackController implements ActionListener {
             pane.add(startingSize);
             pane.add(endingSize);
 
-           JOptionPane.showConfirmDialog(pane, pane, "Please fill all the fields", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+           JOptionPane.showConfirmDialog(pane, pane, "Add Motion", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
         }
 
         Integer[] getPositionValues() {
