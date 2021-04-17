@@ -1,5 +1,74 @@
 package cs5004.animator.view;
 
-public class PlaybackView {
+import cs5004.animator.controller.PlaybackController;
+import cs5004.animator.model.Canvas;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.Timer;
 
+public class PlaybackView extends JFrame {
+
+  private Canvas model;
+  private PlaybackController controller;
+
+  public PlaybackView(Canvas model) {
+    //load in our model.
+    this.model = model;
+    this.controller = new PlaybackController(model);
+  }
+
+  public PlaybackView() {
+
+  }
+
+  private void setUp() {
+    //SwingView 'is a' "JFrame" which will be the entire window that opens.
+    //We can use JFrame methods to configure its attributes.
+    setDefaultCloseOperation(EXIT_ON_CLOSE);
+    setTitle("Easy Animator");
+    setPreferredSize(new Dimension(model.getDimensions()[1], model.getDimensions()[3]));
+  }
+
+
+  public void run(int tps, String filepath) {
+    int ticksPerSecond = tps;
+    setUp();
+
+    //this panel is where the animation occurs.
+    DrawPanel p = new DrawPanel(model);
+    p.setPreferredSize(new Dimension(model.getDimensions()[1], model.getDimensions()[3]));
+    //add the animation panel to a scrollable pane.
+    JScrollPane pane = new JScrollPane(p);
+    pane.setPreferredSize(p.getPreferredSize());
+    pane.setVisible(true);
+    //add the scrollable pane to the JFrame
+    this.add(pane);
+    this.setBounds(model.getDimensions()[0], model.getDimensions()[2],
+        model.getDimensions()[1] + this.getInsets().left
+            + this.getInsets().right, model.getDimensions()[3]
+            + this.getInsets().top + this.getInsets().bottom);
+    //this.pack();
+
+    //make the JFrame visible.
+    this.setVisible(true);
+
+    ActionListener taskPerformer = new ActionListener() {
+      int tick = 1;
+      int endTime = model.getEndTime();
+
+      public void actionPerformed(ActionEvent evt) {
+        if (tick >= endTime) {
+          System.exit(0);
+        }
+        p.setTime(tick);
+        p.repaint();
+        tick++;
+      }
+    };
+    int delay = 1000 / ticksPerSecond;
+    new Timer(delay, taskPerformer).start();
+  }
 }
