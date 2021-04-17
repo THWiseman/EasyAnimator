@@ -13,11 +13,13 @@ public class PlaybackView extends JFrame {
 
   private Canvas model;
   private int time;
-  private int ticksPerSecond;
   private int endTime; //don't want to ever go past this time.
+  private int ticksPerSecond = 1;
   DrawPanel p;
   private JPanel buttonPanel;
+  private JPanel buttonPanelExtra;
   private JButton playButton,pauseButton, restartButton, slowButton, fastButton, loopButton;
+  private JButton addShape,addMotion,removeShape,loadFile,saveFile;
 
   public PlaybackView(Canvas model) {
 
@@ -57,6 +59,30 @@ public class PlaybackView extends JFrame {
     loopButton.setActionCommand("Loop");
     buttonPanel.add(loopButton);
 
+    //create the right button panel for the extra credit buttons
+    buttonPanelExtra = new JPanel();
+    buttonPanelExtra.setLayout(new GridLayout(5,1));
+    this.add(buttonPanelExtra, BorderLayout.EAST);
+
+    addShape = new JButton("Add Shape");
+    addShape.setActionCommand("Add Shape");
+    buttonPanelExtra.add(addShape);
+
+    addMotion = new JButton("Add Motion");
+    addMotion.setActionCommand("Add Motion");
+    buttonPanelExtra.add(addMotion);
+
+    removeShape = new JButton("Remove Shape");
+    removeShape.setActionCommand("Remove Shape");
+    buttonPanelExtra.add(removeShape);
+
+    loadFile = new JButton("Load File");
+    loadFile.setActionCommand("Load File");
+    buttonPanelExtra.add(loadFile);
+
+    saveFile = new JButton("Save File");
+    saveFile.setActionCommand("Save File");
+    buttonPanelExtra.add(saveFile);
 
     //load in our model.
     this.model = model;

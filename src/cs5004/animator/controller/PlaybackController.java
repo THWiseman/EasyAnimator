@@ -94,6 +94,7 @@ public class PlaybackController implements ActionListener {
         case "Restart":
           System.out.println("Animation restarted");
           this.currentTime = 1;
+          view.refresh();
           output.append("Animation restarted");
           break;
       }
