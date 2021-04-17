@@ -200,7 +200,7 @@ public class PlaybackController implements ActionListener {
 
         RemoveShapePane() {
             pane.setLayout(new GridLayout(1,2,2,2));
-            pane.add(new JLabel("Select witch shape you with to remove:"));
+            pane.add(new JLabel("Select which shape you with to remove:"));
             pane.add(shapeDropDown);
             JOptionPane.showConfirmDialog(pane, pane, "Remove Shape", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
         }

@@ -54,6 +54,8 @@ public class PlaybackView extends JFrame {
 
     //make the JFrame visible
     this.pack();
+    this.setSize(model.getDimensions()[1] + buttonPanelRight.getWidth() + 10,
+            model.getDimensions()[3] + buttonPanelBottom.getHeight() + 35);
     this.setVisible(true);
 
   }
