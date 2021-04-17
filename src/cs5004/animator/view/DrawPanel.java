@@ -41,6 +41,7 @@ class DrawPanel extends JPanel {
     if (time < 1) {
       throw new IllegalArgumentException("Time must be greater than zero.");
     }
+    System.out.println(String.format("Current time: %d", time));
     this.time = time;
   }
 

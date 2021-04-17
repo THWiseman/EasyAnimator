@@ -17,7 +17,7 @@ public class PlaybackView extends JFrame {
   private int endTime; //don't want to ever go past this time.
   DrawPanel p;
   private JPanel buttonPanel;
-  private JButton playButton,pauseButton, rewindButton;
+  private JButton playButton,pauseButton, restartButton, slowButton, fastButton, loopButton;
 
   public PlaybackView(Canvas model) {
 
@@ -34,13 +34,29 @@ public class PlaybackView extends JFrame {
 
     //lets add some buttons to the button panel.
     playButton = new JButton("Play");
+    playButton.setActionCommand("Play");
     buttonPanel.add(playButton);
 
     pauseButton = new JButton("Pause");
+    pauseButton.setActionCommand("Pause");
     buttonPanel.add(pauseButton);
 
-    rewindButton = new JButton("Rewind");
-    buttonPanel.add(rewindButton);
+    restartButton = new JButton("Restart");
+    restartButton.setActionCommand("Restart");
+    buttonPanel.add(restartButton);
+
+    slowButton = new JButton("Slower");
+    slowButton.setActionCommand("Slower");
+    buttonPanel.add(slowButton);
+
+    fastButton = new JButton("Faster");
+    fastButton.setActionCommand("Faster");
+    buttonPanel.add(fastButton);
+
+    loopButton = new JButton("Looping: OFF");
+    loopButton.setActionCommand("Loop");
+    buttonPanel.add(loopButton);
+
 
     //load in our model.
     this.model = model;
@@ -60,7 +76,6 @@ public class PlaybackView extends JFrame {
     this.add(pane, BorderLayout.CENTER);
 
 
-
     //make the JFrame visible
     this.pack();
     this.setVisible(true);
@@ -69,25 +84,33 @@ public class PlaybackView extends JFrame {
 
   //causes the draw panel to redraw itself based on the current time. Maybe we want to call this from the controller.
   public void refresh() {
-    p.setTime(time);
-    p.repaint();
-  }
-
-
-  //once this function is called, the screen will start refreshing and will never stop. Not sure what happens if
-  //called multiple times.
-  public void autoRefresh() {
-    int delay = 1000 / ticksPerSecond;
-    new Timer(delay, screenRefresher).start();
-  }
-
-  //The only reason screenRefresher is an actionListener is so that it will work with a timer. This thing, when
-  //hooked up to a timer, will constantly refresh the screen/
-  ActionListener screenRefresher = new ActionListener() {
-
-    public void actionPerformed(ActionEvent evt) {
-      p.setTime(time);
+    if(time < this.endTime) {
+      System.out.print("Refresh");
+      p.setTime(time); //this is setting the time of the drawPanel based on what the time of the view is.
       p.repaint();
     }
-  };
+  }
+
+  //sets up the buttons that we already added to the window to have action listeners.
+  public void setActionListeners(ActionListener buttonListener) {
+    playButton.addActionListener(buttonListener);
+    pauseButton.addActionListener(buttonListener);
+    restartButton.addActionListener(buttonListener);
+    slowButton.addActionListener(buttonListener);
+    fastButton.addActionListener(buttonListener);
+    loopButton.addActionListener(buttonListener);
+  }
+
+  public JButton getLoopButton() {
+    return this.loopButton;
+  }
+
+  //this sets the time of the view. it does NOT set the time of the drawPanel.
+  public void setTime(int time) {
+    if(time < 1 || time > this.endTime) {
+      throw new IllegalArgumentException("Time must be greater than one and less than the endTime of the model.");
+    }
+    this.time = time;
+  }
+
 }

@@ -1,5 +1,6 @@
 package cs5004.animator;
 
+import cs5004.animator.controller.PlaybackController;
 import cs5004.animator.model.Canvas;
 import cs5004.animator.model.CanvasImpl;
 import cs5004.animator.util.AnimationReader;
@@ -92,8 +93,7 @@ public final class EasyAnimator {
     if (typeOfView.equals("visual")) {
 
       //SwingView view = new SwingView(canvas1);
-      PlaybackView view = new PlaybackView(canvas1);
-      view.autoRefresh();
+      PlaybackController controller = new PlaybackController(canvas1);
     }
 
     //SVG view
