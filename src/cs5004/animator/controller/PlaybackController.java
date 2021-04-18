@@ -125,6 +125,7 @@ public class PlaybackController implements ActionListener {
         case "Restart":
           System.out.println("Animation restarted");
           this.currentTime = 1;
+          view.setTime(1);
           view.refresh();
           output.append("Animation restarted");
           break;
@@ -205,6 +206,7 @@ public class PlaybackController implements ActionListener {
             reader = new BufferedReader((new FileReader(loadPath)));
             CanvasImpl newModel = (CanvasImpl) AnimationReader.parseFile(reader, new Builder());
             this.model = newModel;
+            this.endTime = newModel.getEndTime();
             view.setModel(newModel);
             view.refresh();
           } catch (FileNotFoundException e) {

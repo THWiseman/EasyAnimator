@@ -62,6 +62,7 @@ public class PlaybackView extends JFrame {
 
   public void setModel(Canvas model) {
     this.model = model;
+    this.endTime = model.getEndTime();
     this.getContentPane().remove(p);
     this.p = new DrawPanel(model);
     p.setPreferredSize(new Dimension(model.getDimensions()[1], model.getDimensions()[3]));
