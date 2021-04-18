@@ -9,6 +9,8 @@ import cs5004.animator.model.Rectangle;
 import cs5004.animator.model.SizeChangePattern;
 import cs5004.animator.view.PlaybackView;
 
+import cs5004.animator.view.SVGView;
+import cs5004.animator.view.TextView;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -131,18 +133,19 @@ public class PlaybackController implements ActionListener {
                     /**
                     ColorPattern tempColor = model.getShape(shapePane.getInput()[0]).getColorPattern();
                     tempColor.change(
-                        1,2,new Integer[] {255, 255, 255}, new Integer[] {255, 255, 255});
+                        0,2,new Integer[] {255, 255, 255}, new Integer[] {255, 255, 255});
                     model.getShape(shapePane.getInput()[0]).setColorPattern(tempColor);
                     MovementPattern tempMove = model.getShape(shapePane.getInput()[0]).getMovementPattern();
                     tempMove.change(
-                        1,2,new Integer[] {200, 200}, new Integer[] {200, 200});
+                        0,2,new Integer[] {200, 200}, new Integer[] {200, 200});
                     model.getShape(shapePane.getInput()[0]).setMovementPattern(tempMove);
                     SizeChangePattern tempSize = model.getShape(shapePane.getInput()[0]).getSizeChangePattern();
                     tempSize.change(
-                        1,2,new Integer[] {20, 20}, new Integer[] {20, 20});
+                        0,2,new Integer[] {20, 20}, new Integer[] {20, 20});
                     model.getShape(shapePane.getInput()[0]).setSizeChangePattern(tempSize);
                     view.refresh();
                      **/
+
                     output.append("Add Shape");
                     break;
                 case "AddMotion":
@@ -171,8 +174,16 @@ public class PlaybackController implements ActionListener {
                     break;
                 case "SaveFile":
                     System.out.println("Save File");
-                    SingleBoxPrompt savePrompt = new SingleBoxPrompt("Save File", "Enter the file path of where you wish to save the current animation.");
-                    String savePath = savePrompt.getInput();
+                    SaveFilePane savePrompt = new SaveFilePane();//new SingleBoxPrompt("Save File", "Enter the file path of where you wish to save the current animation.");
+                    String savePath = savePrompt.getInput()[0];
+                    if (savePrompt.getInput()[1].equals("SVG")) {
+                        SVGView saveFileSVG = new SVGView(model);
+                        saveFileSVG.run(savePath);
+                    }
+                    if (savePrompt.getInput()[1].equals("Text")) {
+                        TextView saveFileText = new TextView(model);
+                        saveFileText.run(savePath);
+                    }
                     output.append("Save File");
                     break;
                 case "LoadFile":
@@ -267,6 +278,34 @@ public class PlaybackController implements ActionListener {
 
         String[] getInput() {
         return new String[] {shapeNameField.getText(),(String) shapeDropDown.getSelectedItem()};
+        }
+    }
+
+    private class SaveFilePane {
+        JPanel pane = new JPanel();
+        JTextField filepathField = new JTextField(3);
+        String[] fileTypes;
+        JComboBox fileDropDown;
+
+
+        SaveFilePane(){
+            pane.setLayout(new GridLayout(2,2,2,2));
+            pane.add(new JLabel("Enter the file path of where you wish to save the current animation."));
+            pane.add(filepathField);
+
+            pane.add(new JLabel("Type of file you wish to save as:"));
+            fileTypes = new String[2];
+            fileTypes[0] = "SVG";
+            fileTypes[1] = "Text";
+            fileDropDown = new JComboBox(fileTypes);
+            pane.add(fileDropDown);
+
+            JOptionPane.showConfirmDialog(pane, pane, "Add Shape", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+
+        }
+
+        String[] getInput() {
+            return new String[] {filepathField.getText(),(String) fileDropDown.getSelectedItem()};
         }
     }
 
