@@ -60,6 +60,10 @@ public class PlaybackView extends JFrame {
 
   }
 
+  public void setModel(Canvas model) {
+    this.model = model;
+  }
+
   //causes the draw panel to redraw itself based on the current time. Maybe we want to call this from the controller.
   public void refresh() {
     if(time < this.endTime) {
