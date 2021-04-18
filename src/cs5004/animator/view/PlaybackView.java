@@ -62,6 +62,15 @@ public class PlaybackView extends JFrame {
 
   public void setModel(Canvas model) {
     this.model = model;
+    this.getContentPane().remove(p);
+    this.p = new DrawPanel(model);
+    p.setPreferredSize(new Dimension(model.getDimensions()[1], model.getDimensions()[3]));
+    JScrollPane pane = new JScrollPane(p);
+    pane.setPreferredSize(p.getPreferredSize());
+    pane.setVisible(true);
+    this.add(pane, BorderLayout.CENTER);
+    this.validate();
+    this.repaint();
   }
 
   //causes the draw panel to redraw itself based on the current time. Maybe we want to call this from the controller.
