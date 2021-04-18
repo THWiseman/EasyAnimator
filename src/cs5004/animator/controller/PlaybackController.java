@@ -1,6 +1,8 @@
 package cs5004.animator.controller;
 
 import cs5004.animator.model.Canvas;
+import cs5004.animator.model.Oval;
+import cs5004.animator.model.Rectangle;
 import cs5004.animator.view.PlaybackView;
 
 import javax.swing.*;
@@ -116,6 +118,12 @@ public class PlaybackController implements ActionListener {
                     AddShapePane shapePane = new AddShapePane();
                     System.out.println(shapePane.getInput()[0]);
                     System.out.println(shapePane.getInput()[1]);
+                    if (shapePane.getInput()[1].equals("Rectangle")) {
+                        model.addShape(new Rectangle(), shapePane.getInput()[0]);
+                    }
+                    if (shapePane.getInput()[1].equals("Oval")) {
+                        model.addShape(new Oval(), shapePane.getInput()[0]);
+                    }
                     output.append("Add Shape");
                     break;
                 case "AddMotion":
@@ -270,7 +278,7 @@ public class PlaybackController implements ActionListener {
             pane.add(startingSize);
             pane.add(endingSize);
 
-            pane.add(new JLabel("Select witch shape you with to add motion to:"));
+            pane.add(new JLabel("Select which shape you with to add motion to:"));
             pane.add(shapeDropDown);
 
            JOptionPane.showConfirmDialog(pane, pane, "Add Motion", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
