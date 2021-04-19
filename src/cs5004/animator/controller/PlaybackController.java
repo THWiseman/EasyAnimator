@@ -177,8 +177,8 @@ public class PlaybackController implements ActionListener {
           System.out.println("Remove Shape");
           RemoveShapePane removeShapePrompt = new RemoveShapePane();
           String shapeToRemove = removeShapePrompt.getInput();
-          this.model.removeShape(shapeToRemove);
-         // this.view.setModel(this.model);
+          this.model.remove(shapeToRemove);
+          this.view.setModel(this.model);
           //this.view = new PlaybackView(this.model, this);
           view.refresh();
           output.append("Remove Shape");

@@ -112,6 +112,7 @@ public class CanvasImpl implements Canvas {
       throw new IllegalArgumentException("ID cannot be empty or null.");
     }
     this.shapes.remove(iD);
+    this.orderedShapeNames.remove(iD);
   }
 
 
