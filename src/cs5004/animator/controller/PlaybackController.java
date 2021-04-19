@@ -4,6 +4,7 @@ import cs5004.animator.model.Canvas;
 import cs5004.animator.model.*;
 import cs5004.animator.model.Rectangle;
 import cs5004.animator.model.CanvasImpl.Builder;
+import cs5004.animator.model.Shape;
 import cs5004.animator.util.AnimationReader;
 import cs5004.animator.view.PlaybackView;
 import cs5004.animator.view.SVGView;
@@ -147,6 +148,7 @@ public class PlaybackController implements ActionListener {
                     }
 
                     //Creates a shape with default values
+                    /*
                     ColorPattern tempColor = model.getShape(shapePane.getInput()[0]).getColorPattern();
                     tempColor.change(
                             model.getStartTime(), model.getEndTime(), new Integer[]{0, 0, 0}, new Integer[]{0, 0, 0});
@@ -161,10 +163,11 @@ public class PlaybackController implements ActionListener {
                     tempSize.change(
                             model.getStartTime(), model.getEndTime(), new Integer[]{20, 20}, new Integer[]{20, 20});
                     model.getShape(shapePane.getInput()[0]).setSizeChangePattern(tempSize);
-
+                    */
 
                     this.view.setModel(this.model);
                     view.refresh();
+                    JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Shape added!");
 
                     output.append("Add Shape");
                     break;
@@ -189,7 +192,19 @@ public class PlaybackController implements ActionListener {
                     Integer[] colorValues = motionPane.getColorValues();
                     Integer[] sizeValues = motionPane.getSizeValues();
                     Integer[] positionValues = motionPane.getPositionValues();
-                    String shapeToChange = motionPane.getShapeName();
+                    Integer[] times = motionPane.getTimes();
+                    String shapeName = motionPane.getShapeName();
+                    Shape shapeToChange = model.getShape(shapeName);
+                    shapeToChange.getColorPattern().change(times[0],times[1],
+                            new Integer[] {colorValues[0],colorValues[1],colorValues[2]},
+                            new Integer[] {colorValues[3],colorValues[4], colorValues[5]});
+                    shapeToChange.getSizeChangePattern().change(times[0],times[1],
+                            new Integer[] {sizeValues[0],sizeValues[1]}, new Integer[] {sizeValues[2],sizeValues[3]});
+                    shapeToChange.getMovementPattern().change(times[0],times[1], new Integer[] {positionValues[0],positionValues[1]},
+                            new Integer[] {positionValues[2],positionValues[3]});
+                    this.view.setModel(this.model);
+                    view.refresh();
+
                     for (int i = 0; i < 6; i++) {
                         System.out.println(colorValues[i]);
                     }
@@ -410,11 +425,9 @@ public class PlaybackController implements ActionListener {
             pane.add(startingColor);
             pane.add(endingColor);
             pane.add(new JLabel("Enter starting and ending position in the form 'x,y'"));
-
             pane.add(startingPosition);
             pane.add(endingPosition);
             pane.add(new JLabel("Enter starting and ending size in the form 'l,w'"));
-
             pane.add(startingSize);
             pane.add(endingSize);
 
@@ -429,12 +442,13 @@ public class PlaybackController implements ActionListener {
         Integer[] getPositionValues() {
             Integer[] positionValues = new Integer[4];
             String[] startingValues = startingPosition.getText().split(",");
-            String[] endingValues = startingPosition.getText().split(",");
+            String[] endingValues = endingPosition.getText().split(",");
 
-            for (int i = 0; i < 2; i++) {
-                positionValues[i] = Integer.parseInt(startingValues[i]);
-                positionValues[i + 2] = Integer.parseInt(endingValues[i]);
-            }
+            positionValues[0] = Integer.parseInt(startingValues[0]);
+            positionValues[1] = Integer.parseInt(startingValues[1]);
+            positionValues[2] = Integer.parseInt(endingValues[0]);
+            positionValues[3] = Integer.parseInt(endingValues[1]);
+
             return positionValues;
         }
 
@@ -453,7 +467,7 @@ public class PlaybackController implements ActionListener {
         Integer[] getSizeValues() {
             Integer[] sizeValues = new Integer[4];
             String[] startingValues = startingSize.getText().split(",");
-            String[] endingValues = startingSize.getText().split(",");
+            String[] endingValues = endingSize.getText().split(",");
 
             for (int i = 0; i < 2; i++) {
                 sizeValues[i] = Integer.parseInt(startingValues[i]);
