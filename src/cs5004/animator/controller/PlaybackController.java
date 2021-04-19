@@ -135,26 +135,31 @@ public class PlaybackController implements ActionListener {
           System.out.println(shapePane.getInput()[0]);
           System.out.println(shapePane.getInput()[1]);
           if (shapePane.getInput()[1].equals("Rectangle")) {
-            model.addShape(new Rectangle(), shapePane.getInput()[0]);
+            model.add(new Rectangle(), shapePane.getInput()[0]);
           }
           if (shapePane.getInput()[1].equals("Oval")) {
-            model.addShape(new Oval(), shapePane.getInput()[0]);
+            model.add(new Oval(), shapePane.getInput()[0]);
           }
-          /**
+
+          //Creates a shape with default values
            ColorPattern tempColor = model.getShape(shapePane.getInput()[0]).getColorPattern();
            tempColor.change(
-           0,2,new Integer[] {255, 255, 255}, new Integer[] {255, 255, 255});
+               model.getStartTime(), model.getEndTime(),new Integer[] {0, 0, 0}, new Integer[] {0, 0, 0});
            model.getShape(shapePane.getInput()[0]).setColorPattern(tempColor);
+
            MovementPattern tempMove = model.getShape(shapePane.getInput()[0]).getMovementPattern();
            tempMove.change(
-           0,2,new Integer[] {200, 200}, new Integer[] {200, 200});
+               model.getStartTime(), model.getEndTime(), new Integer[] {200, 200}, new Integer[] {200, 200});
            model.getShape(shapePane.getInput()[0]).setMovementPattern(tempMove);
+
            SizeChangePattern tempSize = model.getShape(shapePane.getInput()[0]).getSizeChangePattern();
            tempSize.change(
-           0,2,new Integer[] {20, 20}, new Integer[] {20, 20});
+               model.getStartTime(), model.getEndTime(), new Integer[] {20, 20}, new Integer[] {20, 20});
            model.getShape(shapePane.getInput()[0]).setSizeChangePattern(tempSize);
-           view.refresh();
-           **/
+
+
+          this.view.setModel(this.model);
+          view.refresh();
 
           output.append("Add Shape");
           break;
@@ -178,7 +183,8 @@ public class PlaybackController implements ActionListener {
           System.out.println("Remove Shape");
           RemoveShapePane removeShapePrompt = new RemoveShapePane();
           String shapeToRemove = removeShapePrompt.getInput();
-          model.removeShape(shapeToRemove);
+          this.model.remove(shapeToRemove);
+          this.view.setModel(this.model);
           view.refresh();
           output.append("Remove Shape");
           break;
