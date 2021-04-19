@@ -107,6 +107,31 @@ public class CanvasImpl implements Canvas {
     this.shapes.put(iD, s);
   }
 
+  /**
+   * Needed for Add Shape in the processCommand() method in the Controller
+   * @param s
+   * @param iD
+   */
+  public void add(Shape s, String iD) {
+    if (s == null || iD == null) {
+      throw new IllegalArgumentException("Shape and Shape IDs cannot be null.");
+    }
+    if (iD.isEmpty()) {
+      throw new IllegalArgumentException("Shape ID cannot be an empty string.");
+    }
+    for (String sample : this.shapes.keySet()) {
+      if (sample.equals(iD)) {
+        throw new IllegalArgumentException("Must use a unique Shape ID.");
+      }
+    }
+    this.shapes.put(iD, s);
+    this.orderedShapeNames.add(iD);
+  }
+
+  /**
+   * Needed for removeShape in the processCommand() method in the Controller
+   * @param iD
+   */
   public void remove(String iD) {
     if (iD.isEmpty()) {
       throw new IllegalArgumentException("ID cannot be empty or null.");

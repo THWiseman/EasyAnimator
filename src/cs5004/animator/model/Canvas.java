@@ -99,4 +99,5 @@ public interface Canvas {
   List<String> getOrderedShapeNames();
 
   void remove(String iD);
+  void add(Shape s, String iD);
 }
