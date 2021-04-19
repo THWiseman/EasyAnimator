@@ -107,6 +107,14 @@ public class CanvasImpl implements Canvas {
     this.shapes.put(iD, s);
   }
 
+  public void remove(String iD) {
+    if (iD.isEmpty()) {
+      throw new IllegalArgumentException("ID cannot be empty or null.");
+    }
+    this.shapes.remove(iD);
+  }
+
+
   @Override
   public boolean removeShape(String iD) {
     if (iD.isEmpty() || iD == null) {

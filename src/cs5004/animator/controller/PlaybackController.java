@@ -139,7 +139,7 @@ public class PlaybackController implements ActionListener {
           if (shapePane.getInput()[1].equals("Oval")) {
             model.addShape(new Oval(), shapePane.getInput()[0]);
           }
-          /**
+
            ColorPattern tempColor = model.getShape(shapePane.getInput()[0]).getColorPattern();
            tempColor.change(
            0,2,new Integer[] {255, 255, 255}, new Integer[] {255, 255, 255});
@@ -153,7 +153,7 @@ public class PlaybackController implements ActionListener {
            0,2,new Integer[] {20, 20}, new Integer[] {20, 20});
            model.getShape(shapePane.getInput()[0]).setSizeChangePattern(tempSize);
            view.refresh();
-           **/
+
 
           output.append("Add Shape");
           break;
@@ -177,7 +177,9 @@ public class PlaybackController implements ActionListener {
           System.out.println("Remove Shape");
           RemoveShapePane removeShapePrompt = new RemoveShapePane();
           String shapeToRemove = removeShapePrompt.getInput();
-          model.removeShape(shapeToRemove);
+          this.model.removeShape(shapeToRemove);
+         // this.view.setModel(this.model);
+          //this.view = new PlaybackView(this.model, this);
           view.refresh();
           output.append("Remove Shape");
           break;

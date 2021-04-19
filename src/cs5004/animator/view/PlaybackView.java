@@ -77,6 +77,7 @@ public class PlaybackView extends JFrame {
   public void refresh() {
     if(time < this.endTime) {
       System.out.print("Refresh");
+      p = new DrawPanel(model);
       p.setTime(time); //this is setting the time of the drawPanel based on what the time of the view is.
       p.repaint();
     }
