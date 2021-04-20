@@ -34,7 +34,7 @@ public abstract class AbstractShape implements Shape {
 
       str += "\n" + changeLog.get(i).getChangeNotes();
     }
-    return str.substring(1);
+    return str.trim();
   }
 
   @Override

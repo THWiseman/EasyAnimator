@@ -92,7 +92,13 @@ public final class EasyAnimator {
     //Visual View
     if (typeOfView.equals("visual")) {
 
-      //SwingView view = new SwingView(canvas1);
+      SwingView view = new SwingView(canvas1);
+      //PlaybackController controller = new PlaybackController(canvas1);
+    }
+
+    //Playback View
+    if (typeOfView.equals("playback")) {
+
       PlaybackController controller = new PlaybackController(canvas1);
     }
 
@@ -121,9 +127,10 @@ public final class EasyAnimator {
       }
 
     }
-    if (!typeOfView.equals("text") && !typeOfView.equals("svg") && !typeOfView.equals("visual")) {
+    if (!typeOfView.equals("text") && !typeOfView.equals("svg") && !typeOfView.equals("visual")
+        && !typeOfView.equals("playback")) {
       JOptionPane.showMessageDialog(JOptionPane.getRootFrame(),
-          "-view argument must be 'visual', 'text' or " +
+          "-view argument must be 'visual', 'playback', 'text' or " +
               "'svg'.");
     }
 
