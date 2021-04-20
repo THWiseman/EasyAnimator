@@ -51,7 +51,8 @@ public class PlaybackController implements ActionListener, SwingController {
         }
     };
     //here's the timer itself.
-    int delay = 50;
+    int delay;
+    int tps;
     Timer timer;
 
 
@@ -66,6 +67,7 @@ public class PlaybackController implements ActionListener, SwingController {
         this.currentTime = 1;
         this.endTime = model.getEndTime();
         this.loopButton = view.getLoopButton();
+        this.tps = tps;
         this.delay = 1000 / tps;
         this.timer = new Timer(delay, autoRefresh);
     }
