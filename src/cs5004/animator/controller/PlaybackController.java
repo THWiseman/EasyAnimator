@@ -232,12 +232,12 @@ public class PlaybackController implements ActionListener {
                     String savePath = savePrompt.getInput()[0];
                     if (savePrompt.getInput()[1].equals("SVG")) {
                         SVGView saveFileSVG = new SVGView(model);
-                        saveFileSVG.run(savePath);
+                        saveFileSVG.run(10, savePath + ".svg");
                         JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "File saved!");
                     }
                     if (savePrompt.getInput()[1].equals("Text")) {
                         TextView saveFileText = new TextView(model);
-                        saveFileText.run(savePath);
+                        saveFileText.run(savePath + ".txt");
                         JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "File saved!");
                     }
                     output.append("Save File");
