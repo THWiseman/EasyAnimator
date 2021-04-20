@@ -98,7 +98,7 @@ public final class EasyAnimator {
         //Playback View
         if (typeOfView.equals("playback")) {
 
-            PlaybackController controller = new PlaybackController(canvas1);
+            PlaybackController controller = new PlaybackController(canvas1, tps);
         }
 
         //SVG view

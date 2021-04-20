@@ -10,7 +10,7 @@ public class controllerHelperTesting {
   public controllerHelperTesting(Canvas model) {
     //load in our model.
     this.model = model;
-    this.controller = new PlaybackController(model);
+    this.controller = new PlaybackController(model, 10);
   }
 
 

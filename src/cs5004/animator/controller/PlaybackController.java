@@ -26,7 +26,7 @@ import java.util.Scanner;
  * The PlaybackController creates its own JFrame view and handles events that happen within that
  * view. It has many different buttons that allow the user to manipulate the animation in some way.
  */
-public class PlaybackController implements ActionListener {
+public class PlaybackController implements ActionListener, SwingController {
 
     private Canvas model;
     private PlaybackView view;
@@ -52,7 +52,7 @@ public class PlaybackController implements ActionListener {
     };
     //here's the timer itself.
     int delay = 50;
-    Timer timer = new Timer(delay, autoRefresh);
+    Timer timer;
 
 
     /**
@@ -60,12 +60,14 @@ public class PlaybackController implements ActionListener {
      *
      * @param canvas Model to display.
      */
-    public PlaybackController(Canvas canvas) {
+    public PlaybackController(Canvas canvas, int tps) {
         this.model = canvas;
         this.view = new PlaybackView(this.model, this);
         this.currentTime = 1;
         this.endTime = model.getEndTime();
         this.loopButton = view.getLoopButton();
+        this.delay = 1000 / tps;
+        this.timer = new Timer(delay, autoRefresh);
     }
 
     /**
@@ -75,6 +77,7 @@ public class PlaybackController implements ActionListener {
      * @param command String of the command to be performed
      * @return String of all the commands that this controller performed during its life.
      */
+    @Override
     public String processCommand(String command) {
         StringBuilder output = new StringBuilder();
         Scanner input = new Scanner(command);
