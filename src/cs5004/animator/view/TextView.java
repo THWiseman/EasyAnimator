@@ -62,36 +62,39 @@ public class TextView implements View {
     for (Map.Entry<String, Shape> e : shapes.entrySet()) {
       String createString = "Create "; //"Create "
       Shape shape = e.getValue();
-
-      if (e.getValue() instanceof Rectangle) {
-        //rectangle
-        createString += "rectangle ";
-        //"R with corner at (200,200), "
-        createString += String.format("%s with corner at (%d,%d), ", e.getKey(),
-            shape.getPosition(shape.getAppearTime())[0],
-            shape.getPosition(shape.getAppearTime())[1]);
-        //width 50, height 100, and color.\n"
-        createString += String.format("width %d, height %d, and color {%d, %d, %d}.\n",
-            shape.getSize(shape.getAppearTime())[0],
-            shape.getSize(shape.getAppearTime())[1], shape.getColor(shape.getAppearTime())[0],
-            shape.getColor(shape.getAppearTime())[1],
-            shape.getColor(shape.getAppearTime())[2]);
+      try {
+        if (e.getValue() instanceof Rectangle) {
+          //rectangle
+          createString += "rectangle ";
+          //"R with corner at (200,200), "
+          createString += String.format("%s with corner at (%d,%d), ", e.getKey(),
+              shape.getPosition(shape.getAppearTime())[0],
+              shape.getPosition(shape.getAppearTime())[1]);
+          //width 50, height 100, and color.\n"
+          createString += String.format("width %d, height %d, and color {%d, %d, %d}.\n",
+              shape.getSize(shape.getAppearTime())[0],
+              shape.getSize(shape.getAppearTime())[1], shape.getColor(shape.getAppearTime())[0],
+              shape.getColor(shape.getAppearTime())[1],
+              shape.getColor(shape.getAppearTime())[2]);
+        }
+        if (e.getValue() instanceof Oval) {
+          //oval
+          createString += "oval ";
+          //"C with center at (500,100), "
+          createString += String.format("%s with center at (%d,%d), ", e.getKey(),
+              shape.getPosition(shape.getAppearTime())[0],
+              shape.getPosition(shape.getAppearTime())[1]);
+          //radius 60 and height 30\n"
+          createString += String.format("radius %d and %d, and color {%d,%d,%d}.\n",
+              shape.getSize(shape.getAppearTime())[0],
+              shape.getSize(shape.getAppearTime())[1], shape.getColor(shape.getAppearTime())[0],
+              shape.getColor(shape.getAppearTime())[1],
+              shape.getColor(shape.getAppearTime())[2]);
+        }
+        allCreates += createString;
+      } catch (NullPointerException e2) {
+        System.out.println("Shape " + e.getKey() + " has no animations");
       }
-      if (e.getValue() instanceof Oval) {
-        //oval
-        createString += "oval ";
-        //"C with center at (500,100), "
-        createString += String.format("%s with center at (%d,%d), ", e.getKey(),
-            shape.getPosition(shape.getAppearTime())[0],
-            shape.getPosition(shape.getAppearTime())[1]);
-        //radius 60 and height 30\n"
-        createString += String.format("radius %d and %d, and color {%d,%d,%d}.\n",
-            shape.getSize(shape.getAppearTime())[0],
-            shape.getSize(shape.getAppearTime())[1], shape.getColor(shape.getAppearTime())[0],
-            shape.getColor(shape.getAppearTime())[1],
-            shape.getColor(shape.getAppearTime())[2]);
-      }
-      allCreates += createString;
     }
     allCreates += "\n"; //add extra newline to separate from next section.
 
