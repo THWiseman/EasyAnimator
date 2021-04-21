@@ -28,7 +28,7 @@ public class SVGView implements View {
    * Creates a new SVGView object from a given Canvas, which can output to a given location.
    *
    * @param appendable The output of the animation.
-   * @param canvas The Canvas from which the animation will be built.
+   * @param canvas     The Canvas from which the animation will be built.
    */
   public SVGView(Appendable appendable, Canvas canvas) {
     this.appendable = appendable;
@@ -124,38 +124,42 @@ public class SVGView implements View {
 
     for (String id : canvas.getOrderedShapeNames()) {
       Shape shape = shapes.get(id);
-      if (shape instanceof Rectangle) {
-        str.append("   <rect id=\"").append(id).append("\" x=\"")
-            .append(shape.getPosition(shape.getAppearTime())[0])
-            .append("\" y=\"")
-            .append(shape.getPosition(shape.getAppearTime())[1])
-            .append("\" width=\"")
-            .append(shape.getSize(shape.getAppearTime())[0])
-            .append("\" height=\"")
-            .append(shape.getSize(shape.getAppearTime())[1])
-            .append("\" fill=\"rgb(")
-            .append(shape.getColor(shape.getAppearTime())[0]).append(",")
-            .append(shape.getColor(shape.getAppearTime())[1]).append(",")
-            .append(shape.getColor(shape.getAppearTime())[2])
-            .append(")\" visibility=\"visible\" >\n");
-        endTag = "   </rect>\n";
-      } else if (shape instanceof Oval) {
-        str.append("   <ellipse id=\"").append(id).append("\" cx=\"")
-            .append(shape.getPosition(shape.getAppearTime())[0])
-            .append("\" cy=\"")
-            .append(shape.getPosition(shape.getAppearTime())[1])
-            .append("\" rx=\"")
-            .append(shape.getSize(shape.getAppearTime())[0])
-            .append("\" ry=\"")
-            .append(shape.getSize(shape.getAppearTime())[1])
-            .append("\" fill=\"rgb(")
-            .append(shape.getColor(shape.getAppearTime())[0]).append(",")
-            .append(shape.getColor(shape.getAppearTime())[1]).append(",")
-            .append(shape.getColor(shape.getAppearTime())[2])
-            .append(")\" visibility=\"visible\" >\n");
-        endTag = "   </ellipse>\n";
-      } else {
-        str.append("not working");
+      try {
+        if (shape instanceof Rectangle) {
+          str.append("   <rect id=\"").append(id).append("\" x=\"")
+              .append(shape.getPosition(shape.getAppearTime())[0])
+              .append("\" y=\"")
+              .append(shape.getPosition(shape.getAppearTime())[1])
+              .append("\" width=\"")
+              .append(shape.getSize(shape.getAppearTime())[0])
+              .append("\" height=\"")
+              .append(shape.getSize(shape.getAppearTime())[1])
+              .append("\" fill=\"rgb(")
+              .append(shape.getColor(shape.getAppearTime())[0]).append(",")
+              .append(shape.getColor(shape.getAppearTime())[1]).append(",")
+              .append(shape.getColor(shape.getAppearTime())[2])
+              .append(")\" visibility=\"visible\" >\n");
+          endTag = "   </rect>\n";
+        } else if (shape instanceof Oval) {
+          str.append("   <ellipse id=\"").append(id).append("\" cx=\"")
+              .append(shape.getPosition(shape.getAppearTime())[0])
+              .append("\" cy=\"")
+              .append(shape.getPosition(shape.getAppearTime())[1])
+              .append("\" rx=\"")
+              .append(shape.getSize(shape.getAppearTime())[0])
+              .append("\" ry=\"")
+              .append(shape.getSize(shape.getAppearTime())[1])
+              .append("\" fill=\"rgb(")
+              .append(shape.getColor(shape.getAppearTime())[0]).append(",")
+              .append(shape.getColor(shape.getAppearTime())[1]).append(",")
+              .append(shape.getColor(shape.getAppearTime())[2])
+              .append(")\" visibility=\"visible\" >\n");
+          endTag = "   </ellipse>\n";
+        } else {
+          str.append("not working");
+        }
+      } catch (NullPointerException e) {
+        System.out.println("Shape " + id + " has no animations");
       }
       str.append(buildAnimation(shape));
       str.append(endTag);

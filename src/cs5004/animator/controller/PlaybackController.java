@@ -34,6 +34,7 @@ public class PlaybackController implements ActionListener, SwingController {
     private int endTime;
     private Boolean looping = false;
     private JButton loopButton;
+    private int tps;
 
 
     //this is the event that the timer will call repeatedly.
@@ -70,6 +71,7 @@ public class PlaybackController implements ActionListener, SwingController {
         this.tps = tps;
         this.delay = 1000 / tps;
         this.timer = new Timer(delay, autoRefresh);
+        this.tps = tps;
     }
 
     /**
@@ -152,24 +154,6 @@ public class PlaybackController implements ActionListener, SwingController {
                         model.add(new Oval(), shapePane.getInput()[0]);
                     }
 
-                    //Creates a shape with default values
-                    /*
-                    ColorPattern tempColor = model.getShape(shapePane.getInput()[0]).getColorPattern();
-                    tempColor.change(
-                            model.getStartTime(), model.getEndTime(), new Integer[]{0, 0, 0}, new Integer[]{0, 0, 0});
-                    model.getShape(shapePane.getInput()[0]).setColorPattern(tempColor);
-
-                    MovementPattern tempMove = model.getShape(shapePane.getInput()[0]).getMovementPattern();
-                    tempMove.change(
-                            model.getStartTime(), model.getEndTime(), new Integer[]{200, 200}, new Integer[]{200, 200});
-                    model.getShape(shapePane.getInput()[0]).setMovementPattern(tempMove);
-
-                    SizeChangePattern tempSize = model.getShape(shapePane.getInput()[0]).getSizeChangePattern();
-                    tempSize.change(
-                            model.getStartTime(), model.getEndTime(), new Integer[]{20, 20}, new Integer[]{20, 20});
-                    model.getShape(shapePane.getInput()[0]).setSizeChangePattern(tempSize);
-                    */
-
                     this.view.setModel(this.model);
                     view.refresh();
                     JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Shape added!");
@@ -237,7 +221,7 @@ public class PlaybackController implements ActionListener, SwingController {
                     String savePath = savePrompt.getInput()[0];
                     if (savePrompt.getInput()[1].equals("SVG")) {
                         SVGView saveFileSVG = new SVGView(model);
-                        saveFileSVG.run(10, savePath + ".svg");
+                        saveFileSVG.run(tps, savePath + ".svg");
                         JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "File saved!");
                     }
                     if (savePrompt.getInput()[1].equals("Text")) {
