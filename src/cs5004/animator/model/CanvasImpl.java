@@ -20,7 +20,7 @@ public class CanvasImpl implements Canvas {
   private int topmostY;
   private int width;
   private int height;
-  private List<String> orderedShapeNames;
+  private List<String> orderedShapeNames = new ArrayList<>();
 
   /**
    * Constructor for the Canvas implementation.

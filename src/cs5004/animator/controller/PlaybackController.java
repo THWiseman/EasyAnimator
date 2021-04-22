@@ -53,7 +53,7 @@ public class PlaybackController implements ActionListener, SwingController {
     };
     //here's the timer itself.
     int delay;
-    int tps;
+   // int tps;
     Timer timer;
 
 
@@ -102,7 +102,7 @@ public class PlaybackController implements ActionListener, SwingController {
                 case "Slower":
                     System.out.println("Animation made slower");
                     timer.setDelay(timer.getDelay() + 10);
-                    output.append("Animation resumed");
+                    output.append("Animation made slower");
                     break;
                 case "Faster":
                     if (timer.getDelay() <= 11) {
@@ -111,13 +111,14 @@ public class PlaybackController implements ActionListener, SwingController {
                     }
                     System.out.println("Animation made faster");
                     timer.setDelay(timer.getDelay() - 10);
-                    output.append("Animation restarted");
+                    output.append("Animation made faster");
                     break;
                 case "Loop":
                     if (looping) {
                         looping = false;
                         loopButton.setText("Looping: OFF");
                         System.out.println("Animation looping toggled off.");
+                        output.append("Animation looping toggled off");
                         break;
                     }
                     if (!looping) {
@@ -256,9 +257,10 @@ public class PlaybackController implements ActionListener, SwingController {
                         JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Error loading file.");
                         System.exit(-1);
                     }
+                    output.append("Load File");
+                    break;
             }
-            output.append("Load File");
-            break;
+
         }
         return output.toString();
     }
