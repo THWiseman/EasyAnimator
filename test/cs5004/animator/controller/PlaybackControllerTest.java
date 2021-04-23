@@ -64,6 +64,11 @@ public class PlaybackControllerTest {
 
 
   @Test
+  public void testInvalidCommand() {
+    assertEquals("Not a valid command", controller.processCommand("MakeThingsHappen!"));
+  }
+
+  @Test
   public void testProcessCommandStart() {
     assertEquals("Animation started", controller.processCommand("Play"));
   }
@@ -78,7 +83,7 @@ public class PlaybackControllerTest {
   @Test
   public void testProcessCommandEnableLoop() {
     assertEquals("Animation looping toggled on", controller.processCommand("Loop"));
-   // assertEquals("Animation looping toggled off", controller.processCommand("Loop"));
+    assertEquals("Animation looping toggled off", controller.processCommand("Loop"));
   }
 
   @Test

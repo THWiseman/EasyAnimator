@@ -259,8 +259,10 @@ public class PlaybackController implements ActionListener, SwingController {
                     }
                     output.append("Load File");
                     break;
+                default:
+                    output.append("Not a valid command");
+                    break;
             }
-
         }
         return output.toString();
     }
