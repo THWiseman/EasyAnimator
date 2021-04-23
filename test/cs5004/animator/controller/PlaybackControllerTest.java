@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import cs5004.animator.model.Canvas;
 import cs5004.animator.model.CanvasImpl;
+import java.awt.event.ActionEvent;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -53,5 +54,13 @@ public class PlaybackControllerTest {
     int previousSpeed = controller.timer.getDelay();
     controller.processCommand("Slower");
     assertEquals(previousSpeed + 10, controller.timer.getDelay());
+  }
+
+  @Test
+  public void testActionPerformed() {
+    ActionEvent testEvent = new ActionEvent(controller, 1, "Play");
+    ActionEvent testEvent2 = new ActionEvent(controller, 2, "MakeThingsHappen!");
+    controller.actionPerformed(testEvent);
+    assertTrue(controller.timer.isRunning());
   }
 }
