@@ -91,7 +91,6 @@ public class PlaybackController implements ActionListener, SwingController {
         }
         timer.setDelay(timer.getDelay() - 10);
         return;
-
     }
 
     @Override
@@ -108,7 +107,6 @@ public class PlaybackController implements ActionListener, SwingController {
         }
         if (!looping) {
             looping = true;
-            System.out.println("Animation looping toggled on.");
             loopButton.setText("Looping: ON");
             return;
         }
@@ -250,7 +248,6 @@ public class PlaybackController implements ActionListener, SwingController {
     }
 
 
-
     /**
      * Will perform the appropriate command when a String of that command is passed in. This is
      * tightly coupled with the action listener of this controller.
@@ -309,6 +306,9 @@ public class PlaybackController implements ActionListener, SwingController {
                 case "LoadFile":
                     loadFile();
                     output.append("Load File");
+                    break;
+                default:
+                    output.append("Not a valid command");
                     break;
             }
         }

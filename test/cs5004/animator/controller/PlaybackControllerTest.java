@@ -2,6 +2,8 @@ package cs5004.animator.controller;
 
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import cs5004.animator.model.Canvas;
 import cs5004.animator.model.CanvasImpl;
@@ -10,8 +12,8 @@ import org.junit.Test;
 
 public class PlaybackControllerTest {
 
-  Canvas canvas1 = new CanvasImpl();
-  //PlaybackController controller = new PlaybackController(canvas1);
+  Canvas canvas1 = new MockModel();
+  PlaybackController controller = new PlaybackController(canvas1,10);
 
   @Before
   public void setUp() {
@@ -19,41 +21,37 @@ public class PlaybackControllerTest {
   }
 
   @Test
-  public void test1() {
-    return;
-  }
-/*
-  @Test
-  public void testProcessCommandStart() {
-    assertEquals("Animation started", controller.processCommand("start"));
+  public void testProcessInvalidCommand() {
+    assertEquals("Not a valid command", controller.processCommand("MakeThingsHappen!"));
   }
   @Test
-  public void testProcessCommandPause() {
-    assertEquals("Animation paused", controller.processCommand("pause"));
+  public void testProcessPlay() {
+    controller.processCommand("Play");
+    assertTrue(controller.timer.isRunning());
   }
   @Test
-  public void testProcessCommandResume() {
-    assertEquals("Animation resumed", controller.processCommand("resume"));
+  public void testProcessPause() {
+    controller.processCommand("Pause");
+    assertFalse(controller.timer.isRunning());
   }
   @Test
   public void testProcessCommandRestart() {
-    assertEquals("Animation restarted", controller.processCommand("restart"));
+    assertEquals("Animation restarted", controller.processCommand("Restart"));
   }
   @Test
-  public void testProcessCommandEnableLoop() {
-    assertEquals("Animation looping enabled", controller.processCommand("enableLoop"));
+  public void testProcessCommandLoop() {
+    assertEquals("Looping toggled", controller.processCommand("Loop"));
   }
   @Test
-  public void testProcessCommandDisableLoop() {
-    assertEquals("Animation looping disabled", controller.processCommand("disableLoop"));
+  public void testProcessCommandFaster() {
+    int previousSpeed = controller.timer.getDelay();
+    controller.processCommand("Faster");
+    assertEquals(previousSpeed - 10, controller.timer.getDelay());
   }
   @Test
-  public void testProcessCommandIncrease() {
-    assertEquals("Animation speed increased by 1", controller.processCommand("increase"));
+  public void testProcessCommandSlower() {
+    int previousSpeed = controller.timer.getDelay();
+    controller.processCommand("Slower");
+    assertEquals(previousSpeed + 10, controller.timer.getDelay());
   }
-  @Test
-  public void testProcessCommandDecrease() {
-    assertEquals("Animation speed decreased by 1", controller.processCommand("decrease"));
-  }
-*/
 }
