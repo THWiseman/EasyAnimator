@@ -18,8 +18,8 @@ public class PlaybackView extends JFrame {
   DrawPanel p;
   private JPanel buttonPanelBottom;
   private JPanel buttonPanelRight;
-  private JButton playButton,pauseButton, restartButton, slowButton, fastButton,
-          loopButton, addShape,addMotion,removeShape,loadFile,saveFile;
+  private JButton playButton, pauseButton, restartButton, slowButton, fastButton,
+      loopButton, addShape, addMotion, removeShape, loadFile, saveFile;
   private PlaybackController controller;
 
   public PlaybackView(Canvas model, PlaybackController controller) {
@@ -51,11 +51,10 @@ public class PlaybackView extends JFrame {
     pane.setVisible(true);
     this.add(pane, BorderLayout.CENTER);
 
-
     //make the JFrame visible
     this.pack();
     this.setSize(model.getDimensions()[1] + buttonPanelRight.getWidth() + 10,
-            model.getDimensions()[3] + buttonPanelBottom.getHeight() + 35);
+        model.getDimensions()[3] + buttonPanelBottom.getHeight() + 35);
     this.setVisible(true);
 
   }
@@ -76,9 +75,10 @@ public class PlaybackView extends JFrame {
 
   //causes the draw panel to redraw itself based on the current time. Maybe we want to call this from the controller.
   public void refresh() {
-    if(time < this.endTime) {
+    if (time < this.endTime) {
       System.out.print("Refresh");
-      p.setTime(time); //this is setting the time of the drawPanel based on what the time of the view is.
+      p.setTime(
+          time); //this is setting the time of the drawPanel based on what the time of the view is.
       p.repaint();
     }
   }
@@ -128,7 +128,7 @@ public class PlaybackView extends JFrame {
   private void setUpButtonPanelRight() {
     //create the right button panel for the extra credit buttons
     buttonPanelRight = new JPanel();
-    buttonPanelRight.setLayout(new GridLayout(5,1));
+    buttonPanelRight.setLayout(new GridLayout(5, 1));
     this.add(buttonPanelRight, BorderLayout.EAST);
 
     addShape = new JButton("Add Shape");
@@ -165,8 +165,9 @@ public class PlaybackView extends JFrame {
 
   //this sets the time of the view. it does NOT set the time of the drawPanel.
   public void setTime(int time) {
-    if(time < 1 || time > this.endTime) {
-      throw new IllegalArgumentException("Time must be greater than one and less than the endTime of the model.");
+    if (time < 1 || time > this.endTime) {
+      throw new IllegalArgumentException(
+          "Time must be greater than one and less than the endTime of the model.");
     }
     this.time = time;
   }

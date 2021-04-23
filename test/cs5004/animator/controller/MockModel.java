@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MockModel implements Canvas {
+
   StringBuilder log;
   private List<String> orderedShapeNames;
 
@@ -56,7 +57,7 @@ public class MockModel implements Canvas {
 
   @Override
   public int[] getDimensions() {
-    return new int[] {40, 500, 40, 500} ;
+    return new int[]{40, 500, 40, 500};
   }
 
   @Override
