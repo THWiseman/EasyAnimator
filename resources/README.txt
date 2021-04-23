@@ -84,7 +84,7 @@ method whenever that button is pressed.
 
 The controller is what contains the timer that controls the animation (rather than the view, like last time). The
 controller is capable of affecting both the model and the view. It generally works by constructing a view, and then
-updating that view on every tick of the timer. While every controller method is unique, they all tend to work by
+telling the view to update on every tick of the timer. While every controller method is unique, they all tend to work by
 either affecting the timer in some way or changing the model and reconstructing parts of the vew with that updated model.
 In this implementation, the controller is capable of launching custom built JPanes to gather and verify user input for
-the extra-credit functionality. 
+the extra-credit functionality.
