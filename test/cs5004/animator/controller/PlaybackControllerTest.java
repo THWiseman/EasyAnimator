@@ -10,6 +10,9 @@ import java.awt.event.ActionEvent;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * A JUnit test class for the PlaybackController.
+ */
 public class PlaybackControllerTest {
 
   Canvas canvas1 = new MockModel();

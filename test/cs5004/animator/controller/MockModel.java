@@ -6,9 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * A mock class to allow the PlaybackController tests to run effectively.
+ */
 public class MockModel implements Canvas {
-
-  StringBuilder log;
   private List<String> orderedShapeNames;
 
   public MockModel() {
@@ -37,7 +38,7 @@ public class MockModel implements Canvas {
 
   @Override
   public void addShape(Shape s, String iD) {
-
+    //No action needed.
   }
 
   @Override
@@ -52,7 +53,7 @@ public class MockModel implements Canvas {
 
   @Override
   public void setDimensions(int leftmostX, int width, int topmostY, int height) {
-
+    //No action needed.
   }
 
   @Override
@@ -72,15 +73,12 @@ public class MockModel implements Canvas {
 
   @Override
   public void remove(String iD) {
-
+    //No action needed.
   }
 
   @Override
   public void add(Shape s, String iD) {
-    log.append("Shape added successfully");
+    //No action needed.
   }
 
-  public String getLog() {
-    return log.toString();
-  }
 }

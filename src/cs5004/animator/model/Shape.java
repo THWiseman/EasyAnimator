@@ -43,7 +43,7 @@ public interface Shape {
    * Returns the earliest frame (time) that the shape has ever had a change applied to it.
    *
    * @return Integer of the earliest frame the shape has ever changed. Returns 0 if the shape has
-   * never changed.
+   *          never changed.
    */
   int getAppearTime();
 
@@ -51,7 +51,7 @@ public interface Shape {
    * Returns the latest frame (time) that the shape has ever had a change applied to it.
    *
    * @return Integer of the latest frame that the shape has ever changed. Returns 0 if the shape has
-   * never changed.
+   *          never changed.
    */
   int getDisappearTime();
 

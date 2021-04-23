@@ -1,7 +1,8 @@
 package cs5004.animator.controller;
 
 import cs5004.animator.model.Canvas;
-import cs5004.animator.model.*;
+import cs5004.animator.model.CanvasImpl;
+import cs5004.animator.model.Oval;
 import cs5004.animator.model.Rectangle;
 import cs5004.animator.model.Shape;
 import cs5004.animator.model.CanvasImpl.Builder;
@@ -10,8 +11,7 @@ import cs5004.animator.view.PlaybackView;
 import cs5004.animator.view.SVGView;
 import cs5004.animator.view.TextView;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -21,6 +21,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.Timer;
 
 /**
  * The PlaybackController creates its own JFrame view and handles events that happen within that

@@ -1,5 +1,8 @@
 package cs5004.animator.controller;
 
+/**
+ * A SwingController starts, and manages changes to an animation in real time.
+ */
 public interface SwingController {
 
   /**

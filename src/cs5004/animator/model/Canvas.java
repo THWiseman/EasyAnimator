@@ -98,6 +98,16 @@ public interface Canvas {
    */
   List<String> getOrderedShapeNames();
 
+  /**
+   * Needed for removeShape in the processCommand() method in the Controller.
+   * @param iD the ID String of the Shape to be removed.
+   */
   void remove(String iD);
+
+  /**
+   * Needed for Add Shape in the processCommand() method in the Controller.
+   * @param s The Shape to be added.
+   * @param iD The ID to be mapped to the added Shape.
+   */
   void add(Shape s, String iD);
 }

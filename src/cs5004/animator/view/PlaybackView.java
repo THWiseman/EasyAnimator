@@ -18,10 +18,14 @@ public class PlaybackView extends JFrame {
   DrawPanel p;
   private JPanel buttonPanelBottom;
   private JPanel buttonPanelRight;
-  private JButton playButton, pauseButton, restartButton, slowButton, fastButton,
-      loopButton, addShape, addMotion, removeShape, loadFile, saveFile;
+  private JButton loopButton;
   private PlaybackController controller;
 
+  /**
+   * This class creates a JFrame window that will automatically display an animation in a JPanel
+   * that can be manipulated in real time. It must be constructed with a valid Canvas object and a
+   * valid PlaybackController object.
+   */
   public PlaybackView(Canvas model, PlaybackController controller) {
 
     //load in our model and controller
@@ -42,8 +46,9 @@ public class PlaybackView extends JFrame {
     this.time = 1;
     this.ticksPerSecond = 1;
 
-    //load in the draw panel where the animation will take place. While we're add it, add that draw panel to a
-    //scrollable pane. Once we're done setting up the DrawPanel and pane, add the completed pane to this JFrame.
+    //load in the draw panel where the animation will take place. While we're add it,
+    // add that draw panel to a scrollable pane. Once we're done setting up the DrawPanel and pane,
+    // add the completed pane to this JFrame.
     this.p = new DrawPanel(model);
     p.setPreferredSize(new Dimension(model.getDimensions()[1], model.getDimensions()[3]));
     JScrollPane pane = new JScrollPane(p);
@@ -59,6 +64,11 @@ public class PlaybackView extends JFrame {
 
   }
 
+  /**
+   * This method changes or sets the Canvas object from which the animation is built.
+   *
+   * @param model the Canvas object the animation is built from.
+   */
   public void setModel(Canvas model) {
     this.model = model;
     this.endTime = model.getEndTime();
@@ -73,7 +83,9 @@ public class PlaybackView extends JFrame {
     this.repaint();
   }
 
-  //causes the draw panel to redraw itself based on the current time. Maybe we want to call this from the controller.
+  /**
+   * Causes the draw panel to redraw itself based on the current time.
+   */
   public void refresh() {
     if (time < this.endTime) {
       System.out.print("Refresh");
@@ -91,23 +103,23 @@ public class PlaybackView extends JFrame {
     this.add(buttonPanelBottom, BorderLayout.SOUTH);
 
     //lets add some buttons to the button panel.
-    playButton = new JButton("Play");
+    JButton playButton = new JButton("Play");
     playButton.setActionCommand("Play");
     buttonPanelBottom.add(playButton);
 
-    pauseButton = new JButton("Pause");
+    JButton pauseButton = new JButton("Pause");
     pauseButton.setActionCommand("Pause");
     buttonPanelBottom.add(pauseButton);
 
-    restartButton = new JButton("Restart");
+    JButton restartButton = new JButton("Restart");
     restartButton.setActionCommand("Restart");
     buttonPanelBottom.add(restartButton);
 
-    slowButton = new JButton("Slower");
+    JButton slowButton = new JButton("Slower");
     slowButton.setActionCommand("Slower");
     buttonPanelBottom.add(slowButton);
 
-    fastButton = new JButton("Faster");
+    JButton fastButton = new JButton("Faster");
     fastButton.setActionCommand("Faster");
     buttonPanelBottom.add(fastButton);
 
@@ -131,23 +143,23 @@ public class PlaybackView extends JFrame {
     buttonPanelRight.setLayout(new GridLayout(5, 1));
     this.add(buttonPanelRight, BorderLayout.EAST);
 
-    addShape = new JButton("Add Shape");
+    JButton addShape = new JButton("Add Shape");
     addShape.setActionCommand("AddShape");
     buttonPanelRight.add(addShape);
 
-    addMotion = new JButton("Add Motion");
+    JButton addMotion = new JButton("Add Motion");
     addMotion.setActionCommand("AddMotion");
     buttonPanelRight.add(addMotion);
 
-    removeShape = new JButton("Remove Shape");
+    JButton removeShape = new JButton("Remove Shape");
     removeShape.setActionCommand("RemoveShape");
     buttonPanelRight.add(removeShape);
 
-    loadFile = new JButton("Load File");
+    JButton loadFile = new JButton("Load File");
     loadFile.setActionCommand("LoadFile");
     buttonPanelRight.add(loadFile);
 
-    saveFile = new JButton("Save File");
+    JButton saveFile = new JButton("Save File");
     saveFile.setActionCommand("SaveFile");
     buttonPanelRight.add(saveFile);
 
@@ -163,7 +175,9 @@ public class PlaybackView extends JFrame {
     return this.loopButton;
   }
 
-  //this sets the time of the view. it does NOT set the time of the drawPanel.
+  /**
+   * Sets the time of the view. It does NOT set the time of the DrawPanel.
+   */
   public void setTime(int time) {
     if (time < 1 || time > this.endTime) {
       throw new IllegalArgumentException(

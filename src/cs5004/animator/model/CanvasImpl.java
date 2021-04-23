@@ -107,11 +107,7 @@ public class CanvasImpl implements Canvas {
     this.shapes.put(iD, s);
   }
 
-  /**
-   * Needed for Add Shape in the processCommand() method in the Controller
-   * @param s
-   * @param iD
-   */
+  @Override
   public void add(Shape s, String iD) {
     if (s == null || iD == null) {
       throw new IllegalArgumentException("Shape and Shape IDs cannot be null.");
@@ -128,10 +124,7 @@ public class CanvasImpl implements Canvas {
     this.orderedShapeNames.add(iD);
   }
 
-  /**
-   * Needed for removeShape in the processCommand() method in the Controller
-   * @param iD
-   */
+ @Override
   public void remove(String iD) {
     if (iD.isEmpty()) {
       throw new IllegalArgumentException("ID cannot be empty or null.");

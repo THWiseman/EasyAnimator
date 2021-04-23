@@ -27,112 +27,112 @@ import java.io.IOException;
  */
 public final class EasyAnimator {
 
-    /**
-     * Entry point into the program. See above for more information about valid command line
-     * arguments.
-     *
-     * @param args the parameters to be entered into the command line.
-     */
-    public static void main(String[] args) {
-        String inputFileName = "";
-        String outputFileName = "";
-        String typeOfView = "";
-        String ticksPerSecond = "";
+  /**
+   * Entry point into the program. See above for more information about valid command line
+   * arguments.
+   *
+   * @param args the parameters to be entered into the command line.
+   */
+  public static void main(String[] args) {
+    String inputFileName = "";
+    String outputFileName = "";
+    String typeOfView = "";
+    String ticksPerSecond = "";
 
-        //Parse the command line arguments
-        for (int i = 0; i < args.length - 1; i++) {
-            if (args[i].equals("-in")) {
-                inputFileName = args[i + 1];
-            }
-            if (args[i].equals("-out")) {
-                outputFileName = args[i + 1];
-            }
-            if (args[i].equals("-view")) {
-                typeOfView = args[i + 1];
-            }
-            if (args[i].equals("-speed")) {
-                ticksPerSecond = args[i + 1];
-            }
-        }
+    //Parse the command line arguments
+    for (int i = 0; i < args.length - 1; i++) {
+      if (args[i].equals("-in")) {
+        inputFileName = args[i + 1];
+      }
+      if (args[i].equals("-out")) {
+        outputFileName = args[i + 1];
+      }
+      if (args[i].equals("-view")) {
+        typeOfView = args[i + 1];
+      }
+      if (args[i].equals("-speed")) {
+        ticksPerSecond = args[i + 1];
+      }
+    }
 
-        if (inputFileName.equals("") || typeOfView.equals("")) {
-            JOptionPane
-                    .showMessageDialog(JOptionPane.getRootFrame(), "Must supply an input filename and"
-                            + " the type of view.");
-            System.exit(-1);
-        }
+    if (inputFileName.equals("") || typeOfView.equals("")) {
+      JOptionPane
+          .showMessageDialog(JOptionPane.getRootFrame(), "Must supply an input filename and"
+              + " the type of view.");
+      System.exit(-1);
+    }
 
-        //load in the inputFile.
-        BufferedReader reader;
-        Canvas canvas1 = new CanvasImpl();
-        try {
-            reader = new BufferedReader((new FileReader(inputFileName)));
-            canvas1 = AnimationReader.parseFile(reader, new CanvasImpl.Builder());
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Invalid input filepath.");
-            System.exit(-1);
-        }
+    //load in the inputFile.
+    BufferedReader reader;
+    Canvas canvas1 = new CanvasImpl();
+    try {
+      reader = new BufferedReader((new FileReader(inputFileName)));
+      canvas1 = AnimationReader.parseFile(reader, new CanvasImpl.Builder());
+    } catch (IOException e) {
+      JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Invalid input filepath.");
+      System.exit(-1);
+    }
 
-        //parse ticks per second.
-        int tps = 1;
-        try {
-            tps = Integer.parseInt(ticksPerSecond);
-            if (tps < 1) {
-                JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Invalid speed. Proceeding with" +
-                        " default speed of one tick-per-second.");
-                tps = 1;
-            }
-        } catch (NumberFormatException e) {
-            JOptionPane
-                    .showMessageDialog(JOptionPane.getRootFrame(), "Invalid speed. Proceeding with default" +
-                            " speed of one tick-per-second.");
-        }
+    //parse ticks per second.
+    int tps = 1;
+    try {
+      tps = Integer.parseInt(ticksPerSecond);
+      if (tps < 1) {
+        JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Invalid speed. Proceeding with" +
+            " default speed of one tick-per-second.");
+        tps = 1;
+      }
+    } catch (NumberFormatException e) {
+      JOptionPane
+          .showMessageDialog(JOptionPane.getRootFrame(), "Invalid speed. Proceeding with default" +
+              " speed of one tick-per-second.");
+    }
 
-        //Visual View
-        if (typeOfView.equals("visual")) {
+    //Visual View
+    if (typeOfView.equals("visual")) {
 
-            SwingView view = new SwingView(canvas1);
-            view.run(tps);
-        }
+      SwingView view = new SwingView(canvas1);
+      view.run(tps);
+    }
 
-        //Playback View
-        if (typeOfView.equals("playback")) {
+    //Playback View
+    if (typeOfView.equals("playback")) {
 
-            PlaybackController controller = new PlaybackController(canvas1, tps);
-        }
+      PlaybackController controller = new PlaybackController(canvas1, tps);
+    }
 
-        //SVG view
-        if (typeOfView.equals("svg")) {
-            if (outputFileName.equals("")) {
-                SVGView view = new SVGView(System.out, canvas1);
-                view.run(tps);
-                System.exit(0);
-            } else {
-                SVGView view = new SVGView(canvas1);
-                view.run(tps, outputFileName);
-                System.exit(0);
-            }
-        }
+    //SVG view
+    if (typeOfView.equals("svg")) {
+      if (outputFileName.equals("")) {
+        SVGView view = new SVGView(System.out, canvas1);
+        view.run(tps);
+        System.exit(0);
+      } else {
+        SVGView view = new SVGView(canvas1);
+        view.run(tps, outputFileName);
+        System.exit(0);
+      }
+    }
 
-        //Text view
-        if (typeOfView.equals("text")) {
-            //parse output file name
-            if (outputFileName.equals("")) {
-                TextView view = new TextView(System.out, canvas1);
-                view.run();
-            } else {
-                TextView view = new TextView(canvas1);
-                view.run(outputFileName);
-            }
-
-        }
-        if (!typeOfView.equals("text") && !typeOfView.equals("svg") && !typeOfView.equals("visual")
-                && !typeOfView.equals("playback")) {
-            JOptionPane.showMessageDialog(JOptionPane.getRootFrame(),
-                    "-view argument must be 'visual', 'playback', 'text' or " +
-                            "'svg'.");
-        }
+    //Text view
+    if (typeOfView.equals("text")) {
+      //parse output file name
+      if (outputFileName.equals("")) {
+        TextView view = new TextView(System.out, canvas1);
+        view.run();
+      } else {
+        TextView view = new TextView(canvas1);
+        view.run(outputFileName);
+      }
 
     }
+    if (!typeOfView.equals("text") && !typeOfView.equals("svg") && !typeOfView.equals("visual")
+        && !typeOfView.equals("playback")) {
+      JOptionPane.showMessageDialog(JOptionPane.getRootFrame(),
+          "-view argument must be 'visual', 'playback', 'text' or " +
+              "'svg'.");
+    }
+
+  }
 
 }

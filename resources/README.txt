@@ -1,3 +1,26 @@
+Controller README:
+We made no changes to the model or views submitted in the previous assignment.
+
+Our controller 'PlaybackController' is constructed with a model and an initial ticks-per-second speed. It will then
+launch its own custom view 'PlaybackView' that was designed for this implementation.
+
+The PlaybackView is very similar to the old 'SwingView' that was created for the last assignment. It is constructed with
+a model. It creates a custom JFrame that has a JPanel that is capable of displaying the animation. In this implementation,
+the JFrame also includes buttons for each function (both required and extra credit) in the controller (Play, pause,
+faster, slower, reset, loop, save file, load file, add shape, add motion, and remove shape). Each button is hooked up
+to the same action listener in the controller, but will pass the action listener a different string depending on its
+identity. The controller works by listening for the action commands from all the buttons, and then calling its appropriate
+method whenever that button is pressed.
+
+The controller is what contains the timer that controls the animation (rather than the view, like last time). The
+controller is capable of affecting both the model and the view. It generally works by constructing a view, and then
+telling the view to update on every tick of the timer. While every controller method is unique, they all tend to work by
+either affecting the timer in some way or changing the model and reconstructing parts of the vew with that updated model.
+In this implementation, the controller is capable of launching custom built JPanes to gather and verify user input for
+the extra-credit functionality.
+
+
+README from Assignment 7
 Changes to the model:
 Since the last assignment, we only had two significant changes to the model:
 
@@ -67,24 +90,3 @@ method, buildAnimation(), and appends its results to the String. BuildAnimation(
 changeLog of the Shape passed to it, and creates a String describing each element in its changeLog,
 formatted in SVG. The end result of these three helper methods is a String that when written to a
 document and subsequently opened in a web browser, produces a working SVG animation.
-
-Controller README:
-We made no changes to the model or views submitted in the previous assignment.
-
-Our controller 'PlaybackController' is constructed with a model and an initial ticks-per-second speed. It will then
-launch its own custom view 'PlaybackView' that was designed for this implementation.
-
-The PlaybackView is very similar to the old 'SwingView' that was created for the last assignment. It is constructed with
-a model. It creates a custom JFrame that has a Jpanel that is capable of displaying the animation. In this implementation,
-the JFrame also includes buttons for each function (both required and extra credit) in the controller (Play, pause,
-faster, slower, reset, loop, save file, load file, add shape, add motion, and remove shape). Each button is hooked up
-to the same action listener in the controller, but will pass the action listener a different string depending on its
-identity. The controller works by listening for the action commands from all the buttons, and then calling its appropriate
-method whenever that button is pressed.
-
-The controller is what contains the timer that controls the animation (rather than the view, like last time). The
-controller is capable of affecting both the model and the view. It generally works by constructing a view, and then
-telling the view to update on every tick of the timer. While every controller method is unique, they all tend to work by
-either affecting the timer in some way or changing the model and reconstructing parts of the vew with that updated model.
-In this implementation, the controller is capable of launching custom built JPanes to gather and verify user input for
-the extra-credit functionality.

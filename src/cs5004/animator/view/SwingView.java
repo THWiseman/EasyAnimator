@@ -11,7 +11,7 @@ import javax.swing.Timer;
 
 /**
  * This class creates a JFrame window that will automatically display an animation in a JPanel when
- * the go() method is called. It must be constructed with a valid Canvas object.
+ * the run() method is called. It must be constructed with a valid Canvas object.
  */
 public class SwingView extends JFrame implements View {
 
