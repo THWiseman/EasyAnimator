@@ -25,7 +25,7 @@ If you would like to compile the program on your own system, clone this repo and
 # Brief Code Walkthrough
 This program uses the well-known Model, View, Controller design pattern.
 
-The Model includes the 'Canvas' class that ultimatley contains all data necessary for manipulating the animation. The canvas class mostly contains Shapes and Patterns. The 'Shape' interface provides ways for shapes to be defined and displayed, while the 'Pattern' interface provides ways for shapes to be manipulated over time (e.g. moved, resized, recolored). 
+The Model includes the 'Canvas' class that ultimatley contains all data necessary for storing and manipulating the animation. The canvas class mostly contains Shapes and Patterns. The 'Shape' interface provides ways for shapes to be defined and displayed, while the 'Pattern' interface provides ways for shapes to be manipulated over time (e.g. moved, resized, recolored). 
 
 The View includes several ways that the animation can be presented to the user. PlaybackView uses the Java Swing library to create the fully functional GUI. VisualView displays the animation in a Java Swing window, SVGView exports the animation as an SVG file, and TextView exports the animation as a texrt file. 
 
