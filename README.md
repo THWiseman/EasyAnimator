@@ -22,6 +22,15 @@ If you would like to compile the program on your own system, clone this repo and
 
 '-out' arguemnts are mandatory for text and svg views and specify the output filepath. 
 
+#Brief Code Walkthrough
+This program uses a fairly standard Model, View, Controller design pattern.
+
+The Model includes the 'Canvas' class that ultimatley contains all data necessary for manipulating the animation. The canvas class mostly contains Shapes and Patterns. The 'Shape' interface provides ways for shapes to be defined and displayed, while the 'Pattern' interface provides ways for shapes to be manipulated over time (e.g. moved, resized, recolored). 
+
+The View includes several ways that the animation can be presented to the user. PlaybackView uses the Java Swing library to create the fully functional GUI. VisualView displays the animation in a Java Swing window, SVGView exports the animation as an SVG file, and TextView exports the animation as a texrt file. 
+
+The Controller handles program flow and processes commands sent from the View through various callbacks functions. Functions like play(), pause(), addShape(), getInput(), and saveFile() can be found in the controller and mediate interaction between the Model and View to produce the desired outcome. 
+
 # Attributions
 This project was created as an assignment for professor Clark Frefield at Northeastern University for CS 5004 Object-Oriented Design, Spring 2021. Some of the included animation files were included as part of the assignment. Tom Wiseman and Noah Beliveau were the sole authors of the source code. 
 
