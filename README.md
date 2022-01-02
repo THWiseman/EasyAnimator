@@ -22,8 +22,8 @@ If you would like to compile the program on your own system, clone this repo and
 
 '-out' arguemnts are mandatory for text and svg views and specify the output filepath. 
 
-#Brief Code Walkthrough
-This program uses a fairly standard Model, View, Controller design pattern.
+# Brief Code Walkthrough
+This program uses the well-known Model, View, Controller design pattern.
 
 The Model includes the 'Canvas' class that ultimatley contains all data necessary for manipulating the animation. The canvas class mostly contains Shapes and Patterns. The 'Shape' interface provides ways for shapes to be defined and displayed, while the 'Pattern' interface provides ways for shapes to be manipulated over time (e.g. moved, resized, recolored). 
 
